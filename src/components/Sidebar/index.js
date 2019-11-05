@@ -16,14 +16,19 @@ class Sidebar extends React.PureComponent {
   newNoteBtnClick = () => {
     this.setState({ title: null, addingNote: !this.state.addingNote });
   };
+
   updateTitle = (txt) => {
     this.setState({ title: txt });
   };
+
   newNote = () => {
     this.props.newNote(this.state.title);
     this.setState({ title: null, addingNote: false });
   };
+
   selectNote = (n, i) => this.props.selectNote(n, i);
+
+  deleteNote = (note) => this.props.deleteNote(note);
 
   render() {
     const { classes, notesAll, noteSelectedId } = this.props;
@@ -58,6 +63,7 @@ class Sidebar extends React.PureComponent {
                       index={index}
                       noteSelectedId={noteSelectedId}
                       selectNote={this.selectNote}
+                      deleteNote={this.deleteNote}
                     />
                     <Divider/>
                   </div>
