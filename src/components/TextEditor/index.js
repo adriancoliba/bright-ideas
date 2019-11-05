@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import style from './style';
 import ReactQuill from 'react-quill';
 import CreateIcon from '@material-ui/icons/Create';
+import { debounce } from '../../utilities';
 
 class TextEditor extends React.PureComponent {
   constructor() {
@@ -32,14 +33,21 @@ class TextEditor extends React.PureComponent {
     }
   };
 
-  updateTitle = async (txt) => {
-    await this.setState({ title: txt });
-    this.props.updateNote(this.state.id, 'title', this.state.title)
-  };
+  update = debounce(() => {
+    this.props.updateNote(this.state.id, {
+      title: this.state.title,
+      body: this.state.text
+    })
+  }, 1500);
 
   updateBody = async (val) => {
     await this.setState({ text: val });
-    this.props.updateNote(this.state.id, 'body', this.state.text)
+    this.update();
+  };
+
+  updateTitle = async (txt) => {
+    await this.setState({ title: txt });
+    this.update();
   };
 
   render() {

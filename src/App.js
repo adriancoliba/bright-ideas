@@ -24,34 +24,22 @@ class App extends React.PureComponent {
           data.id = doc.id;
           return data;
         });
-        console.log(notesAll);
         this.setState({notesAll})
       })
   }
 
   selectNote = (note, index) => this.setState({ noteSelectedId: index, noteSelected: note });
 
-  updateNote = (id, type, content) => {
-    if(type === 'title'){
-      firebase
-        .firestore()
-        .collection('notesAll')
-        .doc(id)
-        .update({
-          title: content,
-          timestamp: firebase.firestore.FieldValue.serverTimestamp()
-        });
-    }
-    if(type === 'body'){
-      firebase
-        .firestore()
-        .collection('notesAll')
-        .doc(id)
-        .update({
-          body: content,
-          timestamp: firebase.firestore.FieldValue.serverTimestamp()
-        });
-    }
+  updateNote = (id, noteObj) => {
+    firebase
+      .firestore()
+      .collection('notesAll')
+      .doc(id)
+      .update({
+        title: noteObj.title,
+        body: noteObj.body,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      });
   };
 
   newNote = async (title) => {
