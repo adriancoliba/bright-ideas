@@ -53,7 +53,7 @@ class Sidebar extends React.PureComponent {
               </div> :
               null
           }
-          <List>
+          <List className={classes.listNotesSidebar}>
             {
               notesAll.map((note, index) => {
                 return(

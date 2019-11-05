@@ -63,13 +63,11 @@ class App extends React.PureComponent {
 
   deleteNote = async (note) => {
     const noteId = this.state.notesAll.indexOf(note);
-    console.log('deleteNote', note);
-    console.log('noteId', noteId);
     await this.setState({ notesAll: this.state.notesAll.filter(singleNote => singleNote !== note) });
     if(this.state.noteSelectedId === noteId) {
       this.setState({ noteSelectedId: null, noteSelected: null });
     } else {
-      this.state.notesAll.length > 1 ?
+      this.state.notesAll.length >= 1 ?
         this.selectNote(this.state.notesAll[this.state.noteSelectedId - 1], this.state.noteSelectedId - 1) :
         this.setState({ noteSelectedId: null, noteSelected: null });
     }

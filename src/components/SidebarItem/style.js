@@ -3,7 +3,8 @@ const style = (theme) => ({
     cursor: 'pointer'
   },
   textSection: {
-    maxWidth: '85%'
+    maxWidth: '85%',
+    minWidth: '75%',
   },
   deleteIcon: {
     position: 'absolute',

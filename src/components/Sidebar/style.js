@@ -47,7 +47,10 @@ const style = (theme) => ({
     backgroundColor: '#28787c',
     borderRadius: '0px',
     color: 'white'
-  }
+  },
+  listNotesSidebar: {
+    paddingTop: 0
+  },
 });
 
 export default style;
