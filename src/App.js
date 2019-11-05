@@ -1,14 +1,15 @@
 import React from 'react';
+import firebase from 'firebase';
 import './App.css';
-
-const firebase = require('firebase');
+import TextEditor from './components/TextEditor/index';
+import Sidebar from './components/Sidebar/index'
 
 class App extends React.PureComponent {
   constructor(){
     super();
     this.state = {
-      selectedNoteId: '',
-      selectedNote: {},
+      noteSelectedId: '',
+      noteSelected: {},
       notesAll: [],
     }
   }
@@ -28,21 +29,69 @@ class App extends React.PureComponent {
       })
   }
 
-  render(){
-    const { notesAll } = this.state;
+  selectNote = (note, index) => this.setState({ noteSelectedId: index, noteSelected: note });
 
-    const displayNotesAll = notesAll && notesAll.map(note => {
-      return (
-        <div key={note.id}>
-          <h3>title: {note.title}</h3>
-          <p>body: {note.body}</p>
-        </div>
-      )
-    });
+  updateNote = (id, type, content) => {
+    if(type === 'title'){
+      firebase
+        .firestore()
+        .collection('notesAll')
+        .doc(id)
+        .update({
+          title: content,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        });
+    }
+    if(type === 'body'){
+      firebase
+        .firestore()
+        .collection('notesAll')
+        .doc(id)
+        .update({
+          body: content,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        });
+    }
+  };
 
-    return (
-      <div>{displayNotesAll}</div>
-    )
+  newNote = async (title) => {
+    const newNote = {
+      title: title,
+      body: ''
+    };
+    const netNoteFromDB = await firebase
+      .firestore()
+      .collection('notesAll')
+      .add({
+        title: newNote.title,
+        body: newNote.body,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    const newID = netNoteFromDB.id;
+    await this.setState({ notesAll: [...this.state.notesAll, newNote] });
+    const newNoteIndex = this.state.notesAll.indexOf(this.state.notesAll.filter(note => note.id === newID)[0]);
+    this.setState({ noteSelected: this.state.notesAll[newNoteIndex], noteSelectedId: newNoteIndex });
+  };
+
+  render() {
+    return(
+      <div className="app-container">
+        <Sidebar
+          noteSelectedId={this.state.noteSelectedId}
+          notesAll={this.state.notesAll}
+          selectNote={this.selectNote}
+          newNote={this.newNote}
+        />
+        {
+          this.state.noteSelected ?
+            <TextEditor noteSelected={this.state.noteSelected}
+                             noteSelectedId={this.state.noteSelectedId}
+                             notesAll={this.state.notesAll}
+                             updateNote={this.updateNote}
+            /> : null
+        }
+      </div>
+    );
   }
 }
 
