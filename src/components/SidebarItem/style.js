@@ -1,10 +1,15 @@
 const style = (theme) => ({
   listItem: {
-    cursor: 'pointer'
+    cursor: 'pointer',
+    backgroundColor: '#272727'
   },
   textSection: {
     maxWidth: '85%',
     minWidth: '75%',
+    color: '#747474',
+  },
+  colorTextSecondary: {
+    color: 'white'
   },
   deleteIcon: {
     position: 'absolute',

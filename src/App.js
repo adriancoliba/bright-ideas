@@ -90,7 +90,7 @@ class App extends React.PureComponent {
           newNote={this.newNote}
         />
         {
-          this.state.noteSelected ?
+          Object.entries(this.state.noteSelected).length !== 0 ?
             <TextEditor noteSelected={this.state.noteSelected}
                              noteSelectedId={this.state.noteSelectedId}
                              notesAll={this.state.notesAll}

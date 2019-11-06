@@ -16,10 +16,10 @@ const style = (theme) => ({
     height: '50px',
     borderBottom: '1px solid black',
     borderRadius: '0px',
-    backgroundColor: '#1e7d5e',
-    color: 'white',
+    backgroundColor: '#404040',
+    color: '#d4d8e8',
     '&:hover': {
-      backgroundColor: '#88a2ce'
+      backgroundColor: '#626262'
     }
   },
   sidebarContainer: {
@@ -29,7 +29,8 @@ const style = (theme) => ({
     boxSizing: 'border-box',
     float: 'left',
     overflowY: 'scroll',
-    overflowX: 'hidden'
+    overflowX: 'hidden',
+    backgroundColor: '#404040',
   },
   newNoteInput: {
     width: '100%',

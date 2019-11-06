@@ -65,6 +65,7 @@ class TextEditor extends React.PureComponent {
         <ReactQuill
           value={this.state.text || ''}
           onChange={this.updateBody}
+          theme={'snow'}
         />
       </div>
     );

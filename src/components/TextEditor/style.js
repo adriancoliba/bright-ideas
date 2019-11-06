@@ -14,7 +14,7 @@ const style = (theme) => ({
     padding: '5px',
     fontSize: '24px',
     width: 'calc(100% - 300px)',
-    backgroundColor: '#0b5143',
+    backgroundColor: '#272727',
     color: 'white',
     paddingLeft: '50px'
   },
