@@ -3,13 +3,14 @@ import firebase from 'firebase';
 import './App.css';
 import TextEditor from './components/TextEditor/index';
 import Sidebar from './components/Sidebar/index'
+import notepadGirl from './images/notepad-girl.jpg';
 
 class App extends React.PureComponent {
   constructor(){
     super();
     this.state = {
-      noteSelectedId: '',
-      noteSelected: {},
+      noteSelectedId: null,
+      noteSelected: null,
       notesAll: [],
     }
   }
@@ -90,12 +91,12 @@ class App extends React.PureComponent {
           newNote={this.newNote}
         />
         {
-          Object.entries(this.state.noteSelected).length !== 0 ?
+          this.state.noteSelected ?
             <TextEditor noteSelected={this.state.noteSelected}
                              noteSelectedId={this.state.noteSelectedId}
                              notesAll={this.state.notesAll}
                              updateNote={this.updateNote}
-            /> : null
+            /> : <img src={notepadGirl} className="notepadGirl" alt="notepadGirl" />
         }
       </div>
     );

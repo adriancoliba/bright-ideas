@@ -15,6 +15,7 @@ const style = (theme) => ({
     position: 'absolute',
     right: '15px',
     top: 'calc(50% - 15px)',
+    color: '#76273b',
     '&:hover': {
       color: '#d64161'
     }

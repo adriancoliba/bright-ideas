@@ -17,7 +17,7 @@ const style = (theme) => ({
     borderBottom: '1px solid black',
     borderRadius: '0px',
     backgroundColor: '#404040',
-    color: '#d4d8e8',
+    color: '#01DAB8',
     '&:hover': {
       backgroundColor: '#626262'
     }
@@ -45,7 +45,7 @@ const style = (theme) => ({
   },
   newNoteSubmitBtn: {
     width: '100%',
-    backgroundColor: '#28787c',
+    backgroundColor: '#01DAB8',
     borderRadius: '0px',
     color: 'white'
   },

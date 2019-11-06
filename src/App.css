@@ -53,3 +53,8 @@ html, body {
     top: 50px;
     left: calc(50% - 165px);
 }
+.notepadGirl {
+    position: fixed;
+    right: 100px;
+    width: 800px
+}
