@@ -1,7 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import style from './style';
-import SidebarItem from '../SidebarItem/index';
+import SidebarItem from '../NotepadSidebarItem/index';
 import { Divider, Button, List } from '@material-ui/core';
 
 class Sidebar extends React.PureComponent {

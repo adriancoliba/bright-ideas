@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import App from './App'
+import theme from './utils/theme';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 
 const firebase = require('firebase');
 require('firebase/firestore');
@@ -23,6 +25,9 @@ firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
 
-ReactDOM.render(<App/>, document.getElementById('root'));
+ReactDOM.render(
+    <MuiThemeProvider theme={theme}>
+        <App/>
+    </MuiThemeProvider>, document.getElementById('root'));
 
 serviceWorker.unregister();

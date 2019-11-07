@@ -21,7 +21,7 @@ const style = (theme) => ({
   editIcon: {
     position: 'absolute',
     left: '310px',
-    top: '12px',
+    top: '72px',
     color: theme.palette.primary.main,
     width: '10',
     height: '10'
