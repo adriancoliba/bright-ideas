@@ -65,7 +65,7 @@ class SignInPage extends Component {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2" className={classes.links}>
+                  <Link to="/" variant="body2" className={classes.links}>
                     Forgot password?
                   </Link>
                 </Grid>

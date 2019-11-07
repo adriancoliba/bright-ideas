@@ -22,6 +22,11 @@ const style = (theme) => ({
       color: 'black'
     }
   },
+  button: {
+    textTransform: 'none',
+    textDecoration: 'none',
+    padding: '1px 10px',
+  }
 });
 
 export default style;

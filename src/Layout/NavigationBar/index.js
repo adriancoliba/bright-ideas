@@ -2,11 +2,13 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from "@material-ui/core/AppBar";
+import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 // import MoreVertIcon from "@material-ui/icons/MoreVert";
 import style from "./style";
 import { Link } from "react-router-dom";
+import {withRouter} from 'react-router-dom';
 
 class NavigationBar extends Component {
   constructor(props) {
@@ -18,22 +20,22 @@ class NavigationBar extends Component {
 
   render() {
     const { classes } = this.props;
-
+    const { pathname } = this.props.location;
     return (
       <AppBar position="static" className={classes.appBar} color="secondary">
         <Toolbar>
-          <Typography variant="title" color="inherit" className={classes.toolbarTitle}>
+          <Typography variant="body1" color="inherit" className={classes.toolbarTitle}>
             My Title
           </Typography>
           <span className={classes.toolbarLinks}>
             <Link to="/">
-              <Typography variant="title" color="inherit">Home</Typography>
+              <Button variant={pathname === '/' ? 'outlined' : 'text'} className={classes.button}>Home</Button>
             </Link>
             <Link to="/signin">
-              <Typography variant="title" color="inherit">Sign In</Typography>
+              <Button variant={pathname === '/signin' ? 'outlined' : 'text'}  className={classes.button}>Sign In</Button>
             </Link>
             <Link to="/signup">
-              <Typography variant="title" color="inherit">Sign Up</Typography>
+              <Button variant={pathname === '/signup' ? 'outlined' : 'text'}  className={classes.button}>Sign Up</Button>
             </Link>
            </span>
         </Toolbar>
@@ -50,4 +52,4 @@ NavigationBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(style, { withTheme: true })(NavigationBar);
+export default withStyles(style, { withTheme: true })(withRouter(NavigationBar));
