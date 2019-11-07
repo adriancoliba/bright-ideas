@@ -7,21 +7,11 @@ const style = (theme) => ({
     width: '300px',
     boxShadow: '0px 0px 2px black'
   },
+
   newChatBtn: {
     borderRadius: '0px'
   },
 
-  newNoteBtn: {
-    width: '100%',
-    height: '50px',
-    borderBottom: '1px solid black',
-    borderRadius: '0px',
-    backgroundColor: '#404040',
-    color: '#9ABED2',
-    '&:hover': {
-      backgroundColor: '#626262'
-    }
-  },
   sidebarContainer: {
     marginTop: '0px',
     width: '300px',
@@ -30,8 +20,21 @@ const style = (theme) => ({
     float: 'left',
     overflowY: 'scroll',
     overflowX: 'hidden',
-    backgroundColor: '#404040',
+    backgroundColor: theme.palette.grey.main,
   },
+
+  newNoteBtn: {
+    width: '100%',
+    height: '50px',
+    borderBottom: '1px solid black',
+    borderRadius: '0px',
+    backgroundColor: theme.palette.grey.main,
+    color: theme.palette.secondary.main,
+    '&:hover': {
+      backgroundColor: theme.palette.grey.light,
+    }
+  },
+
   newNoteInput: {
     width: '100%',
     margin: '0px',
@@ -43,12 +46,18 @@ const style = (theme) => ({
       outline: '2px solid rgba(81, 203, 238, 1)'
     }
   },
+
   newNoteSubmitBtn: {
     width: '100%',
-    backgroundColor: '#9ABED2',
+    height: '50px',
+    backgroundColor: theme.palette.secondary.main,
     borderRadius: '0px',
-    color: '#3f3001'
+    color: theme.palette.grey.main,
+    '&:hover': {
+      backgroundColor: theme.palette.secondary.dark,
+    }
   },
+
   listNotesSidebar: {
     paddingTop: 0
   },

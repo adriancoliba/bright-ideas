@@ -80,4 +80,4 @@ class Sidebar extends React.PureComponent {
 
 }
 
-export default withStyles(style)(Sidebar);
+export default withStyles(style, { withTheme: true })(Sidebar);

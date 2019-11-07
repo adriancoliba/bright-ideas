@@ -1,12 +1,15 @@
 const style = (theme) => ({
+  darkPink: {
+    color: theme.palette.pink.dark,
+  },
   listItem: {
     cursor: 'pointer',
-    backgroundColor: '#272727'
+    backgroundColor: theme.palette.grey.dark,
   },
   textSection: {
     maxWidth: '85%',
     minWidth: '75%',
-    color: '#FBC601',
+    color: theme.palette.primary.main,
   },
   colorTextSecondary: {
     color: 'white'
@@ -15,9 +18,9 @@ const style = (theme) => ({
     position: 'absolute',
     right: '15px',
     top: 'calc(50% - 15px)',
-    color: '#9ABED2',
+    color: theme.palette.secondary.main,
     '&:hover': {
-      color: '#d64161'
+      color: theme.palette.pink.dark,
     }
   },
   helpOutlineIcon: {

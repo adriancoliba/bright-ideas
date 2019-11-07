@@ -3,9 +3,9 @@ import { withStyles } from '@material-ui/core/styles';
 import style from './style';
 import {
   ListItem, ListItemText, Button, Dialog, DialogActions,
-  DialogContent, DialogContentText, DialogTitle
+  DialogContent, DialogContentText,
 } from '@material-ui/core';
-import { removeHTMLTags } from '../../utilities';
+import { removeHTMLTags } from '../../utils/utilities';
 import DeleteIcon from '@material-ui/icons/Delete';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
@@ -63,10 +63,10 @@ class SidebarItem extends React.PureComponent {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.closeDialog} color="secondary">
+            <Button onClick={this.closeDialog} className={classes.darkPink}>
               No
             </Button>
-            <Button onClick={() => this.deleteNote(note)} color="primary" autoFocus>
+            <Button onClick={() => this.deleteNote(note)} color="secondary" autoFocus>
               Yes
             </Button>
           </DialogActions>
@@ -76,4 +76,4 @@ class SidebarItem extends React.PureComponent {
   }
 }
 
-export default withStyles(style)(SidebarItem);
+export default withStyles(style, { withTheme: true })(SidebarItem);

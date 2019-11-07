@@ -4,6 +4,8 @@ import './App.css';
 import TextEditor from './components/TextEditor/index';
 import Sidebar from './components/Sidebar/index'
 import noteBackgroundImage from './images/2907560.jpg';
+import theme from './utils/theme';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 
 class App extends React.PureComponent {
   constructor(){
@@ -84,23 +86,25 @@ class App extends React.PureComponent {
   render() {
     console.log(this.state.notesAll)
     return(
-      <div className="app-container">
-        <Sidebar
-          noteSelectedId={this.state.noteSelectedId}
-          notesAll={this.state.notesAll}
-          selectNote={this.selectNote}
-          deleteNote={this.deleteNote}
-          newNote={this.newNote}
-        />
-        {
-          this.state.noteSelected ?
-            <TextEditor noteSelected={this.state.noteSelected}
-                             noteSelectedId={this.state.noteSelectedId}
-                             notesAll={this.state.notesAll}
-                             updateNote={this.updateNote}
-            /> : <img src={noteBackgroundImage} className="noteBackgroundImage"/>
-        }
-      </div>
+      <MuiThemeProvider theme={theme}>
+        <div className="app-container">
+          <Sidebar
+            noteSelectedId={this.state.noteSelectedId}
+            notesAll={this.state.notesAll}
+            selectNote={this.selectNote}
+            deleteNote={this.deleteNote}
+            newNote={this.newNote}
+          />
+          {
+            this.state.noteSelected ?
+              <TextEditor noteSelected={this.state.noteSelected}
+                               noteSelectedId={this.state.noteSelectedId}
+                               notesAll={this.state.notesAll}
+                               updateNote={this.updateNote}
+              /> : <img src={noteBackgroundImage} className="noteBackgroundImage" alt=''/>
+          }
+        </div>
+      </MuiThemeProvider>
     );
   }
 }

@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import style from './style';
 import ReactQuill from 'react-quill';
 import CreateIcon from '@material-ui/icons/Create';
-import { debounce } from '../../utilities';
+import { debounce } from '../../utils/utilities';
 
 class TextEditor extends React.PureComponent {
   constructor() {
@@ -72,4 +72,4 @@ class TextEditor extends React.PureComponent {
   }
 }
 
-export default withStyles(style)(TextEditor);
+export default withStyles(style, { withTheme: true })(TextEditor);

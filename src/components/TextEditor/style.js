@@ -14,7 +14,7 @@ const style = (theme) => ({
     padding: '5px',
     fontSize: '24px',
     width: 'calc(100% - 300px)',
-    backgroundColor: '#272727',
+    backgroundColor: theme.palette.grey.dark,
     color: 'white',
     paddingLeft: '50px'
   },
@@ -22,7 +22,7 @@ const style = (theme) => ({
     position: 'absolute',
     left: '310px',
     top: '12px',
-    color: '#FBC601',
+    color: theme.palette.primary.main,
     width: '10',
     height: '10'
   },

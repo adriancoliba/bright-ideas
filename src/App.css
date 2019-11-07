@@ -34,6 +34,24 @@ html, body {
 .ql-snow .q{
     color: #d7d7d7 !important;
 }
+.ql-snow.ql-toolbar button:hover,
+.ql-snow.ql-toolbar button.ql-active .ql-stroke,
+.ql-snow.ql-toolbar button.ql-active:hover, .ql-snow.ql-toolbar button.ql-stroke:hover,
+.ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke,
+.ql-snow .ql-toolbar button:hover, .ql-snow.ql-toolbar button.ql-active,
+.ql-snow .ql-toolbar button.ql-active, .ql-snow.ql-toolbar .ql-picker-label:hover,
+.ql-snow .ql-toolbar .ql-picker-label:hover,
+.ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke,
+.ql-snow .ql-toolbar button.ql-active:hover, .ql-snow .ql-toolbar button.ql-stroke:hover,
+.ql-snow.ql-toolbar .ql-picker-label.ql-active,
+.ql-snow .ql-toolbar .ql-picker-label.ql-active,
+.ql-snow.ql-toolbar .ql-picker-item:hover,
+.ql-snow .ql-toolbar .ql-picker-item:hover,
+.ql-snow.ql-toolbar .ql-picker-item.ql-selected,
+.ql-snow .ql-toolbar .ql-picker-item.ql-selected {
+    color: #FBC601 !important;
+    stroke: #FBC601 !important;
+}
 .MuiListItem-root.Mui-selected {
     background-color: #414249 !important;
 }
