@@ -6,7 +6,7 @@ const style = (theme) => ({
   textSection: {
     maxWidth: '85%',
     minWidth: '75%',
-    color: '#747474',
+    color: '#FBC601',
   },
   colorTextSecondary: {
     color: 'white'
@@ -15,7 +15,7 @@ const style = (theme) => ({
     position: 'absolute',
     right: '15px',
     top: 'calc(50% - 15px)',
-    color: '#76273b',
+    color: '#9ABED2',
     '&:hover': {
       color: '#d64161'
     }

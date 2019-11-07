@@ -34,15 +34,8 @@ html, body {
 .ql-snow .q{
     color: #d7d7d7 !important;
 }
-
-.ql-active {
-    color: red !important
-}
-.ql-italic {
-    font-size: 40px;
-}
 .MuiListItem-root.Mui-selected {
-    background-color: #d4d8e8 !important;
+    background-color: #414249 !important;
 }
 .MuiTypography-colorTextSecondary {
     color: #525252 !important;
@@ -53,8 +46,9 @@ html, body {
     top: 50px;
     left: calc(50% - 165px);
 }
-.notepadGirl {
+.noteBackgroundImage {
     position: fixed;
-    right: 100px;
-    width: 800px
+    width: calc(100% - 300px);
+    float: left;
+    height: 100%;
 }

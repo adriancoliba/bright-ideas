@@ -22,7 +22,7 @@ const style = (theme) => ({
     position: 'absolute',
     left: '310px',
     top: '12px',
-    color: 'white',
+    color: '#FBC601',
     width: '10',
     height: '10'
   },

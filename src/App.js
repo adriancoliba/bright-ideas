@@ -3,7 +3,7 @@ import firebase from 'firebase';
 import './App.css';
 import TextEditor from './components/TextEditor/index';
 import Sidebar from './components/Sidebar/index'
-import notepadGirl from './images/notepad-girl.jpg';
+import noteBackgroundImage from './images/2907560.jpg';
 
 class App extends React.PureComponent {
   constructor(){
@@ -19,6 +19,7 @@ class App extends React.PureComponent {
     firebase
       .firestore()
       .collection('notesAll')
+      .orderBy("timestamp", "asc")
       .onSnapshot(serverUpdate => {
         const notesAll = serverUpdate.docs.map(doc => {
           const data = doc.data();
@@ -81,6 +82,7 @@ class App extends React.PureComponent {
   };
 
   render() {
+    console.log(this.state.notesAll)
     return(
       <div className="app-container">
         <Sidebar
@@ -96,7 +98,7 @@ class App extends React.PureComponent {
                              noteSelectedId={this.state.noteSelectedId}
                              notesAll={this.state.notesAll}
                              updateNote={this.updateNote}
-            /> : <img src={notepadGirl} className="notepadGirl" alt="notepadGirl" />
+            /> : <img src={noteBackgroundImage} className="noteBackgroundImage"/>
         }
       </div>
     );
