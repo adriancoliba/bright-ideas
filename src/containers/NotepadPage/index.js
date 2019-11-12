@@ -15,6 +15,7 @@ class NotepadPage extends React.PureComponent {
   }
 
   componentDidMount() {
+    // console.log('componentDidMount')
     firebase
       .firestore()
       .collection('notesAll')

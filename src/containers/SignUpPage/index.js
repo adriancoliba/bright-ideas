@@ -15,8 +15,19 @@ import style from "./style";
 import { Link } from 'react-router-dom';
 
 class SignUpPage extends Component {
+  constructor(){
+    super();
+    this.state = {
+      message : null
+    };
+  }
+
+  onSignUp = () => {
+    return this.props.onSignUp()
+  };
+
   render() {
-    const { classes } = this.props;
+    const { classes, user } = this.props;
     return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -26,6 +37,9 @@ class SignUpPage extends Component {
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign up
+          </Typography>
+          <Typography variant="body2" className={classes.registerMessage}>
+            {this.props.registerMessage && this.props.registerMessage} &nbsp;
           </Typography>
           <form className={classes.form} noValidate>
             <Grid container spacing={2}>
@@ -39,6 +53,8 @@ class SignUpPage extends Component {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  value={ (user && user.firstName) ? user.firstName : ''}
+                  onChange={this.props.handleChangeLogin}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -49,7 +65,9 @@ class SignUpPage extends Component {
                   id="lastName"
                   label="Last Name"
                   name="lastName"
-                  autoComplete="lname"
+                  autoComplete="name"
+                  value={ (user && user.lastName) ? user.lastName : ''}
+                  onChange={this.props.handleChangeLogin}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -59,8 +77,11 @@ class SignUpPage extends Component {
                   fullWidth
                   id="email"
                   label="Email Address"
+                  type="email"
                   name="email"
                   autoComplete="email"
+                  value={ (user && user.email) ? user.email : ''}
+                  onChange={this.props.handleChangeLogin}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -73,6 +94,8 @@ class SignUpPage extends Component {
                   type="password"
                   id="password"
                   autoComplete="current-password"
+                  value={ (user && user.password) ? user.password : ''}
+                  onChange={this.props.handleChangeLogin}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -83,17 +106,17 @@ class SignUpPage extends Component {
               </Grid>
             </Grid>
             <Button
-              type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={this.onSignUp}
             >
               Sign Up
             </Button>
             <Grid container justify="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link to="/signin" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
@@ -105,6 +128,10 @@ class SignUpPage extends Component {
   }
 }
 
-SignUpPage.propTypes = {};
+SignUpPage.propTypes = {
+  handleChangeLogin: PropTypes.func.isRequired,
+  onSignUp: PropTypes.func.isRequired,
+  user: PropTypes.object,
+};
 
 export default withStyles(style, { withTheme: true })(SignUpPage);

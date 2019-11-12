@@ -38,6 +38,7 @@ class SignInPage extends Component {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                onChange={this.props.handleChangeLogin}
               />
               <TextField
                 variant="outlined"
@@ -49,17 +50,18 @@ class SignInPage extends Component {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={this.props.handleChangeLogin}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
               <Button
-                type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
                 className={classes.submit}
+                onClick={this.props.onSignIn}
               >
                 Sign In
               </Button>
@@ -80,6 +82,9 @@ class SignInPage extends Component {
   }
 }
 
-SignInPage.propTypes = {};
+SignInPage.propTypes = {
+  onSignIn: PropTypes.func.isRequired,
+  handleChangeLogin: PropTypes.func.isRequired
+};
 
 export default withStyles(style, { withTheme: true })(SignInPage);

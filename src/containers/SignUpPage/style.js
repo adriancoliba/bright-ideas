@@ -16,6 +16,10 @@ const style = (theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  registerMessage: {
+    color: theme.palette.pink.dark,
+    paddingTop: 15,
+  },
 });
 
 export default style;
