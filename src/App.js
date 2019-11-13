@@ -14,7 +14,8 @@ class App extends React.PureComponent {
     this.state = {
       user: null,
       isAuthenticated: false,
-      registerMessage: ''
+      registerMessage: '',
+      loginMessage: '',
     };
   }
 
@@ -65,10 +66,11 @@ class App extends React.PureComponent {
             firebase.auth().currentUser.updateProfile({
               displayName: `${this.state.user.firstName} ${this.state.user.lastName}`,
             }).then( () => {
-              console.log('updated displayName')
               this.setState({user: null})
             }).catch( error => {
+              console.log(error)
             });
+            this.setState({registerMessage: 'successful'})
           })
           .catch( error => {
             this.setState({registerMessage: error.message})
@@ -78,23 +80,29 @@ class App extends React.PureComponent {
   };
 
   onSignIn = () => {
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(this.state.user.email, this.state.user.password)
-      .then( u => {
-        this.setState({isAuthenticated: true})
-        this.authListener();
-        // this.authListener();
-      })
-      .catch(function(error) {
-      // var errorCode = error.code;
-      // var errorMessage = error.message;
-      // ...
-    });
+    if (this.state.user == null || this.state.user.email == null || this.state.user.password == null) {
+      return this.setState({loginMessage: 'Complete all fields.'})
+    } else {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.state.user.email, this.state.user.password)
+        .then( u => {
+          this.setState({isAuthenticated: true})
+          this.authListener();
+        })
+        .catch( error => {
+          this.setState({loginMessage: error.message})
+        });
+    }
+
   };
 
   onSignOut = () => {
     this.setState({ isAuthenticated: false, user: null });
+  };
+
+  clearMessage = type => {
+    if (type === 'register') { this.setState({registerMessage: false}) }
   };
 
   render() {
@@ -115,15 +123,26 @@ class App extends React.PureComponent {
                   <>
                     <Route exact path="/"> <HomePage user={this.state.user}/> </Route>
                     <Route exact path="/signin">
-                    <SignInPage user={this.state.user} handleChangeLogin={this.handleChangeLogin} onSignIn={this.onSignIn}/>
+                      <SignInPage user={this.state.user}
+                                  handleChangeLogin={this.handleChangeLogin}
+                                  onSignIn={this.onSignIn}
+                                  loginMessage={this.state.loginMessage}
+                      />
                     </Route>
                     <Route exact path="/signup">
-                    <SignUpPage user={this.state.user} handleChangeLogin={this.handleChangeLogin} onSignUp={this.onSignUp} registerMessage={this.state.registerMessage}/>
+                      <SignUpPage user={this.state.user}
+                                  handleChangeLogin={this.handleChangeLogin}
+                                  onSignUp={this.onSignUp}
+                                  registerMessage={this.state.registerMessage}
+                                  clearMessage={this.clearMessage}
+                      />
                     </Route>
                   </> :
                   <>
                     <Redirect to='/'/>
-                    <Route exact path="/"> <NotepadPage isAuthenticated={this.state.isAuthenticated}/> </Route>
+                    <Route exact path="/">
+                      <NotepadPage isAuthenticated={this.state.isAuthenticated}/>
+                    </Route>
                   </>
               }
             </Switch>

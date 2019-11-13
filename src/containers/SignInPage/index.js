@@ -27,6 +27,9 @@ class SignInPage extends Component {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
+            <Typography variant="body2" className={classes.loginMessage}>
+              {this.props.loginMessage && this.props.loginMessage} &nbsp;
+            </Typography>
             <form className={classes.form} noValidate>
               <TextField
                 variant="outlined"

@@ -13,18 +13,33 @@ import Container from '@material-ui/core/Container';
 import {withStyles} from "@material-ui/core";
 import style from "./style";
 import { Link } from 'react-router-dom';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
 
 class SignUpPage extends Component {
   constructor(){
     super();
     this.state = {
-      message : null
+      openModal: false,
     };
   }
 
   onSignUp = () => {
     return this.props.onSignUp()
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.registerMessage === 'successful') {
+      setTimeout(() => {this.setState({openModal: true})}, 1500)
+    }
+  }
+  componentWillUnmount() {
+    this.props.clearMessage('register');
+  }
+
+  handleCloseModal = () => { this.setState({openModal: false}) }
 
   render() {
     const { classes, user } = this.props;
@@ -101,7 +116,7 @@ class SignUpPage extends Component {
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                  label="I want to receive updates via email."
                 />
               </Grid>
             </Grid>
@@ -116,13 +131,40 @@ class SignUpPage extends Component {
             </Button>
             <Grid container justify="flex-end">
               <Grid item>
-                <Link to="/signin" variant="body2">
+                <Link to="/signin" variant="body2" className={classes.links}>
                   Already have an account? Sign in
                 </Link>
               </Grid>
             </Grid>
           </form>
         </div>
+
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          className={classes.modal}
+          open={this.state.openModal}
+          onClose={this.handleCloseModal}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={this.state.openModal}>
+            <div className={classes.paperModal}>
+              <Avatar className={classes.avatar}>
+                <CheckCircleOutlineIcon />
+              </Avatar>
+              <h2 id="transition-modal-title">Successfully signed up</h2>
+              <br/><br/>
+              <Link to="/signin">
+                <Button variant={'outlined'} className={classes.buttonSignIn}>Sign In</Button>
+              </Link>
+            </div>
+          </Fade>
+        </Modal>
+
       </Container>
     );
   }

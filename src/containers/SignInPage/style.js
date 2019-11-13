@@ -24,6 +24,10 @@ const style = (theme) => ({
       color: theme.palette.secondary.main
     }
   },
+  loginMessage: {
+    color: theme.palette.pink.dark,
+    paddingTop: 15,
+  },
 });
 
 export default style;
