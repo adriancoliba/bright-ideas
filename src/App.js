@@ -6,7 +6,9 @@ import NotepadPage from "./containers/NotepadPage";
 import NavigationBar from "./Layout/NavigationBar";
 import SignUpPage from "./containers/SignUpPage";
 import SignInPage from "./containers/SignInPage";
+import ResetPassword from "./containers/ResetPasswordPage";
 import HomePage from "./containers/HomePage";
+import * as ROUTES from "./constants/routes";
 
 class App extends React.PureComponent {
   constructor(){
@@ -39,7 +41,7 @@ class App extends React.PureComponent {
     });
   };
 
-  handleChangeLogin = event => {
+  handleChangeUser = event => {
     this.setState({
       user: {
         ...this.state.user,
@@ -94,7 +96,6 @@ class App extends React.PureComponent {
           this.setState({loginMessage: error.message})
         });
     }
-
   };
 
   onSignOut = () => {
@@ -121,26 +122,29 @@ class App extends React.PureComponent {
               {
                 !this.state.isAuthenticated ?
                   <>
-                    <Route exact path="/"> <HomePage user={this.state.user}/> </Route>
-                    <Route exact path="/signin">
+                    <Route exact path={ROUTES.HOME}> <HomePage user={this.state.user}/> </Route>
+                    <Route exact path={ROUTES.SIGN_IN}>
                       <SignInPage user={this.state.user}
-                                  handleChangeLogin={this.handleChangeLogin}
-                                  onSignIn={this.onSignIn}
-                                  loginMessage={this.state.loginMessage}
+                                handleChangeUser={this.handleChangeUser}
+                                onSignIn={this.onSignIn}
+                                loginMessage={this.state.loginMessage}
                       />
                     </Route>
-                    <Route exact path="/signup">
+                    <Route exact path={ROUTES.SIGN_UP}>
                       <SignUpPage user={this.state.user}
-                                  handleChangeLogin={this.handleChangeLogin}
-                                  onSignUp={this.onSignUp}
-                                  registerMessage={this.state.registerMessage}
-                                  clearMessage={this.clearMessage}
+                                handleChangeUser={this.handleChangeUser}
+                                onSignUp={this.onSignUp}
+                                registerMessage={this.state.registerMessage}
+                                clearMessage={this.clearMessage}
                       />
+                    </Route>
+                    <Route exact path={ROUTES.RESET_PASSWORD}>
+                      <ResetPassword user={this.state.user}/>
                     </Route>
                   </> :
                   <>
-                    <Redirect to='/'/>
-                    <Route exact path="/">
+                    <Redirect to={ROUTES.HOME}/>
+                    <Route exact path={ROUTES.HOME}>
                       <NotepadPage isAuthenticated={this.state.isAuthenticated}/>
                     </Route>
                   </>

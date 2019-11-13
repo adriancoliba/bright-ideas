@@ -41,7 +41,7 @@ class SignInPage extends Component {
                 name="email"
                 autoComplete="email"
                 autoFocus
-                onChange={this.props.handleChangeLogin}
+                onChange={this.props.handleChangeUser}
               />
               <TextField
                 variant="outlined"
@@ -53,7 +53,7 @@ class SignInPage extends Component {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                onChange={this.props.handleChangeLogin}
+                onChange={this.props.handleChangeUser}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
@@ -70,7 +70,7 @@ class SignInPage extends Component {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link to="/" variant="body2" className={classes.links}>
+                  <Link to="/reset" variant="body2" className={classes.links}>
                     Forgot password?
                   </Link>
                 </Grid>
@@ -87,7 +87,7 @@ class SignInPage extends Component {
 
 SignInPage.propTypes = {
   onSignIn: PropTypes.func.isRequired,
-  handleChangeLogin: PropTypes.func.isRequired
+  handleChangeUser: PropTypes.func.isRequired
 };
 
 export default withStyles(style, { withTheme: true })(SignInPage);

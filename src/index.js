@@ -5,9 +5,8 @@ import * as serviceWorker from './serviceWorker';
 import App from './App'
 import theme from './utils/theme';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-
-const firebase = require('firebase');
-require('firebase/firestore');
+import firebase from 'firebase';
+import 'firebase/firestore';
 
 // Firebase configuration
 const firebaseConfig = {

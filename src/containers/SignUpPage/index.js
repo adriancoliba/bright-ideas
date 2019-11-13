@@ -69,7 +69,7 @@ class SignUpPage extends Component {
                   label="First Name"
                   autoFocus
                   value={ (user && user.firstName) ? user.firstName : ''}
-                  onChange={this.props.handleChangeLogin}
+                  onChange={this.props.handleChangeUser}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -82,7 +82,7 @@ class SignUpPage extends Component {
                   name="lastName"
                   autoComplete="name"
                   value={ (user && user.lastName) ? user.lastName : ''}
-                  onChange={this.props.handleChangeLogin}
+                  onChange={this.props.handleChangeUser}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -96,7 +96,7 @@ class SignUpPage extends Component {
                   name="email"
                   autoComplete="email"
                   value={ (user && user.email) ? user.email : ''}
-                  onChange={this.props.handleChangeLogin}
+                  onChange={this.props.handleChangeUser}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -110,7 +110,7 @@ class SignUpPage extends Component {
                   id="password"
                   autoComplete="current-password"
                   value={ (user && user.password) ? user.password : ''}
-                  onChange={this.props.handleChangeLogin}
+                  onChange={this.props.handleChangeUser}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -171,7 +171,7 @@ class SignUpPage extends Component {
 }
 
 SignUpPage.propTypes = {
-  handleChangeLogin: PropTypes.func.isRequired,
+  handleChangeUser: PropTypes.func.isRequired,
   onSignUp: PropTypes.func.isRequired,
   user: PropTypes.object,
 };
