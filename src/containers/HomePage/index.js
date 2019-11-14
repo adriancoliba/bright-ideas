@@ -2,9 +2,11 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {withStyles} from "@material-ui/core";
 import style from "./style";
+import { connect } from 'react-redux'
 
 class HomePage extends Component {
   render() {
+    const { projects } = this.props;
     return (
       <div>
         <h1>HomePage</h1>
@@ -15,4 +17,10 @@ class HomePage extends Component {
 
 HomePage.propTypes = {};
 
-export default withStyles(style, { withTheme: true })(HomePage);
+const mapStateToProps = (state) => {
+  return {
+    projects: state.project.projects
+  }
+}
+
+export default connect(mapStateToProps)(withStyles(style, { withTheme: true })(HomePage));

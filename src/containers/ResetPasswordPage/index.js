@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import firebase from 'firebase/app';
+import { myFirebase } from '../../utils/firebase';
 import PropTypes from 'prop-types';
 import {withStyles} from "@material-ui/core";
 import style from "./style";
@@ -32,7 +32,7 @@ class ResetPassword extends Component {
       return this.setState({error: 'Complete your email'})
     } else {
       this.setState({loading: true});
-      firebase
+      myFirebase
         .auth()
         .sendPasswordResetEmail(this.state.email)
         .then( u => {

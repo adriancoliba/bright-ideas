@@ -17,17 +17,60 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import {myFirebase} from "../../utils/firebase";
 
 class SignUpPage extends Component {
   constructor(){
     super();
     this.state = {
+      user: null,
+      registerMessage: '',
       openModal: false,
     };
   }
 
+  handleChangeUser = event => {
+    this.setState({
+      user: {
+        ...this.state.user,
+        [event.target.name]: event.target.value
+      }
+    })
+  };
+
+  clearMessage = type => {
+    if (type === 'register') { this.setState({registerMessage: false}) }
+  };
+
   onSignUp = () => {
-    return this.props.onSignUp()
+    if (this.state.user == null || this.state.user.firstName == null || this.state.user.lastName == null ||
+      this.state.user.email == null || this.state.user.password == null) {
+      return this.setState({registerMessage: 'Complete all fields.'})
+    } else {
+      const { firstName, lastName } = this.state.user;
+      const fullName = `${firstName ? firstName : ''} ${lastName ? lastName : ''}`;
+      const fullNameRegex = new RegExp ('^\\s*([A-Za-z]{1,}([\\.,] |[-\']| ))+[A-Za-z]+\\.?\\s*$');
+      if (!fullNameRegex.test(fullName)){
+        return this.setState({registerMessage: 'Your FirstName or LastName is badly formatted.'})
+      } else {
+        myFirebase
+          .auth()
+          .createUserWithEmailAndPassword(this.state.user.email, this.state.user.password)
+          .then( u => {
+            myFirebase.auth().currentUser.updateProfile({
+              displayName: `${this.state.user.firstName} ${this.state.user.lastName}`,
+            }).then( () => {
+              this.setState({user: null})
+            }).catch( error => {
+              console.log(error)
+            });
+            this.setState({registerMessage: 'successful'})
+          })
+          .catch( error => {
+            this.setState({registerMessage: error.message})
+          });
+      }
+    }
   };
 
   componentWillReceiveProps(nextProps) {

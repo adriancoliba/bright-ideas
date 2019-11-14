@@ -15,7 +15,6 @@ class NotepadPage extends React.PureComponent {
   }
 
   componentDidMount() {
-    // console.log('componentDidMount')
     firebase
       .firestore()
       .collection('notesAll')
@@ -49,7 +48,7 @@ class NotepadPage extends React.PureComponent {
       title: title,
       body: ''
     };
-    const netNoteFromDB = await firebase
+    const newNoteFromDB = await firebase
       .firestore()
       .collection('notesAll')
       .add({
@@ -58,7 +57,7 @@ class NotepadPage extends React.PureComponent {
         date: new Date(),
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
       });
-    const newID = netNoteFromDB.id;
+    const newID = newNoteFromDB.id;
     await this.setState({ notesAll: [...this.state.notesAll, newNote] });
     const newNoteIndex = this.state.notesAll.indexOf(this.state.notesAll.filter(note => note.id === newID)[0]);
     this.setState({ noteSelected: this.state.notesAll[newNoteIndex], noteSelectedId: newNoteIndex });
