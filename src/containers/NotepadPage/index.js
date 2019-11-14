@@ -3,6 +3,10 @@ import firebase from 'firebase';
 import TextEditor from '../../components/NotepadTextEditor/index';
 import Sidebar from '../../components/NotepadSidebar/index'
 import noteBackgroundImage from '../../images/2907560.jpg';
+import { connect } from 'react-redux';
+import {withStyles} from "@material-ui/core";
+import style from "../ResetPasswordPage/style";
+import { authListener } from "../../store/actions/authActions";
 
 class NotepadPage extends React.PureComponent {
   constructor(){
@@ -28,6 +32,10 @@ class NotepadPage extends React.PureComponent {
         this.setState({notesAll})
       });
   };
+
+  componentWillMount() {
+    const { dispatch } = this.props;
+  }
 
   selectNote = (note, index) => this.setState({ noteSelectedId: index, noteSelected: note });
 
@@ -82,6 +90,7 @@ class NotepadPage extends React.PureComponent {
   };
 
   render() {
+
     return(
       <div className="app-container">
         <Sidebar
@@ -104,4 +113,12 @@ class NotepadPage extends React.PureComponent {
   }
 }
 
-export default NotepadPage;
+const mapStateToProps = (state) => {
+  return {
+    isUserAuthenticated: state.auth.isUserAuthenticated,
+    isAuthenticated: state.auth.isAuthenticated,
+    user: state.auth.user
+  };
+};
+
+export default withStyles(style, { withTheme: true })(connect(mapStateToProps)(NotepadPage));

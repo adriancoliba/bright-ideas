@@ -12,6 +12,7 @@ import {withRouter} from 'react-router-dom';
 import NotepadPage from "../../containers/NotepadPage";
 import { connect } from 'react-redux';
 import { setUserDeAuthenticated } from '../../store/actions/authActions';
+import { checkUserAuth } from '../../utils/utilities'
 
 class NavigationBar extends Component {
   constructor(props) {
@@ -36,21 +37,21 @@ class NavigationBar extends Component {
             My Title
           </Typography>
           <span className={classes.toolbarLinks}>
-            { !isUserAuthenticated ?
-              <>
-                <Link to="/">
-                  <Button variant={pathname === '/' ? 'outlined' : 'text'} className={classes.button}>Home</Button>
-                </Link>
-                <Link to="/signin">
-                  <Button variant={pathname === '/signin' ? 'outlined' : 'text'}  className={classes.button}>Sign In</Button>
-                </Link>
-                <Link to="/signup">
-                  <Button variant={pathname === '/signup' ? 'outlined' : 'text'}  className={classes.button}>Sign Up</Button>
-                </Link>
-              </> :
+            { checkUserAuth(isUserAuthenticated) ?
                 <Link to="/">
                   <Button variant={'outlined'} onClick={this.onSignOut} className={classes.button}>Sign Out</Button>
-                </Link>
+                </Link> :
+                <>
+                  <Link to="/">
+                    <Button variant={pathname === '/' ? 'outlined' : 'text'} className={classes.button}>Home</Button>
+                  </Link>
+                  <Link to="/signin">
+                    <Button variant={pathname === '/signin' ? 'outlined' : 'text'}  className={classes.button}>Sign In</Button>
+                  </Link>
+                  <Link to="/signup">
+                    <Button variant={pathname === '/signup' ? 'outlined' : 'text'}  className={classes.button}>Sign Up</Button>
+                  </Link>
+                </>
             }
            </span>
         </Toolbar>

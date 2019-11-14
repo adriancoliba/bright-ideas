@@ -9,6 +9,7 @@ import ResetPassword from "./containers/ResetPasswordPage";
 import HomePage from "./containers/HomePage";
 import * as ROUTES from "./constants/routes";
 import { connect } from 'react-redux';
+import { checkUserAuth } from './utils/utilities';
 
 class App extends React.PureComponent {
   constructor(){
@@ -32,18 +33,18 @@ class App extends React.PureComponent {
           <div>
             <Switch>
               {
-                !this.props.isUserAuthenticated ?
-                  <>
-                    <Route exact path={ROUTES.HOME}> <HomePage user={this.props.user}/> </Route>
-                    <Route exact path={ROUTES.SIGN_IN}> <SignInPage/> </Route>
-                    <Route exact path={ROUTES.SIGN_UP}> <SignUpPage/> </Route>
-                    <Route exact path={ROUTES.RESET_PASSWORD}><ResetPassword user={this.state.user}/></Route>
-                  </> :
+                checkUserAuth(this.props.isUserAuthenticated) ?
                   <>
                     <Redirect to={ROUTES.HOME}/>
                     <Route exact path={ROUTES.HOME}>
                       <NotepadPage/>
                     </Route>
+                  </> :
+                  <>
+                    <Route exact path={ROUTES.HOME}> <HomePage user={this.props.user}/> </Route>
+                    <Route exact path={ROUTES.SIGN_IN}> <SignInPage/> </Route>
+                    <Route exact path={ROUTES.SIGN_UP}> <SignUpPage/> </Route>
+                    <Route exact path={ROUTES.RESET_PASSWORD}><ResetPassword user={this.state.user}/></Route>
                   </>
               }
             </Switch>

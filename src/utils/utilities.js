@@ -13,3 +13,13 @@ export function debounce(a,b,c){
         return (clearTimeout(d),d=setTimeout(h,b),c&&!d&&(e=a.apply(f,g)),e)
     }
 }
+
+export const checkUserAuth = (isUserAuthenticated) => {
+    if(localStorage.getItem('uid')){
+        return true
+    } else if (isUserAuthenticated) {
+        return true
+    } else {
+        return false
+    }
+};

@@ -79,6 +79,7 @@ export const authListener = () => dispatch => {
           id: user.uid,
           displayName: user.displayName,
         };
+        localStorage.setItem('uid', user.uid);
         dispatch(authListenerSuccess(userDetails))
       } else if (!user) {
         dispatch(authListenerError());
@@ -107,6 +108,7 @@ export const setUserAuthenticated = () => {
 };
 
 export const setUserDeAuthenticated = () => {
+  localStorage.clear();
   return {
     type: SET_USER_DE_AUTHENTICATED
   }
