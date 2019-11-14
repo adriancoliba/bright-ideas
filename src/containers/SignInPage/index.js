@@ -3,18 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {withStyles} from "@material-ui/core";
 import style from "./style";
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
+import { TextField, CircularProgress, CssBaseline, Button, Avatar,
+  Typography, Container, Grid, Checkbox } from '@material-ui/core';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import { Link } from 'react-router-dom';
-import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
-import {authListener, signInUser} from "../../store/actions/authActions";
+import {authListener, signInUser, showSignInMessage} from "../../store/actions/authActions";
 import * as ROUTES from "../../constants/routes";
 
 class SignInPage extends Component {
@@ -36,7 +30,7 @@ class SignInPage extends Component {
   onSignIn = () => {
     const { dispatch } = this.props;
     if (this.state.user == null || this.state.user.email == null || this.state.user.password == null) {
-      return this.setState({loginMessage: 'Complete all fields.'})
+      dispatch(showSignInMessage(null, 'Complete all fields.'))
     } else {
       dispatch(signInUser(this.state.user))
     }
@@ -115,6 +109,7 @@ class SignInPage extends Component {
                 </Grid>
               </Grid>
             </form>
+            {this.props.loading && <CircularProgress/>}
           </div>
         </Container>
     );
@@ -122,7 +117,6 @@ class SignInPage extends Component {
 }
 
 SignInPage.propTypes = {
-  // isAuthenticated: PropTypes.bool.isRequired,
   loginMessage: PropTypes.string,
   user: PropTypes.any,
 };
@@ -132,6 +126,7 @@ const mapStateToProps = (state) => {
     isUserAuthenticated: state.auth.isUserAuthenticated,
     loginMessage: state.auth.loginMessage,
     user: state.auth.user,
+    loading: state.auth.loading
   };
 };
 

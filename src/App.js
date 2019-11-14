@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
-import { myFirebase } from './utils/firebase';
 import NotepadPage from "./containers/NotepadPage";
 import NavigationBar from "./Layout/NavigationBar";
 import SignUpPage from "./containers/SignUpPage";
@@ -35,7 +34,7 @@ class App extends React.PureComponent {
               {
                 !this.props.isUserAuthenticated ?
                   <>
-                    <Route exact path={ROUTES.HOME}> <HomePage user={this.state.user}/> </Route>
+                    <Route exact path={ROUTES.HOME}> <HomePage user={this.props.user}/> </Route>
                     <Route exact path={ROUTES.SIGN_IN}> <SignInPage/> </Route>
                     <Route exact path={ROUTES.SIGN_UP}> <SignUpPage/> </Route>
                     <Route exact path={ROUTES.RESET_PASSWORD}><ResetPassword user={this.state.user}/></Route>
@@ -58,7 +57,6 @@ class App extends React.PureComponent {
 const mapStateToProps = (state) => {
   return {
     isUserAuthenticated: state.auth.isUserAuthenticated,
-    loginMessage: state.auth.loginMessage,
     user: state.auth.user,
   };
 };
