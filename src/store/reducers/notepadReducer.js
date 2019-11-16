@@ -47,7 +47,8 @@ const notepadReducer = (state = INITIAL_STATE, action) => {
             return {
               ...state,
               notesAll: state.notesAll.filter(singleNote => singleNote !== action.note),
-              noteSelectedId: state.notesAll[state.noteSelectedId - 1], noteSelected: state.noteSelectedId - 1,
+              noteSelectedId: state.noteSelectedId ? state.noteSelectedId - 1 : null,
+              noteSelected: state.noteSelectedId ? state.notesAll[state.noteSelectedId - 1] : null,
             }
           } else {
             return {

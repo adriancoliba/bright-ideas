@@ -5,6 +5,7 @@ import ReactQuill from 'react-quill';
 import CreateIcon from '@material-ui/icons/Create';
 import { debounce } from '../../utils/utilities';
 import {connect} from "react-redux";
+import ReactDOM from 'react-dom';
 
 class TextEditor extends React.PureComponent {
   constructor() {
@@ -22,6 +23,7 @@ class TextEditor extends React.PureComponent {
       title: this.props.noteSelected.title,
       id: this.props.noteSelected.id
     });
+    ReactDOM.findDOMNode(this).children[2].children[1].children[0].focus();
   };
 
   componentDidUpdate = (prevState) => {
@@ -31,6 +33,7 @@ class TextEditor extends React.PureComponent {
         title: this.props.noteSelected.title,
         id: this.props.noteSelected.id
       });
+      ReactDOM.findDOMNode(this).children[2].children[1].children[0].focus()
     }
   };
 

@@ -2,7 +2,7 @@ import { myFirebase } from "../../utils/firebase";
 import { GET_NOTES_SUCCESS, SELECT_NOTE, NEW_NOTE_SUCCESS, DELETE_NOTE_SUCCESS} from "../constants/notepadConstants";
 import firebase from "firebase";
 
-export const getNotes = () => (dispatch, getState) => {
+export const getNotes = (userId) => (dispatch, getState) => {
   myFirebase
     .firestore()
     .collection('notesAll')
@@ -12,7 +12,9 @@ export const getNotes = () => (dispatch, getState) => {
         const data = doc.data();
         data.id = doc.id;
         return data;
-      })
+      }).filter(doc => {
+        return doc.userId === userId
+      });
     dispatch(getNotesSuccess(notesAll));
     });
 };
@@ -73,6 +75,7 @@ export const newNote = newNote => dispatch => {
     .add({
       title: newNote.title,
       body: newNote.body,
+      userId: newNote.userId,
       date: new Date(),
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
     })

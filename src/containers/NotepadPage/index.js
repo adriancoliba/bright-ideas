@@ -6,18 +6,25 @@ import { connect } from 'react-redux';
 import {withStyles} from "@material-ui/core";
 import style from "../ResetPasswordPage/style";
 import { getNotes, selectNote, updateNote, newNote, deleteNote } from "../../store/actions/notepadActions";
-
+import { authListener } from "../../store/actions/authActions";
 class NotepadPage extends React.PureComponent {
 
   componentWillMount() {
     const { dispatch } = this.props;
-    dispatch(getNotes());
+    dispatch(authListener())
+  }
+
+  componentDidMount() {
+    const { dispatch } = this.props;
+    const userId = this.props.user && this.props.user.id || localStorage.getItem('uid');
+    dispatch(getNotes(userId));
   }
 
   newNote = async (title) => {
     const note = {
       title: title,
-      body: ''
+      body: '',
+      userId : this.props.user && this.props.user.id || localStorage.getItem('uid')
     };
     const { dispatch } = this.props;
     dispatch(newNote(note));
