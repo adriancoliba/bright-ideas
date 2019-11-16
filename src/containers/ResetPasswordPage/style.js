@@ -1,3 +1,5 @@
+import lightGreen from '@material-ui/core/colors/lightGreen';
+
 const style = (theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -24,8 +26,12 @@ const style = (theme) => ({
       color: theme.palette.secondary.main
     }
   },
-  resetMessage: {
+  resetMessageRed: {
     color: theme.palette.pink.dark,
+    paddingTop: 15,
+  },
+  resetMessageGreen: {
+    color: lightGreen[500],
     paddingTop: 15,
   },
   modal: {

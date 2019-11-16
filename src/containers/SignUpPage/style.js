@@ -1,3 +1,5 @@
+import lightGreen from "@material-ui/core/colors/lightGreen";
+
 const style = (theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -16,8 +18,13 @@ const style = (theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-  registerMessage: {
+
+  registerMessageRed: {
     color: theme.palette.pink.dark,
+    paddingTop: 15,
+  },
+  registerMessageGreen: {
+    color: lightGreen[500],
     paddingTop: 15,
   },
   links: {

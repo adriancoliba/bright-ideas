@@ -38,7 +38,8 @@ class Sidebar extends React.PureComponent {
         <div className={classes.sidebarContainer}>
           <Button
             onClick={this.newNoteBtnClick}
-            className={classes.newNoteBtn}>{this.state.addingNote ? 'Cancel' : 'New Note'}</Button>
+            className={classes.newNoteBtn}>{this.state.addingNote ? 'Cancel' : 'New Note'}
+          </Button>
           {
             this.state.addingNote ?
               <div>

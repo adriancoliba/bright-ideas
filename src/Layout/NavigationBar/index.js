@@ -10,6 +10,9 @@ import style from "./style";
 import { Link } from "react-router-dom";
 import {withRouter} from 'react-router-dom';
 import NotepadPage from "../../containers/NotepadPage";
+import { connect } from 'react-redux';
+import { setUserDeAuthenticated } from '../../store/actions/authActions';
+import { checkUserAuth } from '../../utils/utilities'
 
 class NavigationBar extends Component {
   constructor(props) {
@@ -19,8 +22,13 @@ class NavigationBar extends Component {
     }
   }
 
+  onSignOut = () => {
+    const { dispatch } = this.props;
+    dispatch(setUserDeAuthenticated())
+  };
+
   render() {
-    const { classes, isAuthenticated } = this.props;
+    const { classes, isUserAuthenticated } = this.props;
     const { pathname } = this.props.location;
     return (
       <AppBar position="static" className={classes.appBar} color="secondary">
@@ -29,21 +37,21 @@ class NavigationBar extends Component {
             My Title
           </Typography>
           <span className={classes.toolbarLinks}>
-            { !isAuthenticated ?
-              <>
+            { checkUserAuth(isUserAuthenticated) ?
                 <Link to="/">
-                  <Button variant={pathname === '/' ? 'outlined' : 'text'} className={classes.button}>Home</Button>
-                </Link>
-                <Link to="/signin">
-                  <Button variant={pathname === '/signin' ? 'outlined' : 'text'}  className={classes.button}>Sign In</Button>
-                </Link>
-                <Link to="/signup">
-                  <Button variant={pathname === '/signup' ? 'outlined' : 'text'}  className={classes.button}>Sign Up</Button>
-                </Link>
-              </> :
-                <Link to="/">
-                  <Button variant={'outlined'} onClick={this.props.onSignOut} className={classes.button}>Sign Out</Button>
-                </Link>
+                  <Button variant={'outlined'} onClick={this.onSignOut} className={classes.button}>Sign Out</Button>
+                </Link> :
+                <>
+                  <Link to="/">
+                    <Button variant={pathname === '/' ? 'outlined' : 'text'} className={classes.button}>Home</Button>
+                  </Link>
+                  <Link to="/signin">
+                    <Button variant={pathname === '/signin' ? 'outlined' : 'text'}  className={classes.button}>Sign In</Button>
+                  </Link>
+                  <Link to="/signup">
+                    <Button variant={pathname === '/signup' ? 'outlined' : 'text'}  className={classes.button}>Sign Up</Button>
+                  </Link>
+                </>
             }
            </span>
         </Toolbar>
@@ -58,8 +66,8 @@ class NavigationBar extends Component {
 
 NavigationBar.propTypes = {
   classes: PropTypes.object.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
-  onSignOut: PropTypes.func.isRequired,
+  isUserAuthenticated: PropTypes.bool,
 };
 
-export default withStyles(style, { withTheme: true })(withRouter(NavigationBar));
+
+export default withStyles(style, { withTheme: true })(withRouter(connect()(NavigationBar)));

@@ -1,20 +1,50 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {withStyles} from "@material-ui/core";
 import style from "./style";
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
+import { TextField, CircularProgress, CssBaseline, Button, Avatar,
+  Typography, Container, Grid, Checkbox } from '@material-ui/core';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import { Link } from 'react-router-dom';
-import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
+import {authListener, signInUser, showSignInMessage} from "../../store/actions/authActions";
+import * as ROUTES from "../../constants/routes";
 
 class SignInPage extends Component {
+  constructor(){
+    super();
+    this.state = {
+      user: null,
+    };
+  }
+
+  componentDidMount() {
+    const { dispatch } = this.props;
+    this.props.isUserAuthenticated && dispatch(authListener)
+  }
+  componentWillUnmount() {
+    this.setState({user: null})
+  }
+
+  onSignIn = () => {
+    const { dispatch } = this.props;
+    if (this.state.user == null || this.state.user.email == null || this.state.user.password == null) {
+      dispatch(showSignInMessage(null, 'Complete all fields.'))
+    } else {
+      dispatch(signInUser(this.state.user))
+    }
+  };
+
+  handleChangeUser = event => {
+    this.setState({
+      user: {
+        ...this.state.user,
+        [event.target.name]: event.target.value
+      }
+    })
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -41,7 +71,7 @@ class SignInPage extends Component {
                 name="email"
                 autoComplete="email"
                 autoFocus
-                onChange={this.props.handleChangeUser}
+                onChange={this.handleChangeUser}
               />
               <TextField
                 variant="outlined"
@@ -53,7 +83,7 @@ class SignInPage extends Component {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                onChange={this.props.handleChangeUser}
+                onChange={this.handleChangeUser}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
@@ -64,21 +94,22 @@ class SignInPage extends Component {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
-                onClick={this.props.onSignIn}
+                onClick={this.onSignIn}
               >
                 Sign In
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link to="/reset" variant="body2" className={classes.links}>
+                  <Link to={ROUTES.RESET_PASSWORD} variant="body2" className={classes.links}>
                     Forgot password?
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link to="/signup" variant="body2" className={classes.links}>Don't have an account?</Link>
+                  <Link to={ROUTES.SIGN_UP} variant="body2" className={classes.links}>Don't have an account?</Link>
                 </Grid>
               </Grid>
             </form>
+            {this.props.loading && <CircularProgress/>}
           </div>
         </Container>
     );
@@ -86,8 +117,17 @@ class SignInPage extends Component {
 }
 
 SignInPage.propTypes = {
-  onSignIn: PropTypes.func.isRequired,
-  handleChangeUser: PropTypes.func.isRequired
+  loginMessage: PropTypes.string,
+  user: PropTypes.any,
 };
 
-export default withStyles(style, { withTheme: true })(SignInPage);
+const mapStateToProps = (state) => {
+  return {
+    isUserAuthenticated: state.auth.isUserAuthenticated,
+    loginMessage: state.auth.loginMessage,
+    user: state.auth.user,
+    loading: state.auth.loading
+  };
+};
+
+export default withStyles(style, { withTheme: true })(connect(mapStateToProps)(SignInPage));

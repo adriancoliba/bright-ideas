@@ -4,6 +4,7 @@ import style from './style';
 import ReactQuill from 'react-quill';
 import CreateIcon from '@material-ui/icons/Create';
 import { debounce } from '../../utils/utilities';
+import {connect} from "react-redux";
 
 class TextEditor extends React.PureComponent {
   constructor() {
@@ -23,7 +24,7 @@ class TextEditor extends React.PureComponent {
     });
   };
 
-  componentDidUpdate = () => {
+  componentDidUpdate = (prevState) => {
     if(this.props.noteSelected.id !== this.state.id) {
       this.setState({
         text: this.props.noteSelected.body,
@@ -35,19 +36,19 @@ class TextEditor extends React.PureComponent {
 
   update = debounce(() => {
     this.props.updateNote(this.state.id, {
-      title: this.state.title,
-      body: this.state.text
+      title: this.state.title ? this.state.title : '',
+      body: this.state.text ? this.state.text : ''
     })
   }, 1500);
 
-  updateBody = async (val) => {
-    await this.setState({ text: val });
+  updateBody = (val) => {
     this.update();
+    this.setState({ text: val });
   };
 
-  updateTitle = async (txt) => {
-    await this.setState({ title: txt });
-    this.update();
+  updateTitle = (txt) => {
+    this.setState({ title: txt });
+    this.update()
   };
 
   render() {
@@ -72,4 +73,11 @@ class TextEditor extends React.PureComponent {
   }
 }
 
-export default withStyles(style, { withTheme: true })(TextEditor);
+const mapStateToProps = (state) => {
+  return {
+    noteTitleUpdated: state.notepad.noteTitleUpdated,
+    noteBodyUpdated: state.notepad.noteBodyUpdated,
+  };
+};
+
+export default withStyles(style, { withTheme: true })(connect(mapStateToProps)(TextEditor));

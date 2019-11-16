@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import firebase from 'firebase/app';
+import { myFirebase } from '../../utils/firebase';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {withStyles} from "@material-ui/core";
 import style from "./style";
@@ -9,16 +10,23 @@ import { Link } from 'react-router-dom';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import Backdrop from '@material-ui/core/Backdrop';
+import * as ROUTES from "../../constants/routes";
+import {showResetMessage, resetPasswordUser} from '../../store/actions/authActions';
 
 class ResetPassword extends Component {
   constructor(){
     super();
     this.state = {
       email: '',
-      error: '',
       openModal: false,
       loading: false,
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.resetPasswordMessage === 'successful') {
+      setTimeout(() => {this.setState({openModal: true, email: null})}, 300)
+    }
   }
 
   handleChangeEmail = event => {
@@ -28,24 +36,17 @@ class ResetPassword extends Component {
   handleCloseModal = () => { this.setState({openModal: false}) }
 
   onResetPassword = () => {
+    const { dispatch } = this.props;
     if (this.state.email === ''){
-      return this.setState({error: 'Complete your email'})
+      return dispatch(showResetMessage(null, 'Complete your email'));
     } else {
-      this.setState({loading: true});
-      firebase
-        .auth()
-        .sendPasswordResetEmail(this.state.email)
-        .then( u => {
-          setTimeout(() => {this.setState({openModal: true, email: '', loading: false})}, 500)
-        })
-        .catch( error => {
-          this.setState({error: error.message, loading: false})
-        });
+      // this.setState({loading: true});
+      dispatch(resetPasswordUser(this.state.email));
     }
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, resetPasswordMessage } = this.props;
     return (
         <Container component="main" maxWidth="xs">
           <CssBaseline />
@@ -56,8 +57,8 @@ class ResetPassword extends Component {
             <Typography component="h1" variant="h5">
               Reset Password
             </Typography>
-            <Typography variant="body2" className={classes.resetMessage}>
-              {this.state.error && this.state.error} &nbsp;
+            <Typography variant="body2" className={this.props.resetPasswordMessage === 'successful' ? classes.resetMessageGreen : classes.resetMessageRed}>
+              {resetPasswordMessage && resetPasswordMessage} &nbsp;
             </Typography>
             <form className={classes.form} noValidate>
               <TextField
@@ -82,7 +83,7 @@ class ResetPassword extends Component {
                 Reset my password
               </Button>
             </form>
-            {this.state.loading && <CircularProgress/>}
+            {this.props.loading && <CircularProgress/>}
           </div>
           <Modal
             aria-labelledby="transition-modal-title"
@@ -104,7 +105,7 @@ class ResetPassword extends Component {
                 <h2 id="transition-modal-title">Password reset successful. A message will be sent to that address
                   containing a link to reset your password.</h2>
                 <br/><br/>
-                <Link to="/signin">
+                <Link to={ROUTES.SIGN_IN}>
                   <Button variant={'outlined'} className={classes.buttonSignIn}>Sign In</Button>
                 </Link>
               </div>
@@ -119,4 +120,11 @@ ResetPassword.propTypes = {
 
 };
 
-export default withStyles(style, { withTheme: true })(ResetPassword);
+const mapStateToProps = (state) => {
+  return {
+    resetPasswordMessage: state.auth.resetPasswordMessage,
+    loading: state.auth.loading
+  };
+};
+
+export default withStyles(style, { withTheme: true })(connect(mapStateToProps)(ResetPassword));
