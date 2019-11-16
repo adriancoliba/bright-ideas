@@ -6,7 +6,6 @@ import { connect } from 'react-redux'
 
 class HomePage extends Component {
   render() {
-    const { projects } = this.props;
     return (
       <div>
         <h1>HomePage</h1>
@@ -19,7 +18,7 @@ HomePage.propTypes = {};
 
 const mapStateToProps = (state) => {
   return {
-    projects: state.project.projects
+    isUserAuthenticated: state.auth.isUserAuthenticated,
   }
 }
 
