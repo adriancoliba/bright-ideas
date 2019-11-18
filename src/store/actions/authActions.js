@@ -70,7 +70,7 @@ export const resetPasswordUserSuccess = () => {
   }
 };
 
-export const authListener = () => dispatch => {
+export const authListener = () => (dispatch) => {
   return (
     myFirebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -78,6 +78,7 @@ export const authListener = () => dispatch => {
           email: user.email,
           id: user.uid,
           displayName: user.displayName,
+          photoURL: JSON.parse(user.photoURL)
         };
         localStorage.setItem('uid', user.uid);
         dispatch(authListenerSuccess(userDetails))

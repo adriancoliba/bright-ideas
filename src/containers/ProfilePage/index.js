@@ -6,8 +6,8 @@ import style from "./style";
 import { connect } from 'react-redux'
 import AccountBoxRoundedIcon from '@material-ui/icons/AccountBoxRounded';
 import { TextField, CircularProgress, CssBaseline, Button, Avatar,
-  Typography, Container } from '@material-ui/core';
-import { showProfileMessage, updateProfile, clearMessage } from '../../store/actions/profileActions';
+  Typography, Container, Box } from '@material-ui/core';
+import { showProfileMessage, updateProfile, deleteUser, clearMessage } from '../../store/actions/profileActions';
 import HelpOutlineIcon from "@material-ui/core/SvgIcon/SvgIcon";
 
 class ProfilePage extends Component {
@@ -18,12 +18,16 @@ class ProfilePage extends Component {
       passwordNew1: '',
       passwordNew2: '',
       openDeleteDialog: false,
+      photoURL: {
+        profileInfo: '',
+      }
     };
   }
 
   componentDidMount() {
     const { user } = this.props;
     user && user.displayName && this.setState({displayName: user.displayName})
+    user && user.photoURL && this.setState({photoURL: user.photoURL})
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
@@ -34,6 +38,16 @@ class ProfilePage extends Component {
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value, }
+  )};
+
+  handleChangeObject = event => {
+    event.persist()
+    this.setState(prevState => ({
+      photoURL: {
+        ...prevState.photoURL,
+        [event.target.name]: event.target.value
+      }
+    })
   )};
 
   handleCloseModal = () => { this.setState({openDeleteDialog: false}) };
@@ -51,13 +65,21 @@ class ProfilePage extends Component {
       }
       const name = (this.state.displayName === this.props.user.displayName) ? 'no' : this.state.displayName;
       const password = (this.state.passwordNew1.length < 2) ? 'no' : this.state.passwordNew1;
-      return dispatch(updateProfile(name, password))
+
+      const propsProfileInfo = this.props.user.photoURL ? this.props.user.photoURL.profileInfo : ''
+      console.log('propsProfileInfo', propsProfileInfo)
+      const profileInfo = (this.state.photoURL.profileInfo === propsProfileInfo) ? 'no' : this.state.photoURL.profileInfo;
+      return dispatch(updateProfile(name, profileInfo, password))
     }
+  };
+
+  onDeleteUser = () => {
+    const { dispatch } = this.props;
+    dispatch(deleteUser());
   };
 
   render() {
     const { classes, profileMessage } = this.props;
-
     return (
         <Container component="main" maxWidth="xs">
           <CssBaseline />
@@ -87,6 +109,21 @@ class ProfilePage extends Component {
                 <Grid item xs={12}>
                   <TextField
                     variant="outlined"
+                    margin="normal"
+                    disabled
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    value={this.props.user ? this.props.user.email : 'null'}
+                    autoComplete="email"
+                    autoFocus
+                  />
+                </Grid>
+                <Box m={2}/>
+                <Grid item xs={12} m={5}>
+                  <TextField
+                    variant="outlined"
                     required
                     fullWidth
                     name="passwordNew1"
@@ -110,6 +147,21 @@ class ProfilePage extends Component {
                     autoComplete="current-password"
                     value={ this.state.passwordNew2 ? this.state.passwordNew2 : ''}
                     onChange={this.handleChange}
+                  />
+                </Grid>
+                <Box m={2}/>
+                <Grid item xs={12}>
+                  <TextField
+                    id="outlined-multiline-static"
+                    label="Profile Info"
+                    fullWidth
+                    multiline
+                    rows="6"
+                    name="profileInfo"
+                    margin="normal"
+                    variant="outlined"
+                    value={ this.state.photoURL.profileInfo ? this.state.photoURL.profileInfo : ''}
+                    onChange={this.handleChangeObject}
                   />
                 </Grid>
               </Grid>
@@ -151,7 +203,7 @@ class ProfilePage extends Component {
               <Button onClick={this.handleCloseModal} className={classes.darkPink} autoFocus>
                 No
               </Button>
-              <Button color="secondary">
+              <Button color="secondary" onClick={this.onDeleteUser}>
                 Yes
               </Button>
             </DialogActions>

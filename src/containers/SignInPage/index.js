@@ -19,10 +19,6 @@ class SignInPage extends Component {
     };
   }
 
-  componentDidMount() {
-    const { dispatch } = this.props;
-    this.props.isUserAuthenticated && dispatch(authListener)
-  }
   componentWillUnmount() {
     this.setState({user: null})
   }

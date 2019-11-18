@@ -44,15 +44,9 @@ class App extends React.PureComponent {
                 checkUserAuth(this.props.isUserAuthenticated) ?
                   <>
                     <Redirect to={ROUTES.HOME}/>
-                    <Route exact path={ROUTES.HOME}>
-                      <ApplicationPage/>
-                    </Route>
-                    <Route exact path={ROUTES.NOTEPAD}>
-                      <NotepadPage/>
-                    </Route>
-                    <Route exact path={ROUTES.PROFILE}>
-                      <ProfilePage/>
-                    </Route>
+                    <Route exact path={ROUTES.HOME}><ApplicationPage/></Route>
+                    <Route exact path={ROUTES.NOTEPAD}><NotepadPage/></Route>
+                    <Route path={ROUTES.PROFILE}><ProfilePage/></Route>
                   </> :
                   <>
                     <Route exact path={ROUTES.HOME}> <HomePage user={this.props.user}/> </Route>

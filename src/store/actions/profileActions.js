@@ -1,17 +1,30 @@
 import { myFirebase } from "../../utils/firebase";
 import { SET_PROFILE_MESSAGE, UPDATE_PROFILE_SUCCESS, START_LOADING, CLEAR_PROFILE_MESSAGE, } from "../constants/profileConstants";
+import { setUserDeAuthenticated } from './authActions';
+import { push } from 'connected-react-router';
 
-export const updateProfile = (displayName, password) => dispatch => {
+export const updateProfile = (displayName, profileInfo, password) => dispatch => {
   dispatch(startLoading());
-  console.log('actiondisplayName', displayName)
+
   if(displayName !== 'no'){
-    console.log('displayName !== \'no\'', displayName !== 'no')
-    myFirebase.auth().currentUser.updateProfile({displayName: displayName})
+    myFirebase.auth().currentUser
+      .updateProfile({displayName: displayName})
+      .then(() => {
+        return (password === 'no' || profileInfo === 'no') ? dispatch(showProfileMessage(null, 'successful')) : null
+      })
+      .catch( error => dispatch(showProfileMessage(error, null)))
+  }
+
+  if(profileInfo !== 'no'){
+    const photoURL = JSON.stringify({profileInfo: profileInfo, });
+    myFirebase.auth().currentUser
+      .updateProfile({ photoURL: photoURL })
       .then(() => {
         return (password === 'no') ? dispatch(showProfileMessage(null, 'successful')) : null
       })
       .catch( error => dispatch(showProfileMessage(error, null)))
   }
+
   if(password !== 'no'){
     myFirebase.auth().currentUser.updatePassword(password)
       .then(() => {
@@ -33,6 +46,21 @@ export const showProfileMessage = (error, customError) => {
     error,
     customError
   }
+};
+
+export const deleteUser = () => dispatch => {
+  const user = myFirebase.auth().currentUser;
+  user.delete()
+    .then(() => {
+      console.log('userRezolved', user);
+      dispatch(setUserDeAuthenticated());
+      setTimeout(() => {
+        dispatch(push('/'));
+        window.location.reload()
+      }, 1500)
+  }).catch(error => {
+    console.log('error', error)
+  });
 };
 
 export const clearMessage = () => {
