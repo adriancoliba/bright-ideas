@@ -1,24 +1,24 @@
 import { myFirebase } from "../../utils/firebase";
-import { SET_PROFILE_MESSAGE, UPDATE_PROFILE_SUCCESS, START_LOADING, CLEAR_PROFILE_MESSAGE, } from "../constants/profileConstants";
+import { SET_PROFILE_MESSAGE, UPDATE_PROFILE_SUCCESS, START_LOADING,
+  CLEAR_PROFILE_MESSAGE, CHANGE_AVATAR_SUCCESS} from "../constants/profileConstants";
 import { setUserDeAuthenticated } from './authActions';
 import { push } from 'connected-react-router';
 
-export const updateProfile = (displayName, profileInfo, password) => dispatch => {
+export const updateProfile = (displayName, photoURL, password) => dispatch => {
   dispatch(startLoading());
 
   if(displayName !== 'no'){
     myFirebase.auth().currentUser
       .updateProfile({displayName: displayName})
       .then(() => {
-        return (password === 'no' || profileInfo === 'no') ? dispatch(showProfileMessage(null, 'successful')) : null
+        return (password === 'no' || photoURL === 'no') ? dispatch(showProfileMessage(null, 'successful')) : null
       })
       .catch( error => dispatch(showProfileMessage(error, null)))
   }
 
-  if(profileInfo !== 'no'){
-    const photoURL = JSON.stringify({profileInfo: profileInfo, });
+  if(photoURL !== 'no'){
     myFirebase.auth().currentUser
-      .updateProfile({ photoURL: photoURL })
+      .updateProfile({ photoURL: JSON.stringify(photoURL) })
       .then(() => {
         return (password === 'no') ? dispatch(showProfileMessage(null, 'successful')) : null
       })
@@ -52,7 +52,6 @@ export const deleteUser = () => dispatch => {
   const user = myFirebase.auth().currentUser;
   user.delete()
     .then(() => {
-      console.log('userRezolved', user);
       dispatch(setUserDeAuthenticated());
       setTimeout(() => {
         dispatch(push('/'));
@@ -61,6 +60,25 @@ export const deleteUser = () => dispatch => {
   }).catch(error => {
     console.log('error', error)
   });
+};
+
+export const changeAvatar = (avatarId, photoURL) => dispatch => {
+  const newPhotoURL = JSON.parse(JSON.stringify(photoURL));
+  newPhotoURL.avatarId = avatarId;
+
+  myFirebase.auth().currentUser
+    .updateProfile({ photoURL: JSON.stringify(newPhotoURL) })
+    .then(() => {
+      return dispatch(changeAvatarSuccess(newPhotoURL))
+    })
+    .catch( error => dispatch(showProfileMessage(error, null)))
+};
+
+export const changeAvatarSuccess = (newPhotoURL) => {
+  return {
+    type: CHANGE_AVATAR_SUCCESS,
+    newPhotoURL
+  }
 };
 
 export const clearMessage = () => {

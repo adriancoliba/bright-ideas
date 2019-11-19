@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import {Dialog, DialogActions, DialogContent, DialogContentText, Grid, withStyles} from "@material-ui/core";
+import {Dialog, DialogActions, DialogContent, DialogContentText, Grid, withStyles, TextField,
+  CircularProgress, CssBaseline, Button, Typography, Container, Box} from "@material-ui/core";
 import style from "./style";
 import { connect } from 'react-redux'
-import AccountBoxRoundedIcon from '@material-ui/icons/AccountBoxRounded';
-import { TextField, CircularProgress, CssBaseline, Button, Avatar,
-  Typography, Container, Box } from '@material-ui/core';
-import { showProfileMessage, updateProfile, deleteUser, clearMessage } from '../../store/actions/profileActions';
+import { showProfileMessage, updateProfile, deleteUser, clearMessage, changeAvatar } from '../../store/actions/profileActions';
 import HelpOutlineIcon from "@material-ui/core/SvgIcon/SvgIcon";
+import AvatarUser from '../../components/AvatarUser';
 
 class ProfilePage extends Component {
   constructor(){
@@ -20,6 +19,7 @@ class ProfilePage extends Component {
       openDeleteDialog: false,
       photoURL: {
         profileInfo: '',
+        avatarId: ''
       }
     };
   }
@@ -32,8 +32,15 @@ class ProfilePage extends Component {
 
   componentWillReceiveProps(nextProps, nextContext) {
     const { dispatch } = this.props;
-    nextProps.changedPassword && this.setState({passwordNew1: '', passwordNew2: ''})
-    nextProps.profileMessage === 'successful' && setTimeout(() => dispatch(clearMessage()), 2500)
+    nextProps.changedPassword && this.setState({passwordNew1: '', passwordNew2: ''});
+    nextProps.profileMessage === 'successful' && setTimeout(() => dispatch(clearMessage()), 2500);
+
+    if(nextProps.newAvatarId){
+      this.setState({photoURL: {
+        ...this.state.photoURL,
+        avatarId: nextProps.newAvatarId
+      }})
+    }
   }
 
   handleChange = event => {
@@ -41,7 +48,7 @@ class ProfilePage extends Component {
   )};
 
   handleChangeObject = event => {
-    event.persist()
+    event.persist();
     this.setState(prevState => ({
       photoURL: {
         ...prevState.photoURL,
@@ -66,10 +73,10 @@ class ProfilePage extends Component {
       const name = (this.state.displayName === this.props.user.displayName) ? 'no' : this.state.displayName;
       const password = (this.state.passwordNew1.length < 2) ? 'no' : this.state.passwordNew1;
 
-      const propsProfileInfo = this.props.user.photoURL ? this.props.user.photoURL.profileInfo : ''
-      console.log('propsProfileInfo', propsProfileInfo)
-      const profileInfo = (this.state.photoURL.profileInfo === propsProfileInfo) ? 'no' : this.state.photoURL.profileInfo;
-      return dispatch(updateProfile(name, profileInfo, password))
+      const propsProfileInfo = this.props.user.photoURL ? this.props.user.photoURL.profileInfo : '';
+      const photoURL = (this.state.photoURL.profileInfo === propsProfileInfo) ? 'no' : this.state.photoURL;
+
+      return dispatch(updateProfile(name, photoURL, password))
     }
   };
 
@@ -78,16 +85,24 @@ class ProfilePage extends Component {
     dispatch(deleteUser());
   };
 
+  changeAvatar = (avatarId) => {
+    const { dispatch } = this.props;
+    dispatch(changeAvatar(avatarId, this.state.photoURL));
+  };
+
   render() {
     const { classes, profileMessage } = this.props;
+
     return (
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <AccountBoxRoundedIcon />
-            </Avatar>
-            <Typography variant="body2" className={this.props.profileMessage === 'successful' ? classes.profileMessageGreen : classes.profileMessageRed}>
+            <AvatarUser changeAvatar={this.changeAvatar}
+                        avatarId={this.state.photoURL.avatarId ? this.state.photoURL.avatarId : ''}
+            />
+            <Typography variant="body2"
+                        className={this.props.profileMessage === 'successful' ? classes.profileMessageGreen : classes.profileMessageRed}
+            >
               {profileMessage && profileMessage} &nbsp;
             </Typography>
             <form className={classes.form} noValidate>
@@ -160,7 +175,7 @@ class ProfilePage extends Component {
                     name="profileInfo"
                     margin="normal"
                     variant="outlined"
-                    value={ this.state.photoURL.profileInfo ? this.state.photoURL.profileInfo : ''}
+                    value={this.state.photoURL.profileInfo ? this.state.photoURL.profileInfo : ''}
                     onChange={this.handleChangeObject}
                   />
                 </Grid>
@@ -222,6 +237,7 @@ const mapStateToProps = (state) => {
     profileMessage: state.profile.profileMessage,
     changedPassword: state.profile.changedPassword,
     loading: state.profile.loading,
+    newAvatarId: state.profile.newAvatarId,
   }
 };
 

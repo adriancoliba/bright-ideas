@@ -32,6 +32,7 @@ export const signUpUser = (user) => dispatch => {
     .then( u => {
       myFirebase.auth().currentUser.updateProfile({
         displayName: `${user.firstName} ${user.lastName}`,
+        photoURL: JSON.stringify({profileInfo: 'I\'m cool...', avatarId: 'a1'})
       }).then( () => {
         dispatch(signUpUserSuccess(user));
       }).catch( error => {
