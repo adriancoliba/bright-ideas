@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import { showProfileMessage, updateProfile, deleteUser, clearMessage, changeAvatar } from '../../store/actions/profileActions';
 import HelpOutlineIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import AvatarUser from '../../components/AvatarUser';
+import Snackbar from '../../components/Snackbar';
 
 class ProfilePage extends Component {
   constructor(){
@@ -33,7 +34,7 @@ class ProfilePage extends Component {
   componentWillReceiveProps(nextProps, nextContext) {
     const { dispatch } = this.props;
     nextProps.changedPassword && this.setState({passwordNew1: '', passwordNew2: ''});
-    nextProps.profileMessage === 'successful' && setTimeout(() => dispatch(clearMessage()), 2500);
+    nextProps.profileMessage && setTimeout(() => dispatch(clearMessage()), 5);
 
     if(nextProps.newAvatarId){
       this.setState({photoURL: {
@@ -41,6 +42,12 @@ class ProfilePage extends Component {
         avatarId: nextProps.newAvatarId
       }})
     }
+  }
+
+  componentWillUnmount() {
+    const { dispatch } = this.props;
+    dispatch(clearMessage());
+    this.setState({passwordNew1: '', passwordNew2: ''});
   }
 
   handleChange = event => {
@@ -100,11 +107,7 @@ class ProfilePage extends Component {
             <AvatarUser changeAvatar={this.changeAvatar}
                         avatarId={this.state.photoURL.avatarId ? this.state.photoURL.avatarId : ''}
             />
-            <Typography variant="body2"
-                        className={this.props.profileMessage === 'successful' ? classes.profileMessageGreen : classes.profileMessageRed}
-            >
-              {profileMessage && profileMessage} &nbsp;
-            </Typography>
+            <Box m={2}/>
             <form className={classes.form} noValidate>
               <Grid container spacing={2}>
                 <Grid item xs={12} >
@@ -223,6 +226,7 @@ class ProfilePage extends Component {
               </Button>
             </DialogActions>
           </Dialog>
+          <Snackbar message={this.props.profileMessage}/>
         </Container>
     );
   }

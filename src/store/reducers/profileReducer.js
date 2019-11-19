@@ -16,7 +16,7 @@ const INITIAL_STATE = {
 const profileReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case SET_PROFILE_MESSAGE:
-      const customError = action.customError === 'successful/password' ? 'successful' : action.customError
+      const customError = action.customError === 'successful/password' ? 'successful' : action.customError;
       return {
         ...state,
         loading: false,
@@ -28,10 +28,15 @@ const profileReducer = (state = INITIAL_STATE, action) => {
       return {...state, loading: false, profileMessage: 'successful'};
 
     case CHANGE_AVATAR_SUCCESS:
-      return {...state, loading: false, profileMessage: 'successful', newAvatarId: action.newPhotoURL.avatarId}
+      return {
+        ...state,
+        loading: false,
+        profileMessage: 'successful',
+        newAvatarId: action.newPhotoURL.avatarId
+      };
 
     case CLEAR_PROFILE_MESSAGE:
-      return {...state, profileMessage: null}
+      return {...state, profileMessage: null};
 
     case START_LOADING:
       return { ...state, loading: true };
