@@ -5,6 +5,7 @@ import style from "./style";
 import { connect } from 'react-redux'
 
 class HomePage extends Component {
+
   render() {
     return (
       <div>
@@ -20,6 +21,6 @@ const mapStateToProps = (state) => {
   return {
     isUserAuthenticated: state.auth.isUserAuthenticated,
   }
-}
+};
 
 export default connect(mapStateToProps)(withStyles(style, { withTheme: true })(HomePage));

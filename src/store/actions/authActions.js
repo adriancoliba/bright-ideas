@@ -32,6 +32,7 @@ export const signUpUser = (user) => dispatch => {
     .then( u => {
       myFirebase.auth().currentUser.updateProfile({
         displayName: `${user.firstName} ${user.lastName}`,
+        photoURL: JSON.stringify({profileInfo: 'I\'m cool...', avatarId: 'a1'})
       }).then( () => {
         dispatch(signUpUserSuccess(user));
       }).catch( error => {
@@ -70,7 +71,7 @@ export const resetPasswordUserSuccess = () => {
   }
 };
 
-export const authListener = () => dispatch => {
+export const authListener = () => (dispatch) => {
   return (
     myFirebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -78,6 +79,7 @@ export const authListener = () => dispatch => {
           email: user.email,
           id: user.uid,
           displayName: user.displayName,
+          photoURL: JSON.parse(user.photoURL)
         };
         localStorage.setItem('uid', user.uid);
         dispatch(authListenerSuccess(userDetails))

@@ -1,14 +1,16 @@
 import { applyMiddleware, createStore } from "redux";
 import thunk from "redux-thunk";
-
-// import { verifyAuth } from "./actions/";
+import { routerMiddleware } from 'connected-react-router';
+import { createBrowserHistory } from 'history';
 import rootReducer from "./reducers";
+
+export const history = createBrowserHistory()
 
 export default function configureStore(persistedState) {
   const store = createStore(
-    rootReducer,
+    rootReducer(history),
     persistedState,
-    applyMiddleware(thunk)
+    applyMiddleware(thunk, routerMiddleware(history))
   );
   // store.dispatch(verifyAuth());
   return store;

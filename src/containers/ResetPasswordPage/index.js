@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { myFirebase } from '../../utils/firebase';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {withStyles} from "@material-ui/core";
@@ -19,7 +18,6 @@ class ResetPassword extends Component {
     this.state = {
       email: '',
       openModal: false,
-      loading: false,
     };
   }
 
@@ -40,7 +38,6 @@ class ResetPassword extends Component {
     if (this.state.email === ''){
       return dispatch(showResetMessage(null, 'Complete your email'));
     } else {
-      // this.setState({loading: true});
       dispatch(resetPasswordUser(this.state.email));
     }
   };
