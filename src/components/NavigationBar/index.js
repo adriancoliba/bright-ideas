@@ -38,9 +38,20 @@ class NavigationBar extends Component {
           </Typography>
           <span className={classes.toolbarLinks}>
             { checkUserAuth(isUserAuthenticated) ?
+              <>
                 <Link to="/">
-                  <Button variant={'outlined'} onClick={this.onSignOut} className={classes.button}>Sign Out</Button>
-                </Link> :
+                  <Button variant={pathname === '/' ? 'outlined' : 'text'} className={classes.button}>Blog</Button>
+                </Link>
+                <Link to="/profile">
+                  <Button variant={pathname === '/profile' ? 'outlined' : 'text'}  className={classes.button}>Profile Settings</Button>
+                </Link>
+                <Link to="/notepad">
+                  <Button variant={pathname === '/notepad' ? 'outlined' : 'text'}  className={classes.button}>Notepad</Button>
+                </Link>
+                <Link to="/">
+                  <Button onClick={this.onSignOut} className={classes.button}>Sign Out</Button>
+                </Link>
+              </>:
                 <>
                   <Link to="/">
                     <Button variant={pathname === '/' ? 'outlined' : 'text'} className={classes.button}>Home</Button>

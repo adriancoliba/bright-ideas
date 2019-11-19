@@ -142,7 +142,6 @@ class ProfilePage extends Component {
                 <Grid item xs={12} m={5}>
                   <TextField
                     variant="outlined"
-                    required
                     fullWidth
                     name="passwordNew1"
                     label="New password"
@@ -156,7 +155,6 @@ class ProfilePage extends Component {
                 <Grid item xs={12}>
                   <TextField
                     variant="outlined"
-                    required
                     fullWidth
                     name="passwordNew2"
                     label="Repeat password"

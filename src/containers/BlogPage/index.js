@@ -9,8 +9,7 @@ class ApplicationPage extends Component {
   render() {
     return (
       <div>
-        <Link to={'/notepad'}><h1>Go to Notepad</h1></Link>
-        <Link to={'/profile'}><h1>Go to Profile</h1></Link>
+        {/*<Link to={'/notepad'}><h1>Go to Notepad</h1></Link>*/}
       </div>
     );
   }

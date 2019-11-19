@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
-import NavigationBar from "./Layout/NavigationBar";
+import NavigationBar from "./components/NavigationBar";
 import SignUpPage from "./containers/SignUpPage";
 import SignInPage from "./containers/SignInPage";
 import ResetPassword from "./containers/ResetPasswordPage";
 import HomePage from "./containers/HomePage";
 import NotepadPage from "./containers/NotepadPage";
-import ApplicationPage from "./containers/ApplicationPage";
+import BlogPage from "./containers/BlogPage";
 import ProfilePage from "./containers/ProfilePage";
 import * as ROUTES from "./constants/routes";
 import { connect } from 'react-redux';
@@ -44,7 +44,7 @@ class App extends React.PureComponent {
                 checkUserAuth(this.props.isUserAuthenticated) ?
                   <>
                     <Redirect to={ROUTES.HOME}/>
-                    <Route exact path={ROUTES.HOME}><ApplicationPage/></Route>
+                    <Route exact path={ROUTES.HOME}><BlogPage/></Route>
                     <Route exact path={ROUTES.NOTEPAD}><NotepadPage/></Route>
                     <Route path={ROUTES.PROFILE}><ProfilePage/></Route>
                   </> :
