@@ -1,5 +1,6 @@
 import { myFirebase } from "../../utils/firebase";
-import { GET_NOTES_SUCCESS, SELECT_NOTE, NEW_NOTE_SUCCESS, DELETE_NOTE_SUCCESS} from "../constants/notepadConstants";
+import { GET_NOTES_SUCCESS, SELECT_NOTE, NEW_NOTE_SUCCESS, DELETE_NOTE_SUCCESS, START_LOADING,
+  SHARE_NOTE_SUCCESS, SHOW_NOTEPAD_MESSAGE, CLEAR_NOTEPAD_SHARED, CLEAR_NOTEPAD_MESSAGE} from "../constants/notepadConstants";
 import firebase from "firebase";
 
 export const getNotes = (userId) => (dispatch, getState) => {
@@ -68,6 +69,40 @@ export const deleteNoteSuccess = (note) => {
   }
 };
 
+export const shareNote = post => (dispatch, getState) => {
+  myFirebase
+    .firestore()
+    .collection('posts')
+    .add({
+      title: post.title,
+      body: post.body,
+      userId: post.userId,
+      displayName: post.displayName,
+      comments: [],
+      date: new Date(),
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    })
+    .then(newNoteFromDB => {
+      dispatch(shareNoteSuccess())
+    })
+    .catch(error => {
+      dispatch(showNotepadMessage(error.message))
+    })
+};
+
+export const shareNoteSuccess = (note) => {
+  return {
+    type: SHARE_NOTE_SUCCESS,
+    note
+  }
+};
+
+export const showNotepadMessage = (message) => {
+  return {
+    type: SHOW_NOTEPAD_MESSAGE,
+    message
+  }
+};
 export const newNote = newNote => dispatch => {
   myFirebase
     .firestore()
@@ -90,5 +125,23 @@ export const newNoteSuccess = (newNote, newID) => {
     type: NEW_NOTE_SUCCESS,
     newNote,
     newID,
+  }
+};
+
+export const clearNotepadShared = () => {
+  return {
+    type: CLEAR_NOTEPAD_SHARED,
+  }
+};
+
+export const clearMessage = () => {
+  return {
+    type: CLEAR_NOTEPAD_MESSAGE,
+  }
+};
+
+export const startLoading = () => {
+  return {
+    type: START_LOADING,
   }
 };

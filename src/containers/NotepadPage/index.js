@@ -5,8 +5,11 @@ import noteBackgroundImage from '../../images/2907560.jpg';
 import { connect } from 'react-redux';
 import {withStyles} from "@material-ui/core";
 import style from "../ResetPasswordPage/style";
-import { getNotes, selectNote, updateNote, newNote, deleteNote } from "../../store/actions/notepadActions";
+import { getNotes, selectNote, updateNote, newNote, clearMessage,
+  deleteNote, shareNote, showNotepadMessage, clearNotepadShared } from "../../store/actions/notepadActions";
 import { authListener } from "../../store/actions/authActions";
+import Snackbar from '../../components/Snackbar'
+
 class NotepadPage extends React.PureComponent {
 
   componentWillMount() {
@@ -18,6 +21,16 @@ class NotepadPage extends React.PureComponent {
     const { dispatch } = this.props;
     const userId = this.props.user && this.props.user.id || localStorage.getItem('uid');
     dispatch(getNotes(userId));
+  }
+
+  componentWillUnmount() {
+    const { dispatch, isNotepadShared } = this.props;
+    isNotepadShared && dispatch(clearNotepadShared())
+  }
+
+  componentWillReceiveProps(nextProps, nextContext) {
+    const { dispatch } = this.props;
+    nextProps.notepadMessage && setTimeout(() => dispatch(clearMessage()), 5);
   }
 
   newNote = async (title) => {
@@ -45,6 +58,20 @@ class NotepadPage extends React.PureComponent {
     dispatch(deleteNote(note));
   };
 
+  shareNote = (note, isAnonymous) => {
+    const { dispatch, user } = this.props;
+    const post = {
+      title: note.title,
+      body: note.body,
+      userId: user.id,
+      displayName: isAnonymous ? 'anonymous' : user.displayName
+    };
+    if(Object.values(post).some(el => el === '' || el === null)){
+      return dispatch(showNotepadMessage('Title or Body might be empty'));
+    }
+    return dispatch(shareNote(post));
+  };
+
   render() {
     return(
       <div className="app-container">
@@ -53,6 +80,7 @@ class NotepadPage extends React.PureComponent {
           notesAll={this.props.notesAll}
           selectNote={this.selectNote}
           deleteNote={this.deleteNote}
+          shareNote={this.shareNote}
           newNote={this.newNote}
         />
         {
@@ -63,6 +91,7 @@ class NotepadPage extends React.PureComponent {
                         updateNote={this.updateNote}
             /> : <img src={noteBackgroundImage} className="noteBackgroundImage" alt=''/>
         }
+        <Snackbar message={this.props.notepadMessage}/>
       </div>
     );
   }
@@ -75,6 +104,8 @@ const mapStateToProps = (state) => {
     noteSelectedId: state.notepad.noteSelectedId,
     noteSelected: state.notepad.noteSelected,
     notesAll: state.notepad.notesAll,
+    notepadMessage: state.notepad.notepadMessage,
+    isNotepadShared: state.notepad.isNotepadShared,
   };
 };
 

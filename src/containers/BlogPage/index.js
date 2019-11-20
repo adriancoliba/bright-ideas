@@ -16,12 +16,10 @@ class BlogPage extends Component {
 
   render() {
     const { classes, posts } = this.props;
-    console.log(this.props.posts)
     return (
       <div>
-        <Container component="main" maxWidth="xs">
+        <Container component="main" maxWidth="sm">
           <CssBaseline />
-          <Box m={2}/>
           <div>
             <BlogPosts posts={posts}/>
           </div>

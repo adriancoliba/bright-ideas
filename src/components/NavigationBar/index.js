@@ -2,14 +2,13 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from "@material-ui/core/AppBar";
+import Badge from "@material-ui/core/Badge";
 import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-// import MoreVertIcon from "@material-ui/icons/MoreVert";
 import style from "./style";
 import { Link } from "react-router-dom";
 import {withRouter} from 'react-router-dom';
-import NotepadPage from "../../containers/NotepadPage";
 import { connect } from 'react-redux';
 import { setUserDeAuthenticated } from '../../store/actions/authActions';
 import { checkUserAuth } from '../../utils/utilities'
@@ -28,7 +27,7 @@ class NavigationBar extends Component {
   };
 
   render() {
-    const { classes, isUserAuthenticated } = this.props;
+    const { classes, isUserAuthenticated, isNotepadShared } = this.props;
     const { pathname } = this.props.location;
     return (
       <AppBar position="static" className={classes.appBar} color="secondary">
@@ -40,7 +39,11 @@ class NavigationBar extends Component {
             { checkUserAuth(isUserAuthenticated) ?
               <>
                 <Link to="/">
-                  <Button variant={pathname === '/' ? 'outlined' : 'text'} className={classes.button}>Blog</Button>
+                  <Badge color="primary"
+                         badgeContent={isNotepadShared}
+                         className={isNotepadShared ? classes.badge : null}>
+                    <Button variant={pathname === '/' ? 'outlined' : 'text'} className={classes.button}>Blog</Button>
+                  </Badge>
                 </Link>
                 <Link to="/profile">
                   <Button variant={pathname === '/profile' ? 'outlined' : 'text'}  className={classes.button}>Profile Settings</Button>
@@ -80,5 +83,11 @@ NavigationBar.propTypes = {
   isUserAuthenticated: PropTypes.bool,
 };
 
+const mapStateToProps = (state) => {
+  return {
+    isNotepadShared: state.notepad.isNotepadShared,
+  }
+};
 
-export default withStyles(style, { withTheme: true })(withRouter(connect()(NavigationBar)));
+
+export default withStyles(style, { withTheme: true })(withRouter(connect(mapStateToProps)(NavigationBar)));

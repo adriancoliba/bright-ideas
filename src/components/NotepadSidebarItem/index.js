@@ -3,17 +3,21 @@ import { withStyles } from '@material-ui/core/styles';
 import style from './style';
 import {
   ListItem, ListItemText, Button, Dialog, DialogActions,
-  DialogContent, DialogContentText,
+  DialogContent, DialogContentText, Checkbox
 } from '@material-ui/core';
 import { removeHTMLTags } from '../../utils/utilities';
 import DeleteIcon from '@material-ui/icons/Delete';
+import ShareIcon from '@material-ui/icons/Share';
+
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
 class SidebarItem extends React.PureComponent {
   constructor() {
     super();
     this.state = {
-      openDeleteDialog: false
+      openDeleteDialog: false,
+      openShareDialog: false,
+      isAnonymous: false,
     }
   }
 
@@ -24,8 +28,17 @@ class SidebarItem extends React.PureComponent {
     this.closeDialog()
   };
 
+  shareNote = note => {
+    this.props.shareNote(note, this.state.isAnonymous);
+    this.closeDialog()
+  };
+
   closeDialog = () => {
-    this.setState({openDeleteDialog: false});
+    this.setState({openDeleteDialog: false, openShareDialog: false, isAnonymous: false,});
+  };
+
+  handleChangeAnonymous = () => {
+    this.setState({isAnonymous: !this.state.isAnonymous})
   };
 
   render() {
@@ -42,6 +55,10 @@ class SidebarItem extends React.PureComponent {
               secondary={removeHTMLTags(note.body.substring(0, 30)) + '...'}
             />
           </div>
+          <ShareIcon
+            onClick={() => this.setState({openShareDialog: true})}
+            className={classes.shareIcon}
+          />
           <DeleteIcon
             onClick={() => this.setState({openDeleteDialog: true})}
             className={classes.deleteIcon}
@@ -68,6 +85,38 @@ class SidebarItem extends React.PureComponent {
             </Button>
             <Button onClick={() => this.deleteNote(note)} color="secondary" autoFocus>
               Yes
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+        <Dialog
+          open={this.state.openShareDialog}
+          onClose={this.closeDialog}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description" className={classes.dialogText}>
+              Share this post anonymously
+              <HelpOutlineIcon
+                className={classes.helpOutlineIcon}
+              />
+              <Checkbox
+                checked={this.state.isAnonymous}
+                onChange={this.handleChangeAnonymous}
+                value="checkedA"
+                inputProps={{
+                  'aria-label': 'primary checkbox',
+                }}
+              />
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.closeDialog} className={classes.darkPink}>
+              Cancel
+            </Button>
+            <Button onClick={() => this.shareNote(note)} color="secondary" autoFocus>
+              Send
             </Button>
           </DialogActions>
         </Dialog>

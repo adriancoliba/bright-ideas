@@ -6,7 +6,7 @@ export const getPosts = () => dispatch => {
   myFirebase
     .firestore()
     .collection('posts')
-    .orderBy("date", "asc")
+    .orderBy("date", "desc")
     .onSnapshot(serverUpdate => {
       const posts = serverUpdate.docs.map(doc => {
         const data = doc.data();

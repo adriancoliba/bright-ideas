@@ -31,7 +31,7 @@ class SnackbarComponent extends React.PureComponent {
 
   render() {
     const { classes } = this.props;
-    const { variant, message, wasChanged } = this.state
+    const { variant, message, wasChanged } = this.state;
     return (
       <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
