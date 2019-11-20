@@ -2,7 +2,6 @@ Auth Users: {
     email: 'abraham@lincoln.com'
     password: '***********'
     displayName: 'Abraham Lincoln'
-    photoURL: JSON.stringify({ profileInfo: 'I\'m cool...', avatarId: 'a1' })
 }
 
 /////

@@ -2,6 +2,7 @@ import { myFirebase } from "../../utils/firebase";
 import { SIGN_IN_USER_SUCCESS, SIGN_UP_USER_SUCCESS, RESET_USER_SUCCESS, AUTH_LISTENER_SUCCESS, AUTH_LISTENER_ERROR,
   SET_USER_AUTHENTICATED, SET_USER_DE_AUTHENTICATED, SET_SIGN_IN_MESSAGE, SET_SIGN_UP_MESSAGE, GET_USERS_ALL_SUCCESS, GET_USER_ALL_SUCCESS,
   SET_RESET_MESSAGE, START_LOADING, UPDATE_USER_SUCCESS} from '../constants/authConstants';
+import {updateUserToUsersSuccess} from "./profileActions";
 
 export const signInUser = (user) => dispatch => {
   dispatch(startLoading());
@@ -33,16 +34,8 @@ export const signUpUser = (user) => dispatch => {
       .then( u => {
         const currentUser = myFirebase.auth().currentUser;
         const displayName = `${user.firstName} ${user.lastName}`;
-
-        currentUser.updateProfile({
-          displayName: displayName,
-          photoURL: JSON.stringify({profileInfo: 'I\'m cool...', avatarId: 'a1'})
-        }).then( () => {
-          dispatch(signUpUserSuccess(user));
-          dispatch(addUserToUsers(currentUser.uid, displayName));
-        }).catch( error => {
-          console.log(error)
-        });
+        dispatch(signUpUserSuccess(user));
+        dispatch(addUserToUsers(currentUser.uid, displayName));
       })
       .catch( error => {
         dispatch(showSignUpMessage(error, null))
@@ -84,8 +77,6 @@ export const authListener = () => (dispatch) => {
         const userDetails = {
           email: user.email,
           id: user.uid,
-          displayName: user.displayName,
-          photoURL: JSON.parse(user.photoURL)
         };
         localStorage.setItem('uid', user.uid);
         dispatch(authListenerSuccess(userDetails))
@@ -170,29 +161,21 @@ export const addUserToUsers = (uid, displayName) => {
   )
 };
 
-export const updateUserToUsersSuccess = (userAllId, displayName, avatarAndProfileInfo) => {
-  return () => {
-    const updateObj = {};
-    Object.assign(updateObj,
-      displayName !== 'no' && { displayName: displayName },
-      avatarAndProfileInfo !== 'no' && { avatarId: avatarAndProfileInfo.avatarId, profileInfo: avatarAndProfileInfo.profileInfo },
-    );
-    const updateRef = myFirebase.firestore().collection("usersAll").doc(userAllId);
-    return updateRef.update(updateObj)
+export const updateUserToUsers = (userAllId, displayName, profileInfo, avatarId) => dispatch => {
+  const updateObj = {};
+  Object.assign(updateObj,
+    displayName !== 'no' && { displayName: displayName },
+    profileInfo !== 'no' && { profileInfo: profileInfo },
+    avatarId !== 'no' && { avatarId: avatarId },
+  );
+  const updateRef = myFirebase.firestore().collection("usersAll").doc(userAllId);
+  return updateRef.update(updateObj)
     .then(function() {
-
+      dispatch(updateUserToUsersSuccess(updateObj))
     })
     .catch(function(error) {
 
     });
-
-  }
-};
-
-export const updateUserSuccess = () => {
-  return {
-    type: UPDATE_USER_SUCCESS,
-  }
 };
 
 export const getUsersAll = () => dispatch => {

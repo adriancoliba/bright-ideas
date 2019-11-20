@@ -3,7 +3,7 @@ import {
   START_LOADING,
   UPDATE_PROFILE_SUCCESS,
   CLEAR_PROFILE_MESSAGE,
-  CHANGE_AVATAR_SUCCESS,
+  UPDATE_USER_TO_USERS_SUCCESS,
 } from '../constants/profileConstants'
 
 const INITIAL_STATE = {
@@ -27,12 +27,12 @@ const profileReducer = (state = INITIAL_STATE, action) => {
     case UPDATE_PROFILE_SUCCESS:
       return {...state, loading: false, profileMessage: 'successful'};
 
-    case CHANGE_AVATAR_SUCCESS:
+    case UPDATE_USER_TO_USERS_SUCCESS:
       return {
         ...state,
         loading: false,
         profileMessage: 'successful',
-        newAvatarId: action.newPhotoURL.avatarId
+        newAvatarId: action.updateObj.avatarId,
       };
 
     case CLEAR_PROFILE_MESSAGE:

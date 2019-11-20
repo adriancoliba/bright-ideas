@@ -7,6 +7,7 @@ import {
 const INITIAL_STATE = {
   user: null,
   userAll: null,
+  userAllInitialized: false,
   usersAll: null,
   isUserAuthenticated: false,
   loginMessage: '',
@@ -56,7 +57,8 @@ const authReducer = (state = INITIAL_STATE, action) => {
     case GET_USER_ALL_SUCCESS:
       return {
         ...state,
-        userAll: action.userAll
+        userAll: action.userAll,
+        userAllInitialized: true
       };
 
     case START_LOADING:
