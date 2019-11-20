@@ -19,8 +19,8 @@ class NotepadPage extends React.PureComponent {
 
   componentDidMount() {
     const { dispatch } = this.props;
-    const userId = this.props.user && this.props.user.id || localStorage.getItem('uid');
-    dispatch(getNotes(userId));
+    const uid = this.props.user && this.props.user.id || localStorage.getItem('uid');
+    dispatch(getNotes(uid));
   }
 
   componentWillUnmount() {
@@ -37,7 +37,7 @@ class NotepadPage extends React.PureComponent {
     const note = {
       title: title,
       body: '',
-      userId : this.props.user && this.props.user.id || localStorage.getItem('uid')
+      uid : this.props.user && this.props.user.id || localStorage.getItem('uid')
     };
     const { dispatch } = this.props;
     dispatch(newNote(note));
@@ -63,7 +63,7 @@ class NotepadPage extends React.PureComponent {
     const post = {
       title: note.title,
       body: note.body,
-      userId: user.id,
+      uid: user.id,
       displayName: isAnonymous ? 'anonymous' : user.displayName
     };
     if(Object.values(post).some(el => el === '' || el === null)){
@@ -73,6 +73,7 @@ class NotepadPage extends React.PureComponent {
   };
 
   render() {
+    console.log('notesAll', this.props.notesAll)
     return(
       <div className="app-container">
         <Sidebar

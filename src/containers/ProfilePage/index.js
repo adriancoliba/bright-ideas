@@ -6,6 +6,7 @@ import {Dialog, DialogActions, DialogContent, DialogContentText, Grid, withStyle
 import style from "./style";
 import { connect } from 'react-redux'
 import { showProfileMessage, updateProfile, deleteUser, clearMessage, changeAvatar } from '../../store/actions/profileActions';
+import { getUserAll } from '../../store/actions/authActions';
 import HelpOutlineIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import AvatarUser from '../../components/AvatarUser';
 import Snackbar from '../../components/Snackbar';
@@ -26,9 +27,10 @@ class ProfilePage extends Component {
   }
 
   componentDidMount() {
-    const { user } = this.props;
+    const { user, dispatch } = this.props;
     user && user.displayName && this.setState({displayName: user.displayName})
     user && user.photoURL && this.setState({photoURL: user.photoURL})
+    dispatch(getUserAll(localStorage.getItem('uid')))
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
@@ -83,7 +85,7 @@ class ProfilePage extends Component {
       const propsProfileInfo = this.props.user.photoURL ? this.props.user.photoURL.profileInfo : '';
       const photoURL = (this.state.photoURL.profileInfo === propsProfileInfo) ? 'no' : this.state.photoURL;
 
-      return dispatch(updateProfile(name, photoURL, password))
+      return dispatch(updateProfile(this.props.userAll.id, name, photoURL, password))
     }
   };
 
@@ -236,6 +238,7 @@ const mapStateToProps = (state) => {
   return {
     isUserAuthenticated: state.auth.isUserAuthenticated,
     user: state.auth.user,
+    userAll: state.auth.userAll,
     profileMessage: state.profile.profileMessage,
     changedPassword: state.profile.changedPassword,
     loading: state.profile.loading,

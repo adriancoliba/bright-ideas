@@ -6,12 +6,14 @@ import { connect } from 'react-redux'
 import { Link } from "react-router-dom";
 import BlogPosts from '../../components/BlogPosts'
 import {getPosts} from "../../store/actions/blogActions";
+import {getUsersAll} from "../../store/actions/authActions";
 
 class BlogPage extends Component {
 
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(getPosts());
+    dispatch(getUsersAll())
   }
 
   render() {
@@ -34,7 +36,8 @@ BlogPage.propTypes = {};
 const mapStateToProps = (state) => {
   return {
     isUserAuthenticated: state.auth.isUserAuthenticated,
-    posts: state.blog.posts
+    posts: state.blog.posts,
+    usersAll: state.auth.usersAll,
   }
 };
 

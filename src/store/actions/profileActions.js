@@ -1,27 +1,26 @@
 import { myFirebase } from "../../utils/firebase";
 import { SET_PROFILE_MESSAGE, UPDATE_PROFILE_SUCCESS, START_LOADING,
-  CLEAR_PROFILE_MESSAGE, CHANGE_AVATAR_SUCCESS} from "../constants/profileConstants";
-import { setUserDeAuthenticated } from './authActions';
+  CLEAR_PROFILE_MESSAGE, CHANGE_AVATAR_SUCCESS, } from "../constants/profileConstants";
+import { setUserDeAuthenticated, updateUserToUsersSuccess} from './authActions';
 import { push } from 'connected-react-router';
 
-export const updateProfile = (displayName, photoURL, password) => dispatch => {
+export const updateProfile = (userAllId, displayName, photoURL, password) => dispatch => {
   dispatch(startLoading());
+  dispatch(updateUserToUsersSuccess(userAllId, displayName, photoURL))
 
   if(displayName !== 'no'){
     myFirebase.auth().currentUser
       .updateProfile({displayName: displayName})
-      .then(() => {
-        return (password === 'no' || photoURL === 'no') ? dispatch(showProfileMessage(null, 'successful')) : null
-      })
-      .catch( error => dispatch(showProfileMessage(error, null)))
+      .then( () => (password === 'no' || photoURL === 'no') && dispatch(showProfileMessage(null, 'successful')))
+      .catch( error => {
+        dispatch(showProfileMessage(error, null))
+    })
   }
 
   if(photoURL !== 'no'){
     myFirebase.auth().currentUser
       .updateProfile({ photoURL: JSON.stringify(photoURL) })
-      .then(() => {
-        return (password === 'no') ? dispatch(showProfileMessage(null, 'successful')) : null
-      })
+      .then(() => (password === 'no') && dispatch(showProfileMessage(null, 'successful')) )
       .catch( error => dispatch(showProfileMessage(error, null)))
   }
 

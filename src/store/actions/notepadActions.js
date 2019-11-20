@@ -3,7 +3,7 @@ import { GET_NOTES_SUCCESS, SELECT_NOTE, NEW_NOTE_SUCCESS, DELETE_NOTE_SUCCESS, 
   SHARE_NOTE_SUCCESS, SHOW_NOTEPAD_MESSAGE, CLEAR_NOTEPAD_SHARED, CLEAR_NOTEPAD_MESSAGE} from "../constants/notepadConstants";
 import firebase from "firebase";
 
-export const getNotes = (userId) => (dispatch, getState) => {
+export const getNotes = (uid) => (dispatch, getState) => {
   myFirebase
     .firestore()
     .collection('notesAll')
@@ -14,7 +14,7 @@ export const getNotes = (userId) => (dispatch, getState) => {
         data.id = doc.id;
         return data;
       }).filter(doc => {
-        return doc.userId === userId
+        return doc.uid === uid
       });
     dispatch(getNotesSuccess(notesAll));
     });
@@ -36,7 +36,6 @@ export const selectNote = (note, index) => {
 };
 
 export const updateNote = (id, noteObj) => {
-
   return () => {
     const noteRef = myFirebase.firestore().collection('notesAll').doc(id);
     return noteRef.update({
@@ -46,11 +45,10 @@ export const updateNote = (id, noteObj) => {
     })
     .then(function() {
 
-  })
+    })
     .catch(function(error) {
 
     });
-
   }
 };
 
@@ -76,7 +74,7 @@ export const shareNote = post => (dispatch, getState) => {
     .add({
       title: post.title,
       body: post.body,
-      userId: post.userId,
+      uid: post.uid,
       displayName: post.displayName,
       comments: [],
       date: new Date(),
@@ -110,7 +108,7 @@ export const newNote = newNote => dispatch => {
     .add({
       title: newNote.title,
       body: newNote.body,
-      userId: newNote.userId,
+      uid: newNote.uid,
       date: new Date(),
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
     })
