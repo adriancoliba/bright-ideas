@@ -31,10 +31,10 @@ export const signUpUser = (user) => dispatch => {
     myFirebase
       .auth()
       .createUserWithEmailAndPassword(user.email, user.password)
-      .then( u => {
+      .then ( u => {
         const currentUser = myFirebase.auth().currentUser;
         const displayName = `${user.firstName} ${user.lastName}`;
-        dispatch(signUpUserSuccess(user));
+        dispatch(signUpUserSuccess());
         dispatch(addUserToUsers(currentUser.uid, displayName));
       })
       .catch( error => {
@@ -43,10 +43,9 @@ export const signUpUser = (user) => dispatch => {
   )
 };
 
-export const signUpUserSuccess = (user) => {
+export const signUpUserSuccess = () => {
   return {
     type: SIGN_UP_USER_SUCCESS,
-    user: user,
   }
 };
 
@@ -143,7 +142,7 @@ export const startLoading = () => {
   }
 };
 
-export const addUserToUsers = (uid, displayName) => {
+export const addUserToUsers = (uid, displayName) => dispatch => {
   return (
     myFirebase
       .firestore()
