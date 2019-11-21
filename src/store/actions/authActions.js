@@ -160,6 +160,17 @@ export const addUserToUsers = (uid, displayName) => dispatch => {
   )
 };
 
+export const deleteUserToUsers = (id) => dispatch => {
+  const userAllRef = myFirebase.firestore().collection('usersAll').doc(id);
+  return userAllRef.delete()
+    .then(() => {
+      console.log('deleted')
+    })
+    .catch( error => {
+      console.log('error', error)
+    })
+};
+
 export const updateUserToUsers = (userAllId, displayName, profileInfo, avatarId) => dispatch => {
   const updateObj = {};
   Object.assign(updateObj,

@@ -1,7 +1,7 @@
 import { myFirebase } from "../../utils/firebase";
 import { SET_PROFILE_MESSAGE, START_LOADING,
   CLEAR_PROFILE_MESSAGE, UPDATE_USER_TO_USERS_SUCCESS, } from "../constants/profileConstants";
-import { setUserDeAuthenticated, updateUserToUsers, getUserAll} from './authActions';
+import { setUserDeAuthenticated, updateUserToUsers, deleteUserToUsers} from './authActions';
 import { push } from 'connected-react-router';
 
 export const updateProfile = (userAllId, displayName, profileInfo) => dispatch => {
@@ -27,11 +27,12 @@ export const showProfileMessage = (error, customError) => {
   }
 };
 
-export const deleteUser = () => dispatch => {
+export const deleteUser = (uid, id) => dispatch => {
   const user = myFirebase.auth().currentUser;
   user.delete()
     .then(() => {
       dispatch(setUserDeAuthenticated());
+      dispatch(deleteUserToUsers(id));
       setTimeout(() => {
         dispatch(push('/'));
         window.location.reload()

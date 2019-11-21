@@ -81,8 +81,8 @@ class ProfilePage extends Component {
   };
 
   onDeleteUser = () => {
-    const { dispatch } = this.props;
-    dispatch(deleteUser());
+    const { dispatch, userAll } = this.props;
+    dispatch(deleteUser(userAll.uid, userAll.id));
   };
 
   changeAvatar = (avatarId) => {
