@@ -54,7 +54,7 @@ class ProfilePage extends Component {
   handleCloseModal = () => { this.setState({openDeleteDialog: false}) };
 
   onUpdateProfile = () => {
-    const { dispatch } = this.props;
+    const { dispatch, userAll } = this.props;
 
     if (this.state.displayName === '') {
       return dispatch(showProfileMessage(null, 'Complete your Full Name.'))
@@ -63,12 +63,12 @@ class ProfilePage extends Component {
       if(!displayNameRegex.test(this.state.displayName)){
         return dispatch(showProfileMessage(null, 'Your Full Name is badly formatted.'))
       }
-      const displayName = (this.state.displayName === this.props.user.displayName) ? 'no' : this.state.displayName;
+      const displayName = (this.state.displayName === userAll.displayName) ? 'no' : this.state.displayName;
 
-      const propsProfileInfo = this.props.userAll.profileInfo ? this.props.userAll.profileInfo : '';
-      const profileInfo = (this.state.profileInfo === propsProfileInfo) ? 'no' : this.state.profileInfo
+      const propsProfileInfo = userAll.profileInfo ? userAll.profileInfo : '';
+      const profileInfo = (this.state.profileInfo === propsProfileInfo) ? 'no' : this.state.profileInfo;
 
-      return dispatch(updateProfile(this.props.userAll.id, displayName, profileInfo ))
+      return dispatch(updateProfile(userAll.id, displayName, profileInfo ))
     }
   };
 

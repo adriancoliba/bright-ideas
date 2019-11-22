@@ -3,10 +3,8 @@ import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import style from './style';
 import { Snackbar, SnackbarContent } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ErrorIcon from '@material-ui/icons/Error';
-import InfoIcon from '@material-ui/icons/Info';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 

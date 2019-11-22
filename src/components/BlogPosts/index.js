@@ -2,12 +2,8 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames'
 import style from './style';
-import {
-  Button, Paper, Avatar, Fade, Modal, Backdrop, Grid, CircularProgress,
-  Dialog, DialogContent, DialogContentText, DialogActions, Divider, List
-} from '@material-ui/core';
+import { CircularProgress } from '@material-ui/core';
 import BlogPost from "../BlogPost";
-import { getPosts, } from "../../store/actions/blogActions";
 
 class BlogPosts extends React.PureComponent {
   constructor() {
@@ -17,13 +13,8 @@ class BlogPosts extends React.PureComponent {
     };
   }
 
-  componentWillReceiveProps(nextProps, nextContext) {
-
-  }
-
-
   render() {
-    const { classes, posts } = this.props;
+    const { classes, posts, usersAll } = this.props;
 
     if(posts) {
     return(
@@ -33,8 +24,8 @@ class BlogPosts extends React.PureComponent {
               <div key={index}>
                 <BlogPost
                   post={post}
+                  usersAll={usersAll}
                 />
-                {/*<Divider/>*/}
               </div>
             )
           })

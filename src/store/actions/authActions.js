@@ -78,6 +78,8 @@ export const authListener = () => (dispatch) => {
           id: user.uid,
         };
         localStorage.setItem('uid', user.uid);
+        dispatch(getUsersAll());
+        dispatch(getUserAll(user.uid));
         dispatch(authListenerSuccess(userDetails))
       } else if (!user) {
         dispatch(authListenerError());
@@ -171,14 +173,14 @@ export const deleteUserToUsers = (id) => dispatch => {
     })
 };
 
-export const updateUserToUsers = (userAllId, displayName, profileInfo, avatarId) => dispatch => {
+export const updateUserToUsers = (userAllDocId, displayName, profileInfo, avatarId) => dispatch => {
   const updateObj = {};
   Object.assign(updateObj,
     displayName !== 'no' && { displayName: displayName },
     profileInfo !== 'no' && { profileInfo: profileInfo },
     avatarId !== 'no' && { avatarId: avatarId },
   );
-  const updateRef = myFirebase.firestore().collection("usersAll").doc(userAllId);
+  const updateRef = myFirebase.firestore().collection("usersAll").doc(userAllDocId);
   return updateRef.update(updateObj)
     .then(function() {
       dispatch(updateUserToUsersSuccess(updateObj))

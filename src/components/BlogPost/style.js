@@ -10,6 +10,12 @@ const style = (theme) => ({
     marginTop: theme.spacing(3),
     backgroundColor: '#f0efef'
   },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+    width: 40,
+    height: 40,
+  },
 });
 
 export default style;

@@ -1,36 +1,45 @@
-Auth Users: {
-    email: 'abraham@lincoln.com'
-    password: '***********'
-    displayName: 'Abraham Lincoln'
-}
+Auth Users: [
+    {
+        email: 'abraham@lincoln.com',
+        password: '***********',
+        displayName: 'Abraham Lincoln',
+        id: "RPwBYr1rXLPNpUfa4SOdDv1PyD2",
+    },
+]
 
 /////
 DATABASE COLLECTIONS:
 /////
 
-users: {
-    avatarId: "a1"
-    date: November 20, 2019 at 3:35:34 PM UTC+2
-    displayName: "abraham noah"
-    profileInfo: "I'm cool..."
-    id: "DFaberFDFeedsF"
-    uid: "RPwBYr1rXLPNpUfa4SOdDv1PyD2"
-}
+users: [
+    {
+        avatarId: "a1",
+        date: November 20, 2019 at 3:35:34 PM UTC+2,
+        displayName: "abraham noah",
+        profileInfo: "I'm cool...",
+        id: "DFaberFDFeedsF",
+        uid: "RPwBYr1rXLPNpUfa4SOdDv1PyD2",
+    }
+]
 
-notesAll: {
-    body: "<p>cool because it comes with nuts :D</p>"
-    date: November 20, 2019 at 3:35:57 PM UTC+2
-    timestamp: November 20, 2019 at 3:36:02 PM UTC+2
-    title: "Macadamia"
-    uid: "RPwBYr1rXLPNpUfa4SOdDv1PyD2"
-}
+notesAll: [
+    {
+        body: "<p>cool because it comes with nuts :D</p>",
+        date: November 20, 2019 at 3:35:57 PM UTC+2,
+        timestamp: November 20, 2019 at 3:36:02 PM UTC+2,
+        title: "Macadamia",
+        uid: "RPwBYr1rXLPNpUfa4SOdDv1PyD2",
+    },
+]
 
-posts: {
-    body: "<p>cool</p>"
-    comments: []
-    date: November 20, 2019 at 3:36:04 PM UTC+2
-    displayName: "abraham noah"
-    timestamp: November 20, 2019 at 3:36:04 PM UTC+2
-    title: "adas"
-    uid: "RPwBYr1rXLPNpUfa4SOdDv1PyD2"
-}
+posts: [
+    {
+        body: "<p>cool</p>",
+        comments: [],
+        date: November 20, 2019 at 3:36:04 PM UTC+2,
+        displayName: "abraham noah",
+        timestamp: November 20, 2019 at 3:36:04 PM UTC+2,
+        title: "adas",
+        uid: "RPwBYr1rXLPNpUfa4SOdDv1PyD2",
+    },
+]

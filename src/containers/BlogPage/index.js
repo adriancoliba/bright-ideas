@@ -17,13 +17,13 @@ class BlogPage extends Component {
   }
 
   render() {
-    const { classes, posts } = this.props;
+    const { classes, posts, usersAll } = this.props;
     return (
       <div>
         <Container component="main" maxWidth="sm">
           <CssBaseline />
           <div>
-            <BlogPosts posts={posts}/>
+            <BlogPosts posts={posts} usersAll={usersAll}/>
           </div>
         </Container>
       </div>

@@ -18,9 +18,8 @@ class NotepadPage extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { dispatch } = this.props;
-    const uid = this.props.user && this.props.user.id || localStorage.getItem('uid');
-    dispatch(getNotes(uid));
+    const { dispatch, userAll } = this.props;
+    dispatch(getNotes(userAll.uid));
   }
 
   componentWillUnmount() {
@@ -34,12 +33,12 @@ class NotepadPage extends React.PureComponent {
   }
 
   newNote = async (title) => {
+    const { dispatch, userAll } = this.props;
     const note = {
       title: title,
       body: '',
-      uid : this.props.user && this.props.user.id || localStorage.getItem('uid')
+      uid : userAll.uid,
     };
-    const { dispatch } = this.props;
     dispatch(newNote(note));
   };
 
@@ -59,12 +58,12 @@ class NotepadPage extends React.PureComponent {
   };
 
   shareNote = (note, isAnonymous) => {
-    const { dispatch, user } = this.props;
+    const { dispatch, userAll } = this.props;
     const post = {
       title: note.title,
       body: note.body,
-      uid: user.id,
-      displayName: isAnonymous ? 'anonymous' : user.displayName
+      uid: userAll.uid,
+      displayName: isAnonymous ? 'Anonymous' : userAll.displayName
     };
     if(Object.values(post).some(el => el === '' || el === null)){
       return dispatch(showNotepadMessage('Title or Body might be empty'));
@@ -73,7 +72,6 @@ class NotepadPage extends React.PureComponent {
   };
 
   render() {
-    console.log('notesAll', this.props.notesAll)
     return(
       <div className="app-container">
         <Sidebar
@@ -101,7 +99,8 @@ class NotepadPage extends React.PureComponent {
 const mapStateToProps = (state) => {
   return {
     isUserAuthenticated: state.auth.isUserAuthenticated,
-    user: state.auth.user,
+    userAll: state.auth.userAll,
+    usersAll: state.auth.usersAll,
     noteSelectedId: state.notepad.noteSelectedId,
     noteSelected: state.notepad.noteSelected,
     notesAll: state.notepad.notesAll,
