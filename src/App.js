@@ -9,6 +9,7 @@ import HomePage from "./containers/HomePage";
 import NotepadPage from "./containers/NotepadPage";
 import BlogPage from "./containers/BlogPage";
 import ProfilePage from "./containers/ProfilePage";
+import PostsPage from "./containers/PostsPage";
 import * as ROUTES from "./constants/routes";
 import { connect } from 'react-redux';
 import { checkUserAuth } from './utils/utilities';
@@ -47,6 +48,7 @@ class App extends React.PureComponent {
                     <Route exact path={ROUTES.HOME}><BlogPage/></Route>
                     <Route exact path={ROUTES.NOTEPAD}><NotepadPage/></Route>
                     <Route path={ROUTES.PROFILE}><ProfilePage/></Route>
+                    <Route path={ROUTES.POSTS}><PostsPage/></Route>
                   </> :
                   <>
                     <Route exact path={ROUTES.HOME}> <HomePage/> </Route>

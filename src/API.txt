@@ -16,6 +16,7 @@ users: [
         avatarId: "a1",
         date: November 20, 2019 at 3:35:34 PM UTC+2,
         displayName: "abraham noah",
+        mail: "abraham.noah@gmail.com",
         profileInfo: "I'm cool...",
         id: "DFaberFDFeedsF",
         uid: "RPwBYr1rXLPNpUfa4SOdDv1PyD2",

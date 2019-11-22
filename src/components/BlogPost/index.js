@@ -6,6 +6,7 @@ import { Button, Paper, Avatar, Fade, Popover, Grid, Typography, Divider, Box, }
 import { iconsObject } from "../AvatarUser/imports";
 import parse from 'html-react-parser';
 import PopoverComponent from '../Popover';
+import { Link } from 'react-router-dom';
 
 class BlogPost extends React.PureComponent {
   constructor() {
@@ -25,14 +26,12 @@ class BlogPost extends React.PureComponent {
 
   render() {
     const { classes, post, usersAll } = this.props;
-
     const userAll = usersAll && usersAll.filter(user => user.uid === post.uid)[0];
     const avatarId = userAll && post.displayName !== 'Anonymous' ? userAll.avatarId : 'a31';
 
     const dateParsed = post.date.toDate().toLocaleDateString('en-GB',
       { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-    const postBodyParsed = parse(post.body.substring(0, 200));
-
+    const postBodyParsed = parse(`${post.body.substring(0, 300)} ${post.body.length>299 && '...'}`);
     return (
       <div key={post.id}>
         {post.displayName !== 'Anonymous' && <PopoverComponent openPopover={this.state.openPopover} userAll={userAll}/>}
@@ -54,15 +53,29 @@ class BlogPost extends React.PureComponent {
                           aria-haspopup="true"
                           onMouseEnter={this.handlePopoverOpen}
                           onMouseLeave={this.handlePopoverClose}>
-                {post.displayName}
+                {userAll && (post.displayName !== 'Anonymous' ? userAll.displayName : 'Anonymous')}
               </Typography>
             </Grid>
           </Grid>
           <Divider/> <Box m={2} />
-          <Typography variant="body1" className={classes.primaryDarkColor}>{post.title}</Typography>
-          <Typography variant="body2" component={'span'} >{postBodyParsed}{post.body.length > 199 && ' ...'}</Typography>
+
+          <Link to={`/posts/${post.id}`}>
+            <Typography variant="body1" className={classes.primaryDarkColor}>{post.title}</Typography>
+          </Link>
+          <Typography variant="body2" component={'span'} style={{marginBottom: '2px'}}>{postBodyParsed}</Typography>
+
+          {post.body.length > 299 &&
+          <Button variant="contained" className={classNames(classes.readMoreButton, classes.buttonNoTransform)}>read more</Button>
+          }
           <Box m={2} /> <Divider/> <Box m={2} />
-          <Typography variant="caption">{dateParsed}</Typography>
+          <Grid container alignItems='center' justify='space-between'>
+            <Grid item >
+              <Typography variant="caption">{dateParsed}</Typography>
+            </Grid>
+            <Grid item >
+              <Button className={classes.buttonNoTransform}>{post.comments.length} comments</Button>
+            </Grid>
+          </Grid>
         </Paper>
       </div>
     )

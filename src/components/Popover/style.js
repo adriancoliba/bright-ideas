@@ -5,8 +5,9 @@ const style = (theme) => ({
     pointerEvents: 'none',
   },
   paper: {
-    padding: theme.spacing(6),
-    backgroundColor: '#f0efef'
+    padding: theme.spacing(4),
+    backgroundColor: '#f0efef',
+    maxWidth: 400
   },
 });
 

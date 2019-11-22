@@ -35,7 +35,7 @@ export const signUpUser = (user) => dispatch => {
         const currentUser = myFirebase.auth().currentUser;
         const displayName = `${user.firstName} ${user.lastName}`;
         dispatch(signUpUserSuccess());
-        dispatch(addUserToUsers(currentUser.uid, displayName));
+        dispatch(addUserToUsers(currentUser.uid, displayName, user.email));
       })
       .catch( error => {
         dispatch(showSignUpMessage(error, null))
@@ -144,7 +144,7 @@ export const startLoading = () => {
   }
 };
 
-export const addUserToUsers = (uid, displayName) => dispatch => {
+export const addUserToUsers = (uid, displayName, email) => dispatch => {
   return (
     myFirebase
       .firestore()
@@ -155,6 +155,7 @@ export const addUserToUsers = (uid, displayName) => dispatch => {
         profileInfo: 'I\'m cool...',
         avatarId: 'a1',
         date: new Date(),
+        email: email,
       })
       .then( () => {
         console.log('added')

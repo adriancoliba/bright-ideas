@@ -16,6 +16,14 @@ const style = (theme) => ({
     width: 40,
     height: 40,
   },
+  readMoreButton: {
+    marginTop: -10,
+    padding: '5px 9px'
+  },
+  buttonNoTransform: {
+    textTransform: 'none',
+    textDecoration: 'none',
+  },
 });
 
 export default style;
