@@ -16,11 +16,20 @@ const style = (theme) => ({
   },
   deleteIcon: {
     position: 'absolute',
-    right: '15px',
+    right: 15,
     top: 'calc(50% - 15px)',
     color: theme.palette.secondary.main,
     '&:hover': {
       color: theme.palette.pink.dark,
+    }
+  },
+  shareIcon: {
+    position: 'absolute',
+    right: 50,
+    top: 'calc(50% - 15px)',
+    color: theme.palette.secondary.main,
+    '&:hover': {
+      color: theme.palette.primary.main,
     }
   },
   helpOutlineIcon: {

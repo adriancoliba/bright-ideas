@@ -30,6 +30,8 @@ class Sidebar extends React.PureComponent {
 
   deleteNote = (note) => this.props.deleteNote(note);
 
+  shareNote = (note, isAnonymous) => this.props.shareNote(note, isAnonymous);
+
   render() {
     const { classes, notesAll, noteSelectedId } = this.props;
 
@@ -65,6 +67,7 @@ class Sidebar extends React.PureComponent {
                       noteSelectedId={noteSelectedId}
                       selectNote={this.selectNote}
                       deleteNote={this.deleteNote}
+                      shareNote={this.shareNote}
                     />
                     <Divider/>
                   </div>

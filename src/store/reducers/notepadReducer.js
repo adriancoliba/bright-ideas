@@ -1,4 +1,5 @@
-import { GET_NOTES_SUCCESS, SELECT_NOTE, NEW_NOTE_SUCCESS, DELETE_NOTE_SUCCESS } from '../constants/notepadConstants'
+import { GET_NOTES_SUCCESS, SELECT_NOTE, NEW_NOTE_SUCCESS, DELETE_NOTE_SUCCESS, START_LOADING,
+  SHOW_NOTEPAD_MESSAGE, SHARE_NOTE_SUCCESS, CLEAR_NOTEPAD_SHARED, CLEAR_NOTEPAD_MESSAGE } from '../constants/notepadConstants'
 
 const INITIAL_STATE = {
   noteSelectedId: null,
@@ -6,6 +7,8 @@ const INITIAL_STATE = {
   notesAll: [],
   noteTitleUpdated: '',
   noteBodyUpdate: '',
+  notepadMessage: null,
+  isNotepadShared: null
 };
 
 const notepadReducer = (state = INITIAL_STATE, action) => {
@@ -25,7 +28,6 @@ const notepadReducer = (state = INITIAL_STATE, action) => {
 
     case NEW_NOTE_SUCCESS:
       const newNoteIndex = state.notesAll.indexOf(state.notesAll.filter(note => note.id === action.newID)[0]);
-
       return {
         ...state,
         notesAll: [...state.notesAll, action.newNote],
@@ -60,6 +62,31 @@ const notepadReducer = (state = INITIAL_STATE, action) => {
         }
       };
       return checkIfNoteIsSelected();
+
+      case SHARE_NOTE_SUCCESS:
+        return {
+          ...state,
+          notepadMessage: 'successful',
+          isNotepadShared: state.isNotepadShared + 1
+        };
+
+      case SHOW_NOTEPAD_MESSAGE:
+        return {
+          ...state,
+          notepadMessage: action.message
+        };
+
+      case CLEAR_NOTEPAD_SHARED:
+        return {
+          ...state,
+          isNotepadShared: null,
+        };
+
+      case CLEAR_NOTEPAD_MESSAGE:
+        return {...state, profileMessage: null};
+
+      case START_LOADING:
+        return { ...state, loading: true };
 
     default:
       return state

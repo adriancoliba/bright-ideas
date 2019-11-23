@@ -1,43 +1,22 @@
 import { myFirebase } from "../../utils/firebase";
-import { SET_PROFILE_MESSAGE, UPDATE_PROFILE_SUCCESS, START_LOADING,
-  CLEAR_PROFILE_MESSAGE, CHANGE_AVATAR_SUCCESS} from "../constants/profileConstants";
-import { setUserDeAuthenticated } from './authActions';
+import { SET_PROFILE_MESSAGE, START_LOADING,
+  CLEAR_PROFILE_MESSAGE, UPDATE_USER_TO_USERS_SUCCESS, } from "../constants/profileConstants";
+import { setUserDeAuthenticated, updateUserToUsers, deleteUserToUsers} from './authActions';
 import { push } from 'connected-react-router';
 
-export const updateProfile = (displayName, photoURL, password) => dispatch => {
+export const updateProfile = (userAllId, displayName, profileInfo) => dispatch => {
   dispatch(startLoading());
-
-  if(displayName !== 'no'){
-    myFirebase.auth().currentUser
-      .updateProfile({displayName: displayName})
-      .then(() => {
-        return (password === 'no' || photoURL === 'no') ? dispatch(showProfileMessage(null, 'successful')) : null
-      })
-      .catch( error => dispatch(showProfileMessage(error, null)))
-  }
-
-  if(photoURL !== 'no'){
-    myFirebase.auth().currentUser
-      .updateProfile({ photoURL: JSON.stringify(photoURL) })
-      .then(() => {
-        return (password === 'no') ? dispatch(showProfileMessage(null, 'successful')) : null
-      })
-      .catch( error => dispatch(showProfileMessage(error, null)))
-  }
-
-  if(password !== 'no'){
-    myFirebase.auth().currentUser.updatePassword(password)
-      .then(() => {
-        return dispatch(showProfileMessage(null, 'successful/password'))
-      })
-      .catch( error => dispatch(showProfileMessage(error, null)))
-  }
+  dispatch(updateUserToUsers(userAllId, displayName, profileInfo, 'no'))
 };
 
-export const updateProfileSuccess = () => {
-  return {
-    type: UPDATE_PROFILE_SUCCESS,
-  }
+export const updateProfilePassword = (password) => dispatch => {
+  dispatch(startLoading());
+
+  myFirebase.auth().currentUser.updatePassword(password)
+    .then(() => {
+      return dispatch(showProfileMessage(null, 'successful/password'))
+    })
+    .catch( error => dispatch(showProfileMessage(error, null)))
 };
 
 export const showProfileMessage = (error, customError) => {
@@ -48,11 +27,12 @@ export const showProfileMessage = (error, customError) => {
   }
 };
 
-export const deleteUser = () => dispatch => {
+export const deleteUser = (uid, id) => dispatch => {
   const user = myFirebase.auth().currentUser;
   user.delete()
     .then(() => {
       dispatch(setUserDeAuthenticated());
+      dispatch(deleteUserToUsers(id));
       setTimeout(() => {
         dispatch(push('/'));
         window.location.reload()
@@ -62,22 +42,10 @@ export const deleteUser = () => dispatch => {
   });
 };
 
-export const changeAvatar = (avatarId, photoURL) => dispatch => {
-  const newPhotoURL = JSON.parse(JSON.stringify(photoURL));
-  newPhotoURL.avatarId = avatarId;
-
-  myFirebase.auth().currentUser
-    .updateProfile({ photoURL: JSON.stringify(newPhotoURL) })
-    .then(() => {
-      return dispatch(changeAvatarSuccess(newPhotoURL))
-    })
-    .catch( error => dispatch(showProfileMessage(error, null)))
-};
-
-export const changeAvatarSuccess = (newPhotoURL) => {
+export const updateUserToUsersSuccess = (updateObj) => {
   return {
-    type: CHANGE_AVATAR_SUCCESS,
-    newPhotoURL
+    type: UPDATE_USER_TO_USERS_SUCCESS,
+    updateObj
   }
 };
 
