@@ -65,7 +65,9 @@ class BlogPost extends React.PureComponent {
           <Typography variant="body2" component={'span'} style={{marginBottom: '2px'}}>{postBodyParsed}</Typography>
 
           {post.body.length > 299 &&
-          <Button variant="contained" className={classNames(classes.readMoreButton, classes.buttonNoTransform)}>read more</Button>
+          <Link to={`/posts/${post.id}`}>
+            <Button variant="contained" className={classNames(classes.readMoreButton, classes.buttonNoTransform)}>continue reading</Button>
+          </Link>
           }
           <Box m={2} /> <Divider/> <Box m={2} />
           <Grid container alignItems='center' justify='space-between'>
@@ -73,7 +75,9 @@ class BlogPost extends React.PureComponent {
               <Typography variant="caption">{dateParsed}</Typography>
             </Grid>
             <Grid item >
-              <Button className={classes.buttonNoTransform}>{post.comments.length} comments</Button>
+              <Link to={`/posts/${post.id}`}>
+                <Button className={classes.buttonNoTransform}>{post.comments.length} comments</Button>
+              </Link>
             </Grid>
           </Grid>
         </Paper>

@@ -18,7 +18,7 @@ const style = (theme) => ({
   },
   readMoreButton: {
     marginTop: -10,
-    padding: '5px 9px'
+    padding: '4px 9px'
   },
   buttonNoTransform: {
     textTransform: 'none',

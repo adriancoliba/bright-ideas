@@ -36,7 +36,14 @@ notesAll: [
 posts: [
     {
         body: "<p>cool</p>",
-        comments: [],
+        comments: [
+            {
+                displayName: 'Andrew Sealey',
+                text: 'I think your post suggests...',
+                date: November 20, 2019 at 3:36:04 PM UTC+2,
+                uid: "RPwBYr1rXLPNpUfa4SOdDv1PyD2",
+            }
+        ],
         date: November 20, 2019 at 3:36:04 PM UTC+2,
         displayName: "abraham noah",
         timestamp: November 20, 2019 at 3:36:04 PM UTC+2,
