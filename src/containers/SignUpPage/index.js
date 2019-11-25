@@ -36,7 +36,7 @@ class SignUpPage extends Component {
     this.setState({
       user: {
         ...this.state.user,
-        [event.target.name]: event.target.value
+        [event.target.name]: event.target.value.trim()
       }
     })
   };

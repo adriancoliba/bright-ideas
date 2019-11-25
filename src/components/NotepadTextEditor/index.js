@@ -46,11 +46,11 @@ class TextEditor extends React.PureComponent {
 
   updateBody = (val) => {
     this.update();
-    this.setState({ text: val });
+    this.setState({ text: val.trim() });
   };
 
   updateTitle = (txt) => {
-    this.setState({ title: txt });
+    this.setState({ title: txt.trim() });
     this.update()
   };
 

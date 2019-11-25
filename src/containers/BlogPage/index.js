@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Container, CssBaseline, Box, withStyles } from "@material-ui/core";
+import { Container, CssBaseline, withStyles } from "@material-ui/core";
 import style from "./style";
 import { connect } from 'react-redux'
-import { Link } from "react-router-dom";
 import BlogPosts from '../../components/BlogPosts'
 import {getPosts} from "../../store/actions/blogActions";
 import {getUsersAll} from "../../store/actions/authActions";
@@ -17,7 +16,7 @@ class BlogPage extends Component {
   }
 
   render() {
-    const { classes, posts, usersAll } = this.props;
+    const { posts, usersAll } = this.props;
     return (
       <div>
         <Container component="main" maxWidth="sm">

@@ -1,6 +1,7 @@
 import {
   SET_PROFILE_MESSAGE,
   START_LOADING,
+  STOP_LOADING,
   UPDATE_PROFILE_SUCCESS,
   CLEAR_PROFILE_MESSAGE,
   UPDATE_USER_TO_USERS_SUCCESS,
@@ -10,7 +11,7 @@ const INITIAL_STATE = {
   profileMessage: null,
   loading: false,
   changedPassword: false,
-  newAvatarId: null
+  newAvatarId: null,
 };
 
 const profileReducer = (state = INITIAL_STATE, action) => {
@@ -41,6 +42,8 @@ const profileReducer = (state = INITIAL_STATE, action) => {
     case START_LOADING:
       return { ...state, loading: true };
 
+    case STOP_LOADING:
+      return { ...state, loading: false };
     default:
       return state
   }

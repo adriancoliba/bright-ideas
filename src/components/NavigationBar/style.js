@@ -3,11 +3,24 @@ const style = (theme) => ({
     height: 60,
     boxSizing: 'borderBox',
   },
-  toolbarTitle: {
+  toolbar: {
+    maxWidth: 900,
+    margin: '0 auto'
+  },
+  logoIcon: {
+    marginRight: 5
+  },
+  logoText: {
     marginRight: 20,
     marginLeft: -12,
     paddingLeft: 15,
-    paddingRight: 10
+    paddingRight: 10,
+    fontSize: 23,
+    letterSpacing: 1.1,
+    fontWeight: 600,
+    background: '-webkit-linear-gradient(#FFE470, #FDBF00)',
+    '-webkit-background-clip': 'text',
+    '-webkit-text-fill-color': 'transparent',
   },
   toolbarLinks: {
     marginLeft: "auto",

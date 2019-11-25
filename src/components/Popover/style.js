@@ -1,5 +1,3 @@
-import { green } from '@material-ui/core/colors';
-
 const style = (theme) => ({
   popover: {
     pointerEvents: 'none',

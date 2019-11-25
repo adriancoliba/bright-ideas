@@ -28,7 +28,7 @@ class ResetPassword extends Component {
   }
 
   handleChangeEmail = event => {
-    this.setState({email: event.target.value})
+    this.setState({email: event.target.value.trim()})
   };
 
   handleCloseModal = () => { this.setState({openModal: false}) }

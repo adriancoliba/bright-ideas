@@ -12,6 +12,7 @@ import {withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setUserDeAuthenticated } from '../../store/actions/authActions';
 import { checkUserAuth } from '../../utils/utilities'
+import LogoIdea from '../../images/logo/idea.svg'
 
 class NavigationBar extends Component {
   constructor(props) {
@@ -31,9 +32,10 @@ class NavigationBar extends Component {
     const { pathname } = this.props.location;
     return (
       <AppBar position="static" className={classes.appBar} color="secondary">
-        <Toolbar>
-          <Typography variant="body1" color="inherit" className={classes.toolbarTitle}>
-            My Title
+        <Toolbar className={classes.toolbar}>
+          <img src={LogoIdea} width={38} className={classes.logoIcon} alt=''/>
+          <Typography variant="h5" color="inherit" className={classes.logoText} component={'span'}>
+            Bright Ideas
           </Typography>
           <span className={classes.toolbarLinks}>
             { checkUserAuth(isUserAuthenticated) ?
@@ -45,11 +47,11 @@ class NavigationBar extends Component {
                     <Button variant={pathname === '/' ? 'outlined' : 'text'} className={classes.button}>Blog</Button>
                   </Badge>
                 </Link>
-                <Link to="/profile">
-                  <Button variant={pathname === '/profile' ? 'outlined' : 'text'}  className={classes.button}>Profile Settings</Button>
-                </Link>
                 <Link to="/notepad">
                   <Button variant={pathname === '/notepad' ? 'outlined' : 'text'}  className={classes.button}>Notepad</Button>
+                </Link>
+                <Link to="/profile">
+                  <Button variant={pathname === '/profile' ? 'outlined' : 'text'}  className={classes.button}>Profile Settings</Button>
                 </Link>
                 <Link to="/">
                   <Button onClick={this.onSignOut} className={classes.button}>Sign Out</Button>
@@ -73,10 +75,6 @@ class NavigationBar extends Component {
     );
   }
 }
-
-{/*<IconButton color="inherit" aria-label="More Options">*/}
-{/*  <MoreVertIcon />*/}
-{/*</IconButton>*/}
 
 NavigationBar.propTypes = {
   classes: PropTypes.object.isRequired,

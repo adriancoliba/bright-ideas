@@ -1,5 +1,5 @@
 import { myFirebase } from "../../utils/firebase";
-import { SET_PROFILE_MESSAGE, START_LOADING,
+import { SET_PROFILE_MESSAGE, START_LOADING, STOP_LOADING,
   CLEAR_PROFILE_MESSAGE, UPDATE_USER_TO_USERS_SUCCESS, } from "../constants/profileConstants";
 import { setUserDeAuthenticated, updateUserToUsers, deleteUserToUsers} from './authActions';
 import { push } from 'connected-react-router';
@@ -58,5 +58,11 @@ export const clearMessage = () => {
 export const startLoading = () => {
   return {
     type: START_LOADING,
+  }
+};
+
+export const stopLoading = () => {
+  return {
+    type: STOP_LOADING,
   }
 };

@@ -83,7 +83,7 @@ const notepadReducer = (state = INITIAL_STATE, action) => {
         };
 
       case CLEAR_NOTEPAD_MESSAGE:
-        return {...state, profileMessage: null};
+        return {...state, notepadMessage: null};
 
       case START_LOADING:
         return { ...state, loading: true };

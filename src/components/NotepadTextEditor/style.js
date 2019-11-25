@@ -24,11 +24,28 @@ const style = (theme) => ({
     top: '72px',
     color: theme.palette.primary.main,
     width: '10',
-    height: '10'
+    height: '10',
+    opacity: 0,
+    animation: '$opacityOn 3s infinite forwards',
+    animationDelay: '2s',
   },
   textEditorContainer: {
     height: '100%',
     boxSizing: 'border-box'
+  },
+  '@keyframes opacityOn': {
+    '0%': {
+    opacity: 0.5,
+    },
+    '25%': {
+      opacity: 0,
+    },
+    '50%': {
+      opacity: 1,
+    },
+    '100%': {
+      opacity: 0,
+    },
   }
 });
 

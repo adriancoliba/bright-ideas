@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import style from './style';
-import { Button, Paper, Avatar, Fade, Popover, Grid, Typography, Divider, Box, } from '@material-ui/core';
+import { Button, Paper, Avatar, Grid, Typography, Divider, Box, } from '@material-ui/core';
 import { iconsObject } from "../AvatarUser/imports";
 import parse from 'html-react-parser';
 import PopoverComponent from '../Popover';
@@ -59,8 +59,8 @@ class BlogPost extends React.PureComponent {
           </Grid>
           <Divider/> <Box m={2} />
 
-          <Link to={`/posts/${post.id}`}>
-            <Typography variant="body1" className={classes.primaryDarkColor}>{post.title}</Typography>
+          <Link to={`/posts/${post.id}`} className={classes.buttonNoTransform}>
+            <Typography variant="h5" className={classes.primaryDarkColor}>{post.title}</Typography>
           </Link>
           <Typography variant="body2" component={'span'} style={{marginBottom: '2px'}}>{postBodyParsed}</Typography>
 

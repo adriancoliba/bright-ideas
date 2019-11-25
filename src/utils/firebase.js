@@ -4,14 +4,14 @@ import "firebase/firestore";
 
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyALTvRAm-tUvTGE5rDWOYs2bLfArDW8WcU",
-  authDomain: "note-taking-app-18952.firebaseapp.com",
-  databaseURL: "https://note-taking-app-18952.firebaseio.com",
-  projectId: "note-taking-app-18952",
-  storageBucket: "note-taking-app-18952.appspot.com",
-  messagingSenderId: "547358686113",
-  appId: "1:547358686113:web:0b92acfceb87816f2329e0",
-  measurementId: "G-J0W3WN4WXP"
+  apiKey: "AIzaSyCjq6DJFuz5VLu3zE_jf0w1WaKKhlZ5py8",
+  authDomain: "bright-ideas-app.firebaseapp.com",
+  databaseURL: "https://bright-ideas-app.firebaseio.com",
+  projectId: "bright-ideas-app",
+  storageBucket: "bright-ideas-app.appspot.com",
+  messagingSenderId: "546114857701",
+  appId: "1:546114857701:web:4cece9a04278e600af020c",
+  measurementId: "G-G2SS0NLCMW"
 };
 
 export const myFirebase = firebase.initializeApp(firebaseConfig);

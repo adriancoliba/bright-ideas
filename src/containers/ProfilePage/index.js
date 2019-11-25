@@ -48,7 +48,7 @@ class ProfilePage extends Component {
   }
 
   handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value, }
+    this.setState({ [event.target.name]: event.target.value.trim() }
   )};
 
   handleCloseModal = () => { this.setState({openDeleteDialog: false}) };

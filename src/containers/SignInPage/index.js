@@ -8,7 +8,7 @@ import { TextField, CircularProgress, CssBaseline, Button, Avatar,
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { Link } from 'react-router-dom';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import {authListener, signInUser, showSignInMessage} from "../../store/actions/authActions";
+import { signInUser, showSignInMessage } from "../../store/actions/authActions";
 import * as ROUTES from "../../constants/routes";
 
 class SignInPage extends Component {
@@ -36,7 +36,7 @@ class SignInPage extends Component {
     this.setState({
       user: {
         ...this.state.user,
-        [event.target.name]: event.target.value
+        [event.target.name]: event.target.value.trim()
       }
     })
   };

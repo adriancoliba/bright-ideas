@@ -1,6 +1,5 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
 import style from './style';
 import { Box, Divider, Paper, Popover, Typography} from '@material-ui/core';
 
@@ -28,8 +27,6 @@ class PopoverComponent extends React.PureComponent {
           disableRestoreFocus
         >
           <Paper className={classes.paper}>
-
-            {/*<Divider/> <Box m={2} />*/}
             <Typography variant="body1" className={classes.primaryDarkColor}>Profile Info:</Typography>
             <Typography variant="body2" component={'span'} >{userAll.profileInfo}</Typography>
             <Box m={2} /> <Divider/> <Box m={2} />
