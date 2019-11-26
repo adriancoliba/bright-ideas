@@ -1,7 +1,7 @@
 const style = (theme) => ({
   container: {
     height: '100%',
-    margin: 'auto'
+    margin: 'auto',
   },
   paper: {
     padding: theme.spacing(1),
@@ -10,11 +10,15 @@ const style = (theme) => ({
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: 'transparent',
-    boxShadow: 'none'
+    boxShadow: 'none',
   },
   button: {
-    maxWidth: 300
-  }
+    maxWidth: 300,
+  },
+  youNeedToSignIn: {
+    textAlign: 'right',
+    color: theme.palette.grey.light,
+  },
 });
 
 export default style;

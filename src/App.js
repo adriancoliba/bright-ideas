@@ -52,6 +52,7 @@ class App extends React.PureComponent {
                   </> :
                   <>
                     <Route exact path={ROUTES.HOME}> <HomePage/> </Route>
+                    <Route path={ROUTES.POSTS}><PostsPage/></Route>
                     <Route exact path={ROUTES.SIGN_IN}> <SignInPage/> </Route>
                     <Route exact path={ROUTES.SIGN_UP}> <SignUpPage/> </Route>
                     <Route exact path={ROUTES.RESET_PASSWORD}><ResetPassword user={this.state.user}/></Route>

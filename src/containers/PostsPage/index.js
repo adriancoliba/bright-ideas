@@ -9,10 +9,7 @@ import Post from '../../components/Post'
 class PostsPage extends Component {
 
   render() {
-    console.log(this.props.posts)
-    console.log(this.props.usersAll)
     return (
-      <div>
         <Container component="main" maxWidth="sm">
           <CssBaseline />
           <Switch>
@@ -21,7 +18,6 @@ class PostsPage extends Component {
             </Route>
           </Switch>
         </Container>
-        </div>
     );
   }
 }

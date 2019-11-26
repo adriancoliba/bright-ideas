@@ -21,14 +21,8 @@ class Post extends React.PureComponent {
     };
   }
   componentDidMount() {
-    const { location, userAll } = this.props;
-    this.setState({
-      postId: location.pathname.replace('/posts/', ''),
-      comment: {
-        ...this.state.comment,
-        displayName: userAll && userAll.displayName,
-      }
-    })
+    const { location } = this.props;
+    this.setState({ postId: location.pathname.replace('/posts/', '') })
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
@@ -55,7 +49,7 @@ class Post extends React.PureComponent {
     }
     const post = this.props.posts && this.props.posts.filter(post => post.id === this.state.postId)[0];
     const allComments = Object.assign([], post.comments);
-    allComments.push({uid: this.props.userAll.uid, displayName: comment.displayName, text: comment.text, date: new Date()});
+    allComments.push({displayName: comment.displayName, text: comment.text, date: new Date()});
     return dispatch(postCommentToPost(post.id, allComments))
   };
 
