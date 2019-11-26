@@ -53,7 +53,7 @@ class SidebarItem extends React.PureComponent {
           <div className={classes.textSection} onClick={() => this.selectNote(note, index)}>
             <ListItemText
               primary={note.title}
-              secondary={removeHTMLTags(note.body.substring(0, 30)) + '...'}
+              secondary={removeHTMLTags(note.body.substring(0, 18)) + '...'}
             />
           </div>
           <ShareIcon

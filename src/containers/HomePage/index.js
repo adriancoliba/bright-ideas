@@ -7,7 +7,8 @@ import { Link } from 'react-router-dom';
 import { getPosts } from '../../store/actions/blogActions'
 import {getUsersAll} from "../../store/actions/authActions";
 import BlogPosts from "../../components/BlogPosts";
-
+import WarningIcon from '../../images/warning.svg'
+import BounceLoaderComponent from "../../components/BounceLoader";
 class HomePage extends Component {
 
   componentDidMount() {
@@ -24,30 +25,41 @@ class HomePage extends Component {
               <CssBaseline />
               <Box m={10}/>
               <Paper className={classes.paper}>
-                <Typography variant="h2">Free your <br/>thoughts</Typography>
+                <Typography variant="h1" style={{fontSize: 50}}>Free your <br/>thoughts</Typography>
                 <Box m={1}/>
-                <Typography variant="h5">Organize your mind</Typography>
+                <Typography variant="h2">Organize your mind</Typography>
                 <Box m={1}/>
-                <Typography variant="h5">Share ideas with everyone</Typography>
+                <Typography variant="h2">Share ideas with everyone</Typography>
                 <Box m={3}/>
-                <Typography variant="body2">Join Bright Ideas today</Typography>
+                <Typography variant="h3">Join Bright Ideas today</Typography>
                 <Box m={1}/>
-                <Link to={'/signup'}>
-                  <Button fullWidth variant="contained" color="primary" className={classes.button}>Sign Up</Button>
+                <Link to={'/signup'} style={{textDecoration: 'none'}}>
+                  <Button fullWidth  variant="contained" color="primary" className={classes.button}>Sign Up</Button>
                 </Link>
               </Paper>
             </Container>
           </Grid>
-          <Grid item>
-            <Container component="main" maxWidth="sm">
-              <CssBaseline />
-              <div>
-                <Box m={2}/>
-                <Typography variant="body2" className={classes.youNeedToSignIn}>You need to be signed in to create and share notes</Typography>
-                <BlogPosts posts={this.props.posts} usersAll={this.props.usersAll}/>
-              </div>
-            </Container>
-          </Grid>
+          {this.props.posts !== null ?
+            <Grid item>
+              <Container component="main" maxWidth={window.innerWidth < 605 ? 'xs' : 'sm'}>
+                <CssBaseline />
+                <div>
+                  <Box m={2}/>
+                  <Grid container alignItems={'center'} justify={'flex-end'}>
+                    <Grid item>
+                      <Typography variant="h4" className={classes.youNeedToSignIn}>You need to be signed in to create and share notes &nbsp;</Typography>
+                    </Grid>
+                    <Grid item>
+                      <img src={WarningIcon} width={18} alt=''/>
+                    </Grid>
+                  </Grid>
+                  <BlogPosts posts={this.props.posts} usersAll={this.props.usersAll}/>
+                </div>
+              </Container>
+            </Grid>
+            :
+            <BounceLoaderComponent loading={this.props.posts}/>
+          }
         </Grid>
     );
   }

@@ -2,6 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import style from './style';
+import globalStyle from '../../utils/globalStyle';
 import { Button, Paper, Avatar, Grid, Typography, Divider, Box, } from '@material-ui/core';
 import { iconsObject } from "../AvatarUser/imports";
 import parse from 'html-react-parser';
@@ -47,7 +48,7 @@ class BlogPost extends React.PureComponent {
               </Avatar>
             </Grid>
             <Grid item>
-              <Typography variant="subtitle1"
+              <Typography variant="h3"
                           color={'secondary'}
                           aria-owns={Boolean(this.state.openPopover) ? 'mouse-over-popover' : undefined}
                           aria-haspopup="true"
@@ -59,24 +60,26 @@ class BlogPost extends React.PureComponent {
           </Grid>
           <Divider/> <Box m={2} />
 
-          <Link to={`/posts/${post.id}`} className={classes.buttonNoTransform}>
-            <Typography variant="h5" className={classes.primaryDarkColor}>{post.title}</Typography>
+          <Link to={`/posts/${post.id}`} className={classes.decorationTransformNone}>
+            <Typography variant="h2" className={classes.colorPrimaryDark}>{post.title}</Typography>
           </Link>
-          <Typography variant="body2" component={'span'} style={{marginBottom: '2px'}}>{postBodyParsed}</Typography>
+          <Typography variant="h3" component={'span'} style={{marginBottom: '2px'}}>{postBodyParsed}</Typography>
 
           {post.body.length > 299 &&
-          <Link to={`/posts/${post.id}`}>
-            <Button variant="contained" className={classNames(classes.readMoreButton, classes.buttonNoTransform)}>continue reading</Button>
+          <Link to={`/posts/${post.id}`} className={classes.textDecorationNone}>
+            <Button variant="contained" className={classNames(classes.readMoreButton, classes.textTransformNone)}>
+              continue reading
+            </Button>
           </Link>
           }
           <Box m={2} /> <Divider/> <Box m={2} />
           <Grid container alignItems='center' justify='space-between'>
             <Grid item >
-              <Typography variant="caption">{dateParsed}</Typography>
+              <Typography variant="h4">{dateParsed}</Typography>
             </Grid>
             <Grid item >
-              <Link to={`/posts/${post.id}`}>
-                <Button className={classes.buttonNoTransform}>{post.comments.length} comments</Button>
+              <Link to={`/posts/${post.id}`} className={classes.textDecorationNone}>
+                <Button className={classNames(classes.textTransformNone, classes.colorPrimaryDark)}>{post.comments.length} comments</Button>
               </Link>
             </Grid>
           </Grid>
@@ -86,4 +89,7 @@ class BlogPost extends React.PureComponent {
   }
 }
 
-export default withStyles(style, { withTheme: true })(BlogPost);
+export default withStyles((theme) => ({
+  ...style(theme),
+  ...globalStyle(theme),
+}), { withTheme: true })(BlogPost);

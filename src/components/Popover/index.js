@@ -27,11 +27,12 @@ class PopoverComponent extends React.PureComponent {
           disableRestoreFocus
         >
           <Paper className={classes.paper}>
-            <Typography variant="body1" className={classes.primaryDarkColor}>Profile Info:</Typography>
-            <Typography variant="body2" component={'span'} >{userAll.profileInfo}</Typography>
+            <Typography variant="h3" className={classes.primaryDarkColor} style={{fontWeight: 'bold'}}>Profile Info:</Typography>
+            <Typography variant="h3" component={'span'} >{userAll.profileInfo}</Typography>
             <Box m={2} /> <Divider/> <Box m={2} />
-            <Typography variant="caption">Email: &nbsp; {userAll.email}</Typography><br/>
-            <Typography variant="caption">Joined community on: &nbsp; {userDate}</Typography>
+            <Typography variant="h4">Email: &nbsp; {userAll.email}</Typography>
+            <Box/>
+            <Typography variant="h4">Joined community on: &nbsp; {userDate}</Typography>
           </Paper>
         </Popover>
       )

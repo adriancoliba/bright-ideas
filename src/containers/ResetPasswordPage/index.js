@@ -11,13 +11,14 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import Backdrop from '@material-ui/core/Backdrop';
 import * as ROUTES from "../../constants/routes";
 import {showResetMessage, resetPasswordUser} from '../../store/actions/authActions';
+import globalStyle from "../../utils/globalStyle";
 
 class ResetPassword extends Component {
   constructor(){
     super();
     this.state = {
       email: '',
-      openModal: false,
+      openModal: true,
     };
   }
 
@@ -51,10 +52,10 @@ class ResetPassword extends Component {
             <Avatar className={classes.avatar}>
               <LockOpenIcon />
             </Avatar>
-            <Typography component="h1" variant="h5">
+            <Typography component="h2" variant="h2">
               Reset Password
             </Typography>
-            <Typography variant="body2" className={this.props.resetPasswordMessage === 'successful' ? classes.resetMessageGreen : classes.resetMessageRed}>
+            <Typography variant="h3" className={this.props.resetPasswordMessage === 'successful' ? classes.resetMessageGreen : classes.resetMessageRed}>
               {resetPasswordMessage && resetPasswordMessage} &nbsp;
             </Typography>
             <form className={classes.form} noValidate>
@@ -99,10 +100,12 @@ class ResetPassword extends Component {
                 <Avatar className={classes.avatar}>
                   <CheckCircleOutlineIcon />
                 </Avatar>
-                <h2 id="transition-modal-title">Password reset successful. A message will be sent to that address
-                  containing a link to reset your password.</h2>
+                <br/>
+                <Typography variant="h3" id="transition-modal-title">Password reset successful. A message will be sent to
+                  that address containing a link to reset your password.
+                </Typography>
                 <br/><br/>
-                <Link to={ROUTES.SIGN_IN}>
+                <Link to={ROUTES.SIGN_IN} classNames={classes.textDecorationNone}>
                   <Button variant={'outlined'} className={classes.buttonSignIn}>Sign In</Button>
                 </Link>
               </div>
@@ -124,4 +127,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default withStyles(style, { withTheme: true })(connect(mapStateToProps)(ResetPassword));
+export default withStyles((theme) => ({
+  ...style(theme),
+  ...globalStyle(theme),
+}), { withTheme: true })(connect(mapStateToProps)(ResetPassword));

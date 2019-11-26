@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { signInUser, showSignInMessage } from "../../store/actions/authActions";
 import * as ROUTES from "../../constants/routes";
+import globalStyle from "../../utils/globalStyle";
 
 class SignInPage extends Component {
   constructor(){
@@ -50,10 +51,10 @@ class SignInPage extends Component {
             <Avatar className={classes.avatar}>
               <LockOutlinedIcon />
             </Avatar>
-            <Typography component="h1" variant="h5">
+            <Typography component="h2" variant="h2">
               Sign in
             </Typography>
-            <Typography variant="body2" className={classes.loginMessage}>
+            <Typography variant="h3" className={classes.loginMessage}>
               {this.props.loginMessage && this.props.loginMessage} &nbsp;
             </Typography>
             <form className={classes.form} noValidate>
@@ -82,6 +83,7 @@ class SignInPage extends Component {
                 onChange={this.handleChangeUser}
               />
               <FormControlLabel
+                component={'h3'}
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
@@ -96,12 +98,12 @@ class SignInPage extends Component {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link to={ROUTES.RESET_PASSWORD} variant="body2" className={classes.links}>
+                  <Link to={ROUTES.RESET_PASSWORD} variant="h4" className={classes.decorationTransformNone}>
                     Forgot password?
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link to={ROUTES.SIGN_UP} variant="body2" className={classes.links}>Don't have an account?</Link>
+                  <Link to={ROUTES.SIGN_UP} variant="h4" className={classes.decorationTransformNone}>Don't have an account?</Link>
                 </Grid>
               </Grid>
             </form>
@@ -126,4 +128,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default withStyles(style, { withTheme: true })(connect(mapStateToProps)(SignInPage));
+export default withStyles((theme) => ({
+  ...style(theme),
+  ...globalStyle(theme),
+}), { withTheme: true })(connect(mapStateToProps)(SignInPage));

@@ -38,6 +38,12 @@ const style = (theme) => ({
     textDecoration: 'none',
     padding: '1px 10px',
   },
+  menuIcon: {
+    position: 'absolute',
+    right: 19,
+    fontSize: 38,
+    color: '#272727'
+  },
   badge: {
     '&::after': {
       position: 'absolute',
@@ -61,6 +67,14 @@ const style = (theme) => ({
       opacity: 0,
     },
   },
+
+  '@media (max-width: 730px)': {
+    button: {
+      textTransform: 'none',
+      textDecoration: 'none',
+      padding: '1px 2px',
+    },
+  }
 });
 
 export default style;

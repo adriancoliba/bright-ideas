@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import { showSignUpMessage, signUpUser } from '../../store/actions/authActions';
 import * as ROUTES from "../../constants/routes";
+import globalStyle from "../../utils/globalStyle";
 
 class SignUpPage extends Component {
   constructor(){
@@ -71,10 +72,10 @@ class SignUpPage extends Component {
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h2" variant="h2">
             Sign up
           </Typography>
-          <Typography variant="body2" className={registerMessage === 'successful' ? classes.registerMessageGreen : classes.registerMessageRed}>
+          <Typography variant="h3" className={registerMessage === 'successful' ? classes.registerMessageGreen : classes.registerMessageRed}>
             {registerMessage && registerMessage} &nbsp;
           </Typography>
           <form className={classes.form} noValidate>
@@ -152,7 +153,7 @@ class SignUpPage extends Component {
             </Button>
             <Grid container justify="flex-end">
               <Grid item>
-                <Link to="/signin" variant="body2" className={classes.links}>
+                <Link to="/signin" variant="h3" className={classes.decorationTransformNone}>
                   Already have an account? Sign in
                 </Link>
               </Grid>
@@ -178,9 +179,10 @@ class SignUpPage extends Component {
               <Avatar className={classes.avatar}>
                 <CheckCircleOutlineIcon />
               </Avatar>
-              <h2 id="transition-modal-title">Successfully signed up</h2>
+              <br/>
+              <Typography variant="h2" id="transition-modal-title">Successfully signed up</Typography>
               <br/><br/>
-              <Link to={ROUTES.SIGN_IN}>
+              <Link to={ROUTES.SIGN_IN} className={classes.textDecorationNone}>
                 <Button variant={'outlined'} className={classes.buttonSignIn}>Sign In</Button>
               </Link>
             </div>
@@ -203,4 +205,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default withStyles(style, { withTheme: true })(connect(mapStateToProps)(SignUpPage));
+export default withStyles((theme) => ({
+  ...style(theme),
+  ...globalStyle(theme),
+}), { withTheme: true })(connect(mapStateToProps)(SignUpPage));

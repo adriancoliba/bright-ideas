@@ -16,14 +16,6 @@ const style = (theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-  links: {
-    textTransform: 'none',
-    textDecoration: 'none',
-    color: theme.palette.secondary.dark,
-    '&:hover': {
-      color: theme.palette.secondary.main
-    }
-  },
   loginMessage: {
     color: theme.palette.pink.dark,
     paddingTop: 15,

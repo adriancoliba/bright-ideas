@@ -56,7 +56,6 @@ const style = (theme) => ({
   },
   buttonSignIn: {
     textTransform: 'none',
-    textDecoration: 'none',
     padding: '5px 20px',
     marginTop: 200,
     backgroundColor: theme.palette.primary.main,

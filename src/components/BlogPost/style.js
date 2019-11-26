@@ -1,10 +1,4 @@
 const style = (theme) => ({
-  pinkDarkColor: {
-    color: theme.palette.pink.dark,
-  },
-  primaryDarkColor: {
-    color: theme.palette.primary.dark,
-  },
   paper: {
     padding: theme.spacing(2),
     marginTop: theme.spacing(3),
@@ -19,10 +13,6 @@ const style = (theme) => ({
   readMoreButton: {
     marginTop: -10,
     padding: '4px 9px'
-  },
-  buttonNoTransform: {
-    textTransform: 'none',
-    textDecoration: 'none',
   },
 });
 

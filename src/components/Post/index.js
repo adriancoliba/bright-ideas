@@ -63,12 +63,12 @@ class Post extends React.PureComponent {
     return (
       <div>
         <Paper className={classes.paper}>
-          <Typography variant="h4" className={classes.primaryDarkColor}>{post && post.title}</Typography>
-          <Typography variant="subtitle1" color={'secondary'}>
+          <Typography variant="h2" className={classes.primaryDarkColor}>{post && post.title}</Typography>
+          <Typography variant="h3" color={'secondary'}>
             {userAll && post.displayName !== 'Anonymous' ? `by ${userAll.displayName}` : ' by Anonymous'}
           </Typography>
           <Divider/> <Box m={2} />
-          <Typography variant="body2" component={'span'} style={{marginBottom: '2px'}}>{post && parse(post.body)}</Typography>
+          <Typography variant="h3" component={'span'} style={{marginBottom: '2px'}}>{post && parse(post.body)}</Typography>
         </Paper>
 
         { post && post.displayName !== 'Anonymous' &&
@@ -80,19 +80,19 @@ class Post extends React.PureComponent {
                 </Avatar>
               </Grid>
               <Grid item>
-                <Typography variant="subtitle1" color={'secondary'}>
-                  {userAll && `About ${userAll.displayName}`}
+                <Typography variant="h3" color={'secondary'}>
+                  {userAll && `about ${userAll.displayName}`}
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Typography variant="caption">{userAll && userAll.profileInfo}</Typography>
+                <Typography variant="h3">{userAll && userAll.profileInfo}</Typography>
               </Grid>
             </Grid>
           </Paper>
         }
 
         <Paper className={classNames(classes.paper, classes.whiteBackground)}>
-          <Typography variant="subtitle1" color={'secondary'}>
+          <Typography variant="h3" color={'secondary'}>
             {post && post.comments.length} comments
           </Typography>
           <Divider/> <Box m={2} />
@@ -100,15 +100,15 @@ class Post extends React.PureComponent {
             post.comments.map((comment, index) => {
               return (
                 <div key={index}>
-                  <Typography variant="subtitle1" >{comment.displayName}</Typography>
-                  <Typography variant="caption" >{comment.text}</Typography>
+                  <Typography variant="h3" >{comment.displayName}</Typography>
+                  <Typography variant="h4" >{comment.text}</Typography>
                   <Box m={2} /><Divider/> <Box m={2} />
                 </div>
               )
             })
           }
           <Box m={6} />
-          <Typography variant="caption">Post a comment:</Typography>
+          <Typography variant="h3">Post a comment:</Typography>
           <Box m={2} />
           <Grid container spacing={2}>
             <Grid item xs={12}>
