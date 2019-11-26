@@ -15,19 +15,22 @@ html, body {
     box-sizing: border-box;
     background-color: #f6f6f6;
 }
+.app-container .ql-editor {
+    min-height: 85vh;
+}
 .quill {
     height: 100%;
     box-sizing: border-box;
     width: calc(100% - 300px);
     float: left;
     background-color: #737373;
-    color: white;
+    color: black;
 }
 .ql-container {
     box-sizing: border-box;
     height: calc(100% - 42px);
     overflow-y: scroll;
-    background-color: #a1a1a1;
+    background-color: #F6F6F6;
 }
 .ql-editor {
     cursor: text;

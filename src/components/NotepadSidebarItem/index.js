@@ -8,8 +8,8 @@ import {
 import { removeHTMLTags } from '../../utils/utilities';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ShareIcon from '@material-ui/icons/Share';
-
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import ShareNoteDialog from '../../components/Dialogs/ShareNoteDialog'
 
 class SidebarItem extends React.PureComponent {
   constructor() {
@@ -43,6 +43,7 @@ class SidebarItem extends React.PureComponent {
 
   render() {
     const { classes, index, note, noteSelectedId } = this.props;
+
     return(
       <div key={index}>
         <ListItem
@@ -89,37 +90,14 @@ class SidebarItem extends React.PureComponent {
           </DialogActions>
         </Dialog>
 
-        <Dialog
-          open={this.state.openShareDialog}
-          onClose={this.closeDialog}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description" className={classes.dialogText}>
-              Share this post anonymously
-              <HelpOutlineIcon
-                className={classes.helpOutlineIcon}
-              />
-              <Checkbox
-                checked={this.state.isAnonymous}
-                onChange={this.handleChangeAnonymous}
-                value="checkedA"
-                inputProps={{
-                  'aria-label': 'primary checkbox',
-                }}
-              />
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.closeDialog} className={classes.darkPink}>
-              Cancel
-            </Button>
-            <Button onClick={() => this.shareNote(note)} color="secondary" autoFocus>
-              Send
-            </Button>
-          </DialogActions>
-        </Dialog>
+        <ShareNoteDialog
+          openShareDialog={this.state.openShareDialog}
+          closeDialog={this.closeDialog}
+          isAnonymous={this.state.isAnonymous}
+          handleChangeAnonymous={this.handleChangeAnonymous}
+          shareNote={this.shareNote}
+          note={note}
+        />
       </div>
     );
   }

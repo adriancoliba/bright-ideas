@@ -6,20 +6,25 @@ import CreateIcon from '@material-ui/icons/Create';
 import { debounce } from '../../utils/utilities';
 import {connect} from "react-redux";
 import ReactDOM from 'react-dom';
+import ShareIcon from "@material-ui/icons/Share";
+import ShareNoteDialog from "../Dialogs/ShareNoteDialog";
+import { showNotepadMessage, shareNote } from "../../store/actions/notepadActions";
 
 class TextEditor extends React.PureComponent {
   constructor() {
     super();
     this.state = {
-      text: '',
+      body: '',
       title: '',
-      id: ''
+      id: '',
+      openShareDialog: false,
+      isAnonymous: false,
     };
   }
 
   componentDidMount = () => {
     this.setState({
-      text: this.props.noteSelected.body,
+      body: this.props.noteSelected.body,
       title: this.props.noteSelected.title,
       id: this.props.noteSelected.id
     });
@@ -29,7 +34,7 @@ class TextEditor extends React.PureComponent {
   componentDidUpdate = (prevState) => {
     if(this.props.noteSelected.id !== this.state.id) {
       this.setState({
-        text: this.props.noteSelected.body,
+        body: this.props.noteSelected.body,
         title: this.props.noteSelected.title,
         id: this.props.noteSelected.id
       });
@@ -40,13 +45,13 @@ class TextEditor extends React.PureComponent {
   update = debounce(() => {
     this.props.updateNote(this.state.id, {
       title: this.state.title ? this.state.title : '',
-      body: this.state.text ? this.state.text : ''
+      body: this.state.body ? this.state.body : ''
     })
   }, 1500);
 
   updateBody = (val) => {
     this.update();
-    this.setState({ text: val.trim() });
+    this.setState({ body: val.trim() });
   };
 
   updateTitle = (txt) => {
@@ -54,9 +59,31 @@ class TextEditor extends React.PureComponent {
     this.update()
   };
 
+  shareNote = (note, isAnonymous) => {
+    const { dispatch, userAll } = this.props;
+    const post = {
+      title: note.title,
+      body: note.body,
+      uid: userAll.uid,
+      displayName: isAnonymous ? 'Anonymous' : userAll.displayName
+    };
+    if(Object.values(post).some(el => el === '' || el=== '<p><br></p>'|| el === null)){
+      return dispatch(showNotepadMessage('Title or Body might be empty'));
+    }
+    this.closeDialog();
+    return dispatch(shareNote(post));
+  };
+
+  closeDialog = () => {
+    this.setState({openShareDialog: false, isAnonymous: false,});
+  };
+
+  handleChangeAnonymous = () => {
+    this.setState({isAnonymous: !this.state.isAnonymous})
+  };
+
   render() {
     const { classes } = this.props;
-
     return(
       <div className={classes.textEditorContainer}>
         <CreateIcon className={classes.editIcon}/>
@@ -67,14 +94,51 @@ class TextEditor extends React.PureComponent {
           onChange={(e) => this.updateTitle(e.target.value)}>
         </input>
         <ReactQuill
-          value={this.state.text || ''}
-          onChange={this.updateBody}
           theme={'snow'}
+          onChange={this.updateBody}
+          value={this.state.body || ''}
+          modules={TextEditor.module}
+          formats={TextEditor.formats}
+          bounds={'.app-container'}
+          placeholder={'Write some text...'}
+        />
+        <ShareIcon
+          onClick={() => this.setState({openShareDialog: true})}
+          className={classes.shareIcon}
+        />
+        <ShareNoteDialog
+          openShareDialog={this.state.openShareDialog}
+          closeDialog={this.closeDialog}
+          isAnonymous={this.state.isAnonymous}
+          handleChangeAnonymous={this.handleChangeAnonymous}
+          shareNote={this.shareNote}
+          note={{title: this.state.title, body: this.state.body}}
         />
       </div>
     );
   }
 }
+
+TextEditor.module = {
+  toolbar: [
+    [{ 'header': '1'}, {'header': '2'}],
+    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+    [{'list': 'ordered'}, {'list': 'bullet'},
+      {'indent': '-1'}, {'indent': '+1'}],
+    ['link'],
+    ['clean']
+  ],
+  clipboard: {
+    matchVisual: false,
+  }
+};
+
+TextEditor.formats = [
+  'header',
+  'bold', 'italic', 'underline', 'strike', 'blockquote',
+  'list', 'bullet', 'indent',
+  'link'
+];
 
 const mapStateToProps = (state) => {
   return {

@@ -36,6 +36,7 @@ class SnackbarComponent extends React.PureComponent {
         open={wasChanged}
         autoHideDuration={3500}
         onClose={this.handleClose}
+        className={classes.snackbar}
       >
 
         <SnackbarContent

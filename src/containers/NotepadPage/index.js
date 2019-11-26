@@ -73,7 +73,7 @@ class NotepadPage extends React.PureComponent {
 
   render() {
     return(
-      <div className="app-container">
+      <div>
         <Sidebar
           noteSelectedId={this.props.noteSelectedId}
           notesAll={this.props.notesAll}
@@ -87,6 +87,7 @@ class NotepadPage extends React.PureComponent {
             <TextEditor noteSelected={ this.props.noteSelected}
                         noteSelectedId={this.props.noteSelectedId}
                         notesAll={this.props.notesAll}
+                        userAll={this.props.userAll}
                         updateNote={this.updateNote}
             /> : <img src={noteBackgroundImage} className="noteBackgroundImage" alt=''/>
         }

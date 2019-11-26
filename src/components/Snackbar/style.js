@@ -1,6 +1,9 @@
 import { green } from '@material-ui/core/colors';
 
 const style = (theme) => ({
+  snackbar: {
+    marginTop: 48
+  },
   success: {
     backgroundColor: green[600],
   },

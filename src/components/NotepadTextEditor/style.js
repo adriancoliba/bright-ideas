@@ -29,6 +29,17 @@ const style = (theme) => ({
     animation: '$opacityOn 3s infinite forwards',
     animationDelay: '2s',
   },
+  shareIcon: {
+    position: 'absolute',
+    fontSize: 60,
+    right: 30,
+    top: 'calc(100vh - 90px)',
+    color: theme.palette.secondary.main,
+    '&:hover': {
+      color: theme.palette.primary.main,
+      cursor: 'pointer'
+    }
+  },
   textEditorContainer: {
     height: '100%',
     boxSizing: 'border-box'
