@@ -8,7 +8,6 @@ import { getPosts } from '../../store/actions/blogActions'
 import {getUsersAll} from "../../store/actions/authActions";
 import BlogPosts from "../../components/BlogPosts";
 import WarningIcon from '../../images/warning.svg'
-import BounceLoaderComponent from "../../components/BounceLoader";
 class HomePage extends Component {
 
   componentDidMount() {
@@ -20,10 +19,9 @@ class HomePage extends Component {
     const { classes } = this.props;
     return (
         <Grid container justify={'center'}>
-          <Grid item>
+          <Grid item lg={3}>
             <Container component="main" maxWidth="xs" className={classes.container}>
               <CssBaseline />
-              <Box m={10}/>
               <Paper className={classes.paper}>
                 <Typography variant="h1" style={{fontSize: 50}}>Free your <br/>thoughts</Typography>
                 <Box m={1}/>
@@ -39,27 +37,23 @@ class HomePage extends Component {
               </Paper>
             </Container>
           </Grid>
-          {this.props.posts !== null ?
-            <Grid item>
-              <Container component="main" maxWidth={window.innerWidth < 605 ? 'xs' : 'sm'}>
-                <CssBaseline />
-                <div>
-                  <Box m={2}/>
-                  <Grid container alignItems={'center'} justify={'flex-end'}>
-                    <Grid item>
-                      <Typography variant="h4" className={classes.youNeedToSignIn}>You need to be signed in to create and share notes &nbsp;</Typography>
-                    </Grid>
-                    <Grid item>
-                      <img src={WarningIcon} width={18} alt=''/>
-                    </Grid>
+          <Grid item xs={12} sm={11} md={7} lg={5} xl={4}>
+            <Container component="main" maxWidth={'lg'}>
+              <CssBaseline />
+              <div>
+                <Box m={2}/>
+                <Grid container alignItems={'center'} justify={'flex-end'}>
+                  <Grid item>
+                    <Typography variant="h4" className={classes.youNeedToSignIn}>You need to be signed in to create and share notes &nbsp;</Typography>
                   </Grid>
-                  <BlogPosts posts={this.props.posts} usersAll={this.props.usersAll}/>
-                </div>
-              </Container>
-            </Grid>
-            :
-            <BounceLoaderComponent loading={this.props.posts}/>
-          }
+                  <Grid item>
+                    <img src={WarningIcon} width={18} alt=''/>
+                  </Grid>
+                </Grid>
+                <BlogPosts posts={this.props.posts} usersAll={this.props.usersAll}/>
+              </div>
+            </Container>
+          </Grid>
         </Grid>
     );
   }

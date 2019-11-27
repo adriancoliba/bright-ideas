@@ -6,7 +6,7 @@ const style = (theme) => ({
   paper: {
     padding: theme.spacing(1),
     maxWidth: 360,
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(5),
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: 'transparent',

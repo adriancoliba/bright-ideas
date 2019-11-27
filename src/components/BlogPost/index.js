@@ -32,7 +32,8 @@ class BlogPost extends React.PureComponent {
 
     const dateParsed = post.date.toDate().toLocaleDateString('en-GB',
       { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-    const postBodyParsed = parse(`${post.body.substring(0, 300)} ${post.body.length>299 && '...'}`);
+    const postBodyParsed = parse(`${post.body.substring(0, 300)} ${post.body.length>299 ? '...' : ''}`);
+
     return (
       <div key={post.id}>
         {post.displayName !== 'Anonymous' && <PopoverComponent openPopover={this.state.openPopover} userAll={userAll}/>}
@@ -59,18 +60,18 @@ class BlogPost extends React.PureComponent {
             </Grid>
           </Grid>
           <Divider/> <Box m={2} />
-
-          <Link to={`/posts/${post.id}`} className={classes.decorationTransformNone}>
-            <Typography variant="h2" className={classes.colorPrimaryDark}>{post.title}</Typography>
-          </Link>
-          <Typography variant="h3" component={'span'} style={{marginBottom: '2px'}}>{postBodyParsed}</Typography>
-
+          <div style={{ overflow: "hidden", textOverflow: "ellipsis" }}>
+            <Link to={`/posts/${post.id}`} className={classes.decorationTransformNone}>
+              <Typography variant="h2" className={classes.colorPrimaryDark}>{post.title}</Typography>
+            </Link>
+            <Typography variant="h3" component={'span'} style={{marginBottom: '2px'}}>{postBodyParsed}</Typography>
+          </div>
           {post.body.length > 299 &&
-          <Link to={`/posts/${post.id}`} className={classes.textDecorationNone}>
-            <Button variant="contained" className={classNames(classes.readMoreButton, classes.textTransformNone)}>
-              continue reading
-            </Button>
-          </Link>
+            <Link to={`/posts/${post.id}`} className={classes.textDecorationNone}>
+              <Button variant="contained" className={classNames(classes.readMoreButton, classes.textTransformNone)}>
+                continue reading
+              </Button>
+            </Link>
           }
           <Box m={2} /> <Divider/> <Box m={2} />
           <Grid container alignItems='center' justify='space-between'>

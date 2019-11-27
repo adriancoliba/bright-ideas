@@ -63,12 +63,16 @@ class Post extends React.PureComponent {
     return (
       <div>
         <Paper className={classes.paper}>
-          <Typography variant="h2" className={classes.primaryDarkColor}>{post && post.title}</Typography>
+          <div style={{ textOverflow: "ellipsis" }}>
+            <Typography variant="h2" className={classes.primaryDarkColor}>{post && post.title}</Typography>
+          </div>
           <Typography variant="h3" color={'secondary'}>
             {userAll && post.displayName !== 'Anonymous' ? `by ${userAll.displayName}` : ' by Anonymous'}
           </Typography>
           <Divider/> <Box m={2} />
-          <Typography variant="h3" component={'span'} style={{marginBottom: '2px'}}>{post && parse(post.body)}</Typography>
+          <div style={{ overflow: "hidden", textOverflow: "ellipsis" }}>
+            <Typography variant="h3" component={'span'} style={{marginBottom: '2px'}}>{post && parse(post.body)}</Typography>
+          </div>
         </Paper>
 
         { post && post.displayName !== 'Anonymous' &&

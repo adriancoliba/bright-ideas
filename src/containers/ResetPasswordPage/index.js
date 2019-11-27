@@ -18,7 +18,7 @@ class ResetPassword extends Component {
     super();
     this.state = {
       email: '',
-      openModal: true,
+      openModal: false,
     };
   }
 
