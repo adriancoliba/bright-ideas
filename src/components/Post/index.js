@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 import {withRouter} from 'react-router-dom';
 import parse from "html-react-parser";
 import {postCommentToPost, clearMessage, showPostMessage} from '../../store/actions/blogActions';
+import globalStyle from "../../utils/globalStyle";
 
 class Post extends React.PureComponent {
   constructor(){
@@ -71,7 +72,9 @@ class Post extends React.PureComponent {
           </Typography>
           <Divider/> <Box m={2} />
           <div style={{ overflow: "hidden", textOverflow: "ellipsis" }}>
-            <Typography variant="h3" component={'span'} style={{marginBottom: '2px'}}>{post && parse(post.body)}</Typography>
+            <Typography variant="h3" component={'span'} style={{marginBottom: '2px'}} className={classes.postBodyParsed}>
+              {post && parse(post.body)}
+            </Typography>
           </div>
         </Paper>
 
@@ -172,4 +175,7 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default withStyles(style, { withTheme: true })(withRouter(connect(mapStateToProps)(Post)));
+export default withStyles((theme) => ({
+  ...style(theme),
+  ...globalStyle(theme),
+}), { withTheme: true })(withRouter(connect(mapStateToProps)(Post)));

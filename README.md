@@ -55,7 +55,9 @@ This app is a social blogging site called "Bright Ideas". It uses firebase for a
     - Update password. Delete account permanently
     
 ## About
-&nbsp;&nbsp; This project was approached to learn connecting React with a database and manipulate data from it.  From the beginning, I haven’t identified what exactly had to be build  nor determine the desired outcome. With this in mind, features were implemented on the fly. First I developed a notepad page that updates live with firebase database. Secondly, i've decided to add user authentication and authorization to handle login, sign up, reset password and manage routes with react-router for single-page application purposes. 
+&nbsp;&nbsp; This project was approached to learn connecting React with a database and manipulate data from it. Google's Firebase cloud-based database was a perfect fit for React, as it offers handling user authentication and hosting service besides storing and retrieving real-time data. 
+
+&nbsp;&nbsp; From the beginning, I haven’t identified what exactly had to be build  nor determine the desired outcome. With this in mind, features were implemented on the fly. First I developed a notepad page that updates live with firebase database. Secondly, i've decided to add user authentication and authorization to handle login, sign up, reset password and manage routes with react-router for single-page application purposes. 
 	
 &nbsp;&nbsp; Now, after getting some exposure to React with Firebase and building some complexity, managing state shared across components became difficult and messy. I’ve decided to integrate Redux and Redux-thunk middleware to handle asynchronous actions. 
 	

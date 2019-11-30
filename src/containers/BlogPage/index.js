@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Container, CssBaseline, withStyles } from "@material-ui/core";
+import { Container, CssBaseline, withStyles, Box } from "@material-ui/core";
 import style from "./style";
 import { connect } from 'react-redux'
 import BlogPosts from '../../components/BlogPosts'
@@ -25,6 +25,7 @@ class BlogPage extends Component {
             <BlogPosts posts={posts} usersAll={usersAll}/>
           </div>
         </Container>
+        <Box m={10}/>
       </div>
     );
   }

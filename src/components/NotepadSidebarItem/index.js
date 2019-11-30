@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import style from './style';
 import {
   ListItem, ListItemText, Button, Dialog, DialogActions,
-  DialogContent, DialogContentText, Checkbox
+  DialogContent, DialogContentText, Checkbox, Tooltip
 } from '@material-ui/core';
 import { removeHTMLTags } from '../../utils/utilities';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -56,14 +56,18 @@ class SidebarItem extends React.PureComponent {
               secondary={removeHTMLTags(note.body.substring(0, 18)) + '...'}
             />
           </div>
-          <ShareIcon
-            onClick={() => this.setState({openShareDialog: true})}
-            className={classes.shareIcon}
-          />
+          <Tooltip arrow title={'Share this note with the public'}>
+            <ShareIcon
+              onClick={() => this.setState({openShareDialog: true})}
+              className={classes.shareIcon}
+            />
+          </Tooltip>
+          <Tooltip arrow title={'Delete this note permanently'}>
           <DeleteIcon
             onClick={() => this.setState({openDeleteDialog: true})}
             className={classes.deleteIcon}
           />
+          </Tooltip>
         </ListItem>
 
         <Dialog

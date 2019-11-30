@@ -16,7 +16,13 @@ const globalStyle = (theme) => ({
   },
   colorPrimaryDark: {
     color: theme.palette.primary.dark
-  }
+  },
+  postBodyParsed: {
+    '& p, h2, h1': {
+      marginTop: 5,
+      marginBottom: 5
+    },
+  },
 });
 
 export default globalStyle;

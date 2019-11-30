@@ -11,7 +11,7 @@ const style = (theme) => ({
     height: 40,
   },
   readMoreButton: {
-    marginTop: -10,
+    marginTop: 2,
     padding: '4px 9px'
   },
 });

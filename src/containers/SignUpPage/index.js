@@ -116,7 +116,6 @@ class SignUpPage extends Component {
                   label="Email Address"
                   type="email"
                   name="email"
-                  autoComplete="email"
                   value={ (user && user.email) ? user.email : ''}
                   onChange={this.handleChangeUser}
                 />
@@ -130,7 +129,6 @@ class SignUpPage extends Component {
                   label="Password"
                   type="password"
                   id="password"
-                  autoComplete="current-password"
                   value={ (user && user.password) ? user.password : ''}
                   onChange={this.handleChangeUser}
                 />

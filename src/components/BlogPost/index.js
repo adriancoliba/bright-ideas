@@ -64,7 +64,7 @@ class BlogPost extends React.PureComponent {
             <Link to={`/posts/${post.id}`} className={classes.decorationTransformNone}>
               <Typography variant="h2" className={classes.colorPrimaryDark}>{post.title}</Typography>
             </Link>
-            <Typography variant="h3" component={'span'} style={{marginBottom: '2px'}}>{postBodyParsed}</Typography>
+            <Typography variant="h3" component={'span'} style={{marginBottom: '2px'}} className={classes.postBodyParsed}>{postBodyParsed}</Typography>
           </div>
           {post.body.length > 299 &&
             <Link to={`/posts/${post.id}`} className={classes.textDecorationNone}>

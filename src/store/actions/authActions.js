@@ -1,12 +1,12 @@
 import { myFirebase } from "../../utils/firebase";
 import { SIGN_IN_USER_SUCCESS, SIGN_UP_USER_SUCCESS, RESET_USER_SUCCESS, AUTH_LISTENER_SUCCESS, AUTH_LISTENER_ERROR,
-  SET_USER_AUTHENTICATED, SET_USER_DE_AUTHENTICATED, SET_SIGN_IN_MESSAGE, SET_SIGN_UP_MESSAGE, GET_USERS_ALL_SUCCESS, GET_USER_ALL_SUCCESS,
-  SET_RESET_MESSAGE, START_LOADING, UPDATE_USER_SUCCESS} from '../constants/authConstants';
+  SET_USER_DE_AUTHENTICATED, SET_SIGN_IN_MESSAGE, SET_SIGN_UP_MESSAGE, GET_USERS_ALL_SUCCESS, GET_USER_ALL_SUCCESS,
+  SET_RESET_MESSAGE, START_LOADING} from '../constants/authConstants';
 import {updateUserToUsersSuccess} from "./profileActions";
 
 export const signInUser = (user) => dispatch => {
   dispatch(startLoading());
-  myFirebase
+  return myFirebase
     .auth()
     .signInWithEmailAndPassword(user.email, user.password)
     .then( u => {
@@ -31,7 +31,7 @@ export const signUpUser = (user) => dispatch => {
     myFirebase
       .auth()
       .createUserWithEmailAndPassword(user.email, user.password)
-      .then ( u => {
+      .then( u => {
         const currentUser = myFirebase.auth().currentUser;
         const displayName = `${user.firstName} ${user.lastName}`;
         dispatch(signUpUserSuccess());
@@ -51,16 +51,17 @@ export const signUpUserSuccess = () => {
 
 export const resetPasswordUser = (email) => dispatch => {
   dispatch(startLoading());
-  myFirebase
-    .auth()
-    .sendPasswordResetEmail(email)
-    .then( u => {
-      dispatch(resetPasswordUserSuccess())
-    })
-    .catch( error => {
-      dispatch(showResetMessage(error, null))
-    });
-
+  return (
+    myFirebase
+      .auth()
+      .sendPasswordResetEmail(email)
+      .then( u => {
+        dispatch(resetPasswordUserSuccess())
+      })
+      .catch( error => {
+        dispatch(showResetMessage(error, null))
+      })
+  )
 };
 
 export const resetPasswordUserSuccess = () => {
@@ -98,12 +99,6 @@ export const authListenerSuccess = (user) => {
 export const authListenerError = () => {
   return {
     type: AUTH_LISTENER_ERROR
-  }
-};
-
-export const setUserAuthenticated = () => {
-  return {
-    type: SET_USER_AUTHENTICATED
   }
 };
 
@@ -157,8 +152,8 @@ export const addUserToUsers = (uid, displayName, email) => dispatch => {
         date: new Date(),
         email: email,
       })
-      .then( () => {
-        console.log('added')
+      .then( (u) => {
+
       })
   )
 };
