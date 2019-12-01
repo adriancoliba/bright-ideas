@@ -1,4 +1,4 @@
-<img src='logoWithText2.png' width='300' />
+<img src='src/images/logo/logoWithText2.png' width='300' alt=''/>
 
  &nbsp;[Live demo](https://bright-ideas-app.web.app/)
 
@@ -76,9 +76,6 @@ Please submit bug fixes or features via pull requests & feedback via issues.
 
 ##
 
-
-
-// DESCRIBE the API !!!!!!!!!
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

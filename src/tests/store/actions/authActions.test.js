@@ -111,7 +111,7 @@ test('should user sign up successfully', (done) => {
   })
 });
 
-// COMMENTED THIS TEST OUT BECAUSE FIREBASE BLOCKED this requests for security reasons.
+// COMMENTED THIS OUT BECAUSE FIREBASE BLOCKED this requests for security reasons.
 // test('should reset password user', (done) => {
 //   const email = 'adrian.coliba5@gmail.com'
 //   const store = createMockStore({});

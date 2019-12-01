@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames'
 import style from './style';
@@ -20,6 +22,7 @@ class AvatarsUser extends React.PureComponent {
   componentDidUpdate() {
     this.props.avatarId && this.state.avatarId === '' && this.setState({avatarId: this.props.avatarId})
   }
+
   componentWillReceiveProps(nextProps, nextContext) {
     nextProps.avatarId !== this.props.avatarId && this.setState({openModal: false})
   }
@@ -92,5 +95,11 @@ class AvatarsUser extends React.PureComponent {
     )
   }
 }
+
+AvatarsUser.propTypes = {
+  changeAvatar: PropTypes.func.isRequired,
+  avatarId: PropTypes.string.isRequired,
+
+};
 
 export default withStyles(style, { withTheme: true })(AvatarsUser);
