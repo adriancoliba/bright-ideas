@@ -71,7 +71,7 @@ html, body {
 }
 .noteBackgroundImage {
     position: fixed;
-    width: calc(100% - 300px);
+    width: 100%;
     float: left;
     height: 100%;
 }

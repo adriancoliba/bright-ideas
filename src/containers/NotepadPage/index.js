@@ -8,10 +8,16 @@ import style from "../ResetPasswordPage/style";
 import { getNotes, selectNote, updateNote, newNote, clearMessage,
   deleteNote, shareNote, showNotepadMessage, clearNotepadShared } from "../../store/actions/notepadActions";
 import { authListener } from "../../store/actions/authActions";
-import Snackbar from '../../components/Snackbar'
+import Snackbar from '../../components/Snackbar';
+import BounceLoaderComponent from "../../components/BounceLoader";
 
 class NotepadPage extends React.PureComponent {
-
+  constructor(){
+    super();
+    this.state = {
+      loading: true
+    }
+  }
   componentWillMount() {
     const { dispatch } = this.props;
     dispatch(authListener())
@@ -20,6 +26,7 @@ class NotepadPage extends React.PureComponent {
   componentDidMount() {
     const { dispatch, userAll } = this.props;
     dispatch(getNotes(userAll.uid));
+    setTimeout(() => this.setState({loading: false}), 2500)
   }
 
   componentWillUnmount() {
@@ -89,7 +96,12 @@ class NotepadPage extends React.PureComponent {
                         notesAll={this.props.notesAll}
                         userAll={this.props.userAll}
                         updateNote={this.updateNote}
-            /> : <img src={noteBackgroundImage} className="noteBackgroundImage" alt=''/>
+            />
+            :
+            this.state.loading ?
+              <BounceLoaderComponent loading={this.state.loading}/>
+              :
+              <img src={noteBackgroundImage} className="noteBackgroundImage" alt=''/>
         }
         <Snackbar message={this.props.notepadMessage}/>
       </div>

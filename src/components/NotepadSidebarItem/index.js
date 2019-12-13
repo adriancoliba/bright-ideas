@@ -43,7 +43,7 @@ class SidebarItem extends React.PureComponent {
 
   render() {
     const { classes, index, note, noteSelectedId } = this.props;
-
+    const noteTitle = note.title < 21 ? note.title : `${note.title.substring(0,21)}...`;
     return(
       <div key={index}>
         <ListItem
@@ -52,7 +52,7 @@ class SidebarItem extends React.PureComponent {
           alignItems='flex-start'>
           <div className={classes.textSection} onClick={() => this.selectNote(note, index)}>
             <ListItemText
-              primary={note.title}
+              primary={noteTitle}
               secondary={removeHTMLTags(note.body.substring(0, 18)) + '...'}
             />
           </div>
