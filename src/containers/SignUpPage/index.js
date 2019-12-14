@@ -193,7 +193,8 @@ class SignUpPage extends Component {
 }
 
 SignUpPage.propTypes = {
-
+  registerMessage: PropTypes.string,
+  loading: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => {

@@ -117,6 +117,8 @@ class SignInPage extends Component {
 SignInPage.propTypes = {
   loginMessage: PropTypes.string,
   user: PropTypes.any,
+  isUserAuthenticated: PropTypes.bool,
+  loading: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => {

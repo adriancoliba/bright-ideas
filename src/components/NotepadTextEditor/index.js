@@ -9,7 +9,8 @@ import ReactDOM from 'react-dom';
 import ShareIcon from "@material-ui/icons/Share";
 import ShareNoteDialog from "../Dialogs/ShareNoteDialog";
 import { showNotepadMessage, shareNote } from "../../store/actions/notepadActions";
-import {ListItem, Tooltip} from "@material-ui/core";
+import { Tooltip } from "@material-ui/core";
+import PropTypes from "prop-types";
 
 class TextEditor extends React.PureComponent {
   constructor() {
@@ -103,7 +104,7 @@ class TextEditor extends React.PureComponent {
           bounds={'.app-container'}
           placeholder={'Write some text...'}
         />
-        <Tooltip arrow title={'Share this note with the world'}>
+        <Tooltip title={'Share this note with the world'}>
           <ShareIcon
             onClick={() => this.setState({openShareDialog: true})}
             className={classes.shareIcon}
@@ -142,6 +143,11 @@ TextEditor.formats = [
   'list', 'bullet', 'indent',
   'link'
 ];
+
+TextEditor.propTypes = {
+  noteTitleUpdated: PropTypes.string,
+  noteBodyUpdated: PropTypes.string,
+};
 
 const mapStateToProps = (state) => {
   return {

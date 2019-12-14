@@ -1,5 +1,6 @@
 import React from 'react';
 import BounceLoader from 'react-spinners/BounceLoader';
+import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 
 const override = css`
@@ -15,5 +16,9 @@ function BounceLoaderComponent ({ loading }){
     </div>
   )
 }
+
+BounceLoaderComponent.propTypes = {
+  loading: PropTypes.bool.isRequired,
+};
 
 export default BounceLoaderComponent;

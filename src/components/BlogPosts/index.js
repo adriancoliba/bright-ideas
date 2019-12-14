@@ -1,6 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames'
+import PropTypes from 'prop-types';
 import style from './style';
 import { CircularProgress } from '@material-ui/core';
 import BlogPost from "../BlogPost";
@@ -37,5 +37,10 @@ class BlogPosts extends React.PureComponent {
     }
   }
 }
+
+BlogPosts.propTypes = {
+  usersAll: PropTypes.array,
+  posts: PropTypes.array.isRequired,
+};
 
 export default withStyles(style, { withTheme: true })(BlogPosts);

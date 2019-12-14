@@ -240,7 +240,16 @@ class ProfilePage extends Component {
   }
 }
 
-ProfilePage.propTypes = {};
+ProfilePage.propTypes = {
+  isUserAuthenticated: PropTypes.bool,
+  user: PropTypes.object,
+  userAll: PropTypes.object,
+  userAllInitialized: PropTypes.bool,
+  profileMessage: PropTypes.string,
+  changedPassword: PropTypes.bool,
+  loading: PropTypes.bool,
+  newAvatarId: PropTypes.string,
+};
 
 const mapStateToProps = (state) => {
   return {

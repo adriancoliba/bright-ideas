@@ -10,6 +10,7 @@ import { getNotes, selectNote, updateNote, newNote, clearMessage,
 import { authListener } from "../../store/actions/authActions";
 import Snackbar from '../../components/Snackbar';
 import BounceLoaderComponent from "../../components/BounceLoader";
+import PropTypes from "prop-types";
 
 class NotepadPage extends React.PureComponent {
   constructor(){
@@ -108,6 +109,17 @@ class NotepadPage extends React.PureComponent {
     );
   }
 }
+
+NotepadPage.propTypes = {
+  isUserAuthenticated: PropTypes.bool.isRequired,
+  userAll: PropTypes.object,
+  usersAll: PropTypes.array,
+  noteSelectedId: PropTypes.number,
+  noteSelected: PropTypes.object,
+  notesAll: PropTypes.array.isRequired,
+  notepadMessage: PropTypes.string,
+  isNotepadShared: PropTypes.bool,
+};
 
 const mapStateToProps = (state) => {
   return {

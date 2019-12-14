@@ -9,6 +9,7 @@ import {withRouter} from 'react-router-dom';
 import parse from "html-react-parser";
 import {postCommentToPost, clearMessage, showPostMessage} from '../../store/actions/blogActions';
 import globalStyle from "../../utils/globalStyle";
+import PropTypes from "prop-types";
 
 class Post extends React.PureComponent {
   constructor(){
@@ -164,7 +165,12 @@ class Post extends React.PureComponent {
   }
 }
 
-Post.propTypes = {};
+Post.propTypes = {
+  posts: PropTypes.array,
+  postMessage: PropTypes.string,
+  usersAll: PropTypes.array,
+  userAll: PropTypes.object,
+};
 
 const mapStateToProps = (state) => {
   return {

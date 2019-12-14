@@ -59,7 +59,12 @@ class HomePage extends Component {
   }
 }
 
-HomePage.propTypes = {};
+HomePage.propTypes = {
+  classes: PropTypes.object,
+  isUserAuthenticated: PropTypes.bool,
+  posts: PropTypes.array,
+  usersAll: PropTypes.array,
+};
 
 const mapStateToProps = (state) => {
   return {

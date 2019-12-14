@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import style from './style';
 import SidebarItem from '../NotepadSidebarItem/index';
@@ -81,7 +82,11 @@ class Sidebar extends React.PureComponent {
       return(<div>&nbsp;</div>);
     }
   }
-
 }
+
+Sidebar.propTypes = {
+  notesAll: PropTypes.array.isRequired,
+  noteSelectedId: PropTypes.number,
+};
 
 export default withStyles(style, { withTheme: true })(Sidebar);

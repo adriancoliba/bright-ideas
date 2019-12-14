@@ -117,7 +117,8 @@ class ResetPassword extends Component {
 }
 
 ResetPassword.propTypes = {
-
+  resetPasswordMessage: PropTypes.string,
+  loading: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => {

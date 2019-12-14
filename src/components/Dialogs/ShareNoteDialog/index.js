@@ -3,11 +3,11 @@ import { withStyles } from '@material-ui/core/styles';
 import style from './style';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Checkbox } from '@material-ui/core';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import PropTypes from "prop-types";
 
 class ShareNoteDialog extends React.PureComponent {
   render() {
     const { classes } = this.props;
-
     return(
         <Dialog
           open={this.props.openShareDialog}
@@ -43,5 +43,14 @@ class ShareNoteDialog extends React.PureComponent {
     );
   }
 }
+
+ShareNoteDialog.propTypes = {
+  shareNote: PropTypes.func.isRequired,
+  closeDialog: PropTypes.func.isRequired,
+  note: PropTypes.object.isRequired,
+  isAnonymous: PropTypes.bool.isRequired,
+  handleChangeAnonymous: PropTypes.func.isRequired,
+  openShareDialog: PropTypes.bool.isRequired,
+};
 
 export default withStyles(style, { withTheme: true })(ShareNoteDialog);

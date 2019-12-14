@@ -22,7 +22,10 @@ class PostsPage extends Component {
   }
 }
 
-PostsPage.propTypes = {};
+PostsPage.propTypes = {
+  posts: PropTypes.array,
+  usersAll: PropTypes.array,
+};
 
 const mapStateToProps = (state) => {
   return {

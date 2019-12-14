@@ -162,6 +162,8 @@ class NavigationBar extends Component {
 NavigationBar.propTypes = {
   classes: PropTypes.object.isRequired,
   isUserAuthenticated: PropTypes.bool,
+  isNotepadShared: PropTypes.bool,
+  location: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => {

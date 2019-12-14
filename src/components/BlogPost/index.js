@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import style from './style';
@@ -89,6 +90,11 @@ class BlogPost extends React.PureComponent {
     )
   }
 }
+
+BlogPost.propTypes = {
+  usersAll: PropTypes.array,
+  post: PropTypes.object.isRequired,
+};
 
 export default withStyles((theme) => ({
   ...style(theme),

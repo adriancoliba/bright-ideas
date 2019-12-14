@@ -31,7 +31,11 @@ class BlogPage extends Component {
   }
 }
 
-BlogPage.propTypes = {};
+BlogPage.propTypes = {
+  isUserAuthenticated: PropTypes.bool.isRequired,
+  posts: PropTypes.array.isRequired,
+  usersAll: PropTypes.array,
+};
 
 const mapStateToProps = (state) => {
   return {

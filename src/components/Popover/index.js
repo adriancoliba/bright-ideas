@@ -2,6 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import style from './style';
 import { Box, Divider, Paper, Popover, Typography} from '@material-ui/core';
+import PropTypes from "prop-types";
 
 class PopoverComponent extends React.PureComponent {
   render() {
@@ -41,5 +42,11 @@ class PopoverComponent extends React.PureComponent {
     }
   }
 }
+
+PopoverComponent.propTypes = {
+  classes: PropTypes.object.isRequired,
+  openPopover: PropTypes.any,
+  userAll: PropTypes.object,
+};
 
 export default withStyles(style, { withTheme: true })(PopoverComponent);

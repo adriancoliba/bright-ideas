@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import style from './style';
 import {
@@ -56,13 +57,13 @@ class SidebarItem extends React.PureComponent {
               secondary={removeHTMLTags(note.body.substring(0, 18)) + '...'}
             />
           </div>
-          <Tooltip arrow title={'Share this note with the public'}>
+          <Tooltip title={'Share this note with the public'}>
             <ShareIcon
               onClick={() => this.setState({openShareDialog: true})}
               className={classes.shareIcon}
             />
           </Tooltip>
-          <Tooltip arrow title={'Delete this note permanently'}>
+          <Tooltip title={'Delete this note permanently'}>
           <DeleteIcon
             onClick={() => this.setState({openDeleteDialog: true})}
             className={classes.deleteIcon}
@@ -106,5 +107,14 @@ class SidebarItem extends React.PureComponent {
     );
   }
 }
+
+SidebarItem.propTypes = {
+  note: PropTypes.object.isRequired,
+  index: PropTypes.number,
+  noteSelectedId: PropTypes.number,
+  selectNote: PropTypes.func.isRequired,
+  deleteNote: PropTypes.func.isRequired,
+  shareNote: PropTypes.func.isRequired,
+};
 
 export default withStyles(style, { withTheme: true })(SidebarItem);
