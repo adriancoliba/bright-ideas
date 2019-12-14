@@ -57,6 +57,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
     case GET_USER_ALL_SUCCESS:
       return {
         ...state,
+        loading: false,
         userAll: action.userAll,
         userAllInitialized: true
       };

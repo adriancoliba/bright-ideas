@@ -75,10 +75,13 @@ class NavigationBar extends Component {
                   <Button variant={pathname === '/' ? 'outlined' : 'text'} className={classes.button}>Home</Button>
                 </Link>
                 <Link to="/signin">
-                  <Button variant={pathname === '/signin' ? 'outlined' : 'text'}  className={classes.button}>Sign In</Button>
+                  <Button variant={pathname === '/signin' ? 'outlined' : 'text'} className={classes.button}>Sign In</Button>
                 </Link>
                 <Link to="/signup">
-                  <Button variant={pathname === '/signup' ? 'outlined' : 'text'}  className={classes.button}>Sign Up</Button>
+                  <Button variant={pathname === '/signup' ? 'outlined' : 'text'} className={classes.button}>Sign Up</Button>
+                </Link>
+                <Link to="/demo">
+                  <Button variant={pathname === '/demo' ? 'outlined' : 'text'} className={classes.button}>Demo</Button>
                 </Link>
               </>
             }
@@ -90,7 +93,7 @@ class NavigationBar extends Component {
             <Typography variant="h5" color="inherit" className={classes.logoText} component={'span'}>
               Bright Ideas
             </Typography>
-            <MenuRoundedIcon className={classes.menuIcon} onClick={this.handleMenu}/>
+            <MenuRoundedIcon className={classes.menuBurgerIcon} onClick={this.handleMenu}/>
             <Menu
               id="menu-appbar"
               anchorEl={this.state.anchorEl}
@@ -104,6 +107,7 @@ class NavigationBar extends Component {
               }}
               open={Boolean(this.state.anchorEl)}
               onClose={this.handleClose}
+              className={classes.menuPaper}
             >
               { checkUserAuth(isUserAuthenticated) ?
                 <div>
@@ -147,6 +151,11 @@ class NavigationBar extends Component {
                   <MenuItem onClick={this.handleClose}>
                     <Link to="/signup">
                       <Button variant={pathname === '/signup' ? 'outlined' : 'text'}  className={classes.button}>Sign Up</Button>
+                    </Link>
+                  </MenuItem>
+                  <MenuItem onClick={this.handleClose}>
+                    <Link to="/demo">
+                      <Button variant={pathname === '/demo' ? 'outlined' : 'text'}  className={classes.button}>Demo</Button>
                     </Link>
                   </MenuItem>
                 </div>

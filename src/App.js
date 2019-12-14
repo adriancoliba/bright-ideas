@@ -10,6 +10,7 @@ import NotepadPage from "./containers/NotepadPage";
 import BlogPage from "./containers/BlogPage";
 import ProfilePage from "./containers/ProfilePage";
 import PostsPage from "./containers/PostsPage";
+import DemoPage from "./containers/DemoPage";
 import * as ROUTES from "./constants/routes";
 import { connect } from 'react-redux';
 import { checkUserAuth } from './utils/utilities';
@@ -55,6 +56,7 @@ class App extends React.PureComponent {
                     <Route path={ROUTES.POSTS}><PostsPage/></Route>
                     <Route exact path={ROUTES.SIGN_IN}> <SignInPage/> </Route>
                     <Route exact path={ROUTES.SIGN_UP}> <SignUpPage/> </Route>
+                    <Route exact path={ROUTES.DEMO}> <DemoPage/> </Route>
                     <Route exact path={ROUTES.RESET_PASSWORD}><ResetPassword user={this.state.user}/></Route>
                   </>
               }

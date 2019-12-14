@@ -210,6 +210,7 @@ export const getUsersAllSuccess = (usersAll) => {
 };
 
 export const getUserAll = (uid) => dispatch => {
+  dispatch(startLoading());
   return (
     myFirebase
       .firestore()

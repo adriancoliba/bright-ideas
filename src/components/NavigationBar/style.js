@@ -38,11 +38,14 @@ const style = (theme) => ({
     textDecoration: 'none',
     padding: '1px 10px',
   },
-  menuIcon: {
+  menuBurgerIcon: {
     position: 'absolute',
     right: 19,
     fontSize: 38,
     color: '#272727'
+  },
+  menuPaper: {
+    width: '200px !important'
   },
   badge: {
     '&::after': {

@@ -37,7 +37,7 @@ class SignUpPage extends Component {
     this.setState({
       user: {
         ...this.state.user,
-        [event.target.name]: event.target.value.trim()
+        [event.target.name]: event.target.value
       }
     })
   };
@@ -48,7 +48,8 @@ class SignUpPage extends Component {
       this.state.user.email == null || this.state.user.password == null) {
       return dispatch(showSignUpMessage(null, 'Complete all fields.'))
     } else {
-      const { firstName, lastName } = this.state.user;
+      const firstName = this.state.user.firstName.trim();
+      const lastName  = this.state.user.lastName.trim();
       const fullName = `${firstName ? firstName : ''} ${lastName ? lastName : ''}`;
       const fullNameRegex = new RegExp ('^\\s*([A-Za-z]{1,}([\\.,] |[-\']| ))+[A-Za-z]+\\.?\\s*$');
       if (!fullNameRegex.test(fullName)){

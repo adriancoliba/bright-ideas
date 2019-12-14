@@ -10,6 +10,7 @@ import {getUserAll, updateUserToUsers} from '../../store/actions/authActions';
 import HelpOutlineIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import AvatarUser from '../../components/AvatarUser';
 import Snackbar from '../../components/Snackbar';
+import BounceLoaderComponent from "../../components/BounceLoader";
 
 class ProfilePage extends Component {
   constructor(){
@@ -48,7 +49,7 @@ class ProfilePage extends Component {
   }
 
   handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value.trim() }
+    this.setState({ [event.target.name]: event.target.value }
   )};
 
   handleCloseModal = () => { this.setState({openDeleteDialog: false}) };
@@ -63,10 +64,10 @@ class ProfilePage extends Component {
       if(!displayNameRegex.test(this.state.displayName)){
         return dispatch(showProfileMessage(null, 'Your Full Name is badly formatted.'))
       }
-      const displayName = (this.state.displayName === userAll.displayName) ? 'no' : this.state.displayName;
+      const displayName = (this.state.displayName === userAll.displayName) ? 'no' : this.state.displayName.trim();
 
       const propsProfileInfo = userAll.profileInfo ? userAll.profileInfo : '';
-      const profileInfo = (this.state.profileInfo === propsProfileInfo) ? 'no' : this.state.profileInfo;
+      const profileInfo = (this.state.profileInfo === propsProfileInfo) ? 'no' : this.state.profileInfo.trim();
 
       return dispatch(updateProfile(userAll.id, displayName, profileInfo ))
     }
@@ -235,7 +236,7 @@ class ProfilePage extends Component {
         </Container>
       )
     } else {
-      return(<div>&nbsp;</div>);
+      return <BounceLoaderComponent loading={this.state.loading}/>;
     }
   }
 }

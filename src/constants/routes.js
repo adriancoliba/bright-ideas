@@ -5,3 +5,4 @@ export const RESET_PASSWORD = '/reset';
 export const PROFILE = '/profile';
 export const NOTEPAD = '/notepad';
 export const POSTS = '/posts';
+export const DEMO = '/demo';
